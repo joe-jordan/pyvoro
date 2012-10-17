@@ -89,65 +89,68 @@ double cell_get_volume(void* cell_) {
 
 /* input: (x_, y_, z_) the position of the original input point.
  * returns:
- * NULL-terminated list of doubles, coord j of vertex i at ret[i*3 + j]
+ * vector of doubles, coord j of vertex i at ret[i*3 + j]
  */
-double* cell_get_vertex_positions(void* cell_, double x_, double y_, double z_) {
+vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, double z_) {
   voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
-  int i, limit = cell->p * 3;
+  int i, limit = cell->p;
   
-  double* positions = (double*)malloc(sizeof(double) * (limit + 1));
+  vector<double> positions;
   
   for (i = 0; i < limit; i++) {
-    positions[i] = cell->pts[i];
+    positions.push_back(cell->pts[i] + x_);
+    positions.push_back(cell->pts[i+1] + y_);
+    positions.push_back(cell->pts[i+2] + z_);
   }
-  positions[limit] = NULL;
   
   return positions;
 }
 
-/* NULL-termed list (i) of NULL-termed lists (j) of vertices adjacent to i. */
-int** cell_get_vertex_adjacency(void* cell_) {
+/* NULL-termed list (i) of vector<int>s (j) of vertices adjacent to i. */
+void** cell_get_vertex_adjacency(void* cell_) {
   voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
   int i, j, v_i_order, num_vertices = cell->p;
   
-  int** adjacency = (int**)malloc(sizeof(int*) * (num_vertices + 1));
+  void** adjacency = (void**)malloc(sizeof(void*) * (num_vertices + 1));
+  vector<int>* vertex_adjacency;
   
   for (i = 0; i < num_vertices; i++) {
     v_i_order = cell->nu[i];
-    adjacency[i] = (int*)malloc(sizeof(int) * (v_i_order + 1));
+    vertex_adjacency = new vector<int>();
     for (j = 0; j < v_i_order; j++) {
-      adjacency[i][j] = cell->ed[i][j];
+      vertex_adjacency->push_back(cell->ed[i][j]);
     }
-    adjacency[i][v_i_order] = NULL;
+    adjacency[i] = (void*)vertex_adjacency;
   }
   adjacency[num_vertices] = NULL;
   
   return adjacency;
 }
 
-/* NULL-termed list (i) of NULL-termed lists of vertices on this face,
+/* NULL-termed list (i) of vector<int>s of vertices on this face,
  * followed by adjacent cell id. e.g for ret[i]:
- * [2 0 5 7 3 NULL 249] for loop 2,0,5,7,3 leading to cell 249.
+ * [2 0 5 7 3 -1 249] for loop 2,0,5,7,3 leading to cell 249.
  */
-int** cell_get_faces(void* cell_) {
+void** cell_get_faces(void* cell_) {
   voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
   int i, j, f_i_order, num_faces = cell->number_of_faces();
   
-  int** faces = (int**)malloc(sizeof(int*) * (num_faces + 1));
+  void** faces = (void**)malloc(sizeof(void*) * (num_faces + 1));
   vector<int> vertices;
   vector<int> neighbours;
+  vector<int>* output_list = NULL;
   
   cell->neighbors(neighbours);
   cell->face_vertices(vertices);
   for (i = 0; i < num_faces; i++) {
     f_i_order = vertices[0];
-    faces[i] = (int*)malloc(sizeof(int) * (f_i_order + 2));
+    output_list = new vector<int>();
     for (j = 1; j <= f_i_order; j++) {
-      faces[i][j-1] = vertices[i];
+      output_list->push_back(vertices[i]);
     }
-    faces[i][f_i_order] = NULL;
-    faces[i][f_i_order+1] = neighbours[i];
+    output_list->push_back(neighbours[i]);
     vertices.erase(vertices.begin(),vertices.begin()+f_i_order+1);
+    faces[i] = (void*)output_list;
   }
   faces[num_faces] = NULL;
   

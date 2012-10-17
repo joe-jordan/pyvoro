@@ -1,5 +1,5 @@
 # distutils: language = c++
-# distutils: sources = ../src/voro++.cpp
+# distutils: sources = vpp.cpp
 # 
 # voroplusplus.pyx : pyvoro cython interface to voro++
 #
@@ -13,6 +13,7 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
+from libcpp.vector cimport vector
 
 cdef extern from "vpp.h":
   void* container_create(double ax_, double bx_, double ay_, double by_,
@@ -21,9 +22,9 @@ cdef extern from "vpp.h":
   void put_particles(void* container_, int n_, double* x_, double* y_, double* z_)
   void** compute_voronoi_tesselation(void* container_, int n_)
   double cell_get_volume(void* cell_)
-  double* cell_get_vertex_positions(void* cell_, double x_, double y_, double z_)
-  int** cell_get_vertex_adjacency(void* cell_)
-  int** cell_get_faces(void* cell_)
+  vector[double] cell_get_vertex_positions(void* cell_, double x_, double y_, double z_)
+  void** cell_get_vertex_adjacency(void* cell_)
+  void** cell_get_faces(void* cell_)
   void dispose_all(void* container_, void** vorocells, int n_)
 
 
@@ -107,54 +108,57 @@ Output format is a list of cells as follows:
   
   # extract the Voronoi cells into python objects:
   py_cells = [{'original':p} for p in points]
-  cdef double* vertex_positions = NULL
-  cdef int** lists = NULL
+  cdef vector[double] vertex_positions
+  cdef void** lists = NULL
+  cdef vector[int]* vptr = NULL
   for i from 0 <= i < n:
     py_cells[i]['volume'] = float(cell_get_volume(voronoi_cells[i]))
     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])
-    j = 0
-    while vertex_positions[j] != NULL:
-      py_cells[i]['vertices'].append(vector_class([
+    cell_vertices = []
+    for j from 0 <= j < vertex_positions.size() / 3:
+      cell_vertices.append(vector_class([
         float(vertex_positions[j]),
         float(vertex_positions[j+1]),
         float(vertex_positions[j+2])
       ]))
-      j += 3
-    
-    free(vertex_positions)
+    py_cells[i]['vertices'] = cell_vertices
     
     lists = cell_get_vertex_adjacency(voronoi_cells[i])
-    py_cells[i]['adjacency'] = []
+    adjacency = []
     j = 0
     while lists[j] != NULL:
-      py_cells[i]['adjacency'].append([])
-      k = 0
-      while lists[j][k] != NULL:
-        py_cells[i]['adjacency'][j].append(int(lists[j][k]))
-        k += 1
-      free(lists[j])
+      py_vertex_adjacency = []
+      vptr = <vector[int]*>lists[j]
+      for k from 0 <= k < vptr.size():
+        py_vertex_adjacency.append(int(vptr[k]))
+      del vptr
+      adjacency.append(py_vertex_adjacency)
       j += 1
     free(lists)
+    py_cells[i]['adjacency'] = adjacency
     
     lists = cell_get_faces(voronoi_cells[i])
-    py_cells[i]['faces'] = []
+    faces = []
     j = 0
     while lists[j] != NULL:
-      py_cells[i]['faces'].append({'vertices' : []})
-      k = 0
-      while lists[j][k] != NULL:
-        py_cells[i]['faces'][j]['vertices'].append(int(lists[j][k]))
-        k += 1
-      py_cells[i]['faces'][j]['adjacent_cell'] = int(lists[j][k+1])
-      free(lists[j])
+      face_vertices = []
+      vptr = <vector[int]*>lists[j]
+      for k from 0 <= k < vptr.size() - 1:
+        face_vertices.append(int(vptr[k]))
+      faces.append({
+        'adjacent_cell' : int(vptr[vptr.size() - 1]),
+        'vertices' : face_vertices
+      })
+      del vptr
       j += 1
     free(lists)
+    py_cells[i]['faces'] = faces
   
   # finally, tidy up.
   dispose_all(container, voronoi_cells, n)
   free(xs)
   free(ys)
   free(zs)
-  return {'voronoi_cells' : py_cells, 'cell_adjacency' : None}
+  return py_cells
 
 

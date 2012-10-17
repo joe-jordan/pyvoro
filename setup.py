@@ -9,17 +9,14 @@
 #
 
 from distutils.core import setup, Extension
+from Cython.Build import cythonize
 from Cython.Distutils import build_ext
 
-ext_modules = [
-  Extension("pyvoro.voroplusplus",
-    sources=["pyvoro/voroplusplus.pyx",
-      "pyvoro/vpp.cpp",
-      "src/voro++.cc"])]
+cythonize('pyvoro/voroplusplus.pyx', sources=["pyvoro/vpp.cpp", "src/voro++.cc"], language="c++")
 
 setup(
   cmdclass = {'build_ext': build_ext},
-  ext_modules = ext_modules,
+  ext_modules = [Extension("voroplusplus", ["pyvoro/voroplusplus.cpp", "pyvoro/vpp.cpp", "src/voro++.cc"])],
   name="pyvoro",
   version="1.0",
   description="Python wrapper for the voro++ c++ library.",

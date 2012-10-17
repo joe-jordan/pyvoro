@@ -1,3 +1,4 @@
 build/
-pyvoro/voroplusplus.c
+pyvoro/voroplusplus.cpp
 *.pyc
+*.so

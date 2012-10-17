@@ -15,9 +15,7 @@
 #ifndef __VPP_H__
 #define __VPP_H__ 1
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <vector>
 
 void* container_create(double ax_, double bx_, double ay_, double by_,
   double az_, double bz_, int nx_, int ny_, int nz_);
@@ -35,24 +33,20 @@ double cell_get_volume(void* cell_);
 
 /* input: (x_, y_, z_) the position of the original input point.
  * returns:
- * NULL-terminated list of doubles, coord j of vertex i at ret[i*3 + j]
+ * vector of doubles, coord j of vertex i at ret[i*3 + j]
  */
-double* cell_get_vertex_positions(void* cell_, double x_, double y_, double z_);
+std::vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, double z_);
 
-/* NULL-termed list (i) of NULL-termed lists (j) of vertices adjacent to i. */
-int** cell_get_vertex_adjacency(void* cell_);
+/* NULL-termed list (i) of vector<int>s (j) of vertices adjacent to i. */
+void** cell_get_vertex_adjacency(void* cell_);
 
-/* NULL-termed list (i) of NULL-termed lists of vertices on this face,
+/* NULL-termed list (i) of vector<int>s of vertices on this face,
  * followed by adjacent cell id. e.g for ret[i]:
- * [2 0 5 7 3 NULL 249] for loop 2,0,5,7,3 leading to cell 249.
+ * [2 0 5 7 3 249] for loop 2,0,5,7,3 leading to cell 249.
  */
-int** cell_get_faces(void* cell_);
+void** cell_get_faces(void* cell_);
 
 void dispose_all(void* container_, void** vorocells, int n_);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
 
