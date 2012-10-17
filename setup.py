@@ -1,6 +1,6 @@
 # 
 # setup.py : pyvoro python interface to voro++
-#
+# 
 # this extension to voro++ is released under the original modified BSD license
 # and constitutes an Extension to the original project.
 #
