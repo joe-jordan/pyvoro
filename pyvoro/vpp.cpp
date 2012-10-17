@@ -138,15 +138,16 @@ int** cell_get_faces(void* cell_) {
   vector<int> neighbours;
   
   cell->neighbors(neighbours);
+  cell->face_vertices(vertices);
   for (i = 0; i < num_faces; i++) {
-    cell->face_vertices(vertices);
-    f_i_order = vertices.size();
+    f_i_order = vertices[0];
     faces[i] = (int*)malloc(sizeof(int) * (f_i_order + 2));
-    for (j = 0; j < f_i_order; j++) {
-      faces[i][j] = vertices[i];
+    for (j = 1; j <= f_i_order; j++) {
+      faces[i][j-1] = vertices[i];
     }
     faces[i][f_i_order] = NULL;
     faces[i][f_i_order+1] = neighbours[i];
+    vertices.erase(vertices.begin(),vertices.begin()+f_i_order+1);
   }
   faces[num_faces] = NULL;
   
