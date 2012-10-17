@@ -1,8 +1,10 @@
 /*
- * vpp.h : pyvoro C interface to voro++
+ * vpp.h : pyvoro C++ stdlib interface to voro++
  *
- * this file provides pure C wrapper functions for creating, manipulating,
- * performing computations on and exporting the voro++ C++ classes.
+ * this file provides pure C++ stdlib wrapper functions for creating, 
+ * manipulating, performing computations on and exporting the voro++ complex 
+ * C++ classes (the advanced use of virtual functions makes direct cython 
+ * manupulation impossible, sadly.)
  *
  * this extension to voro++ is released under the original modified BSD license
  * and constitutes an Extension to the original project.
