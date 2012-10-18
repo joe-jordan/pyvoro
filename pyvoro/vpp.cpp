@@ -146,7 +146,7 @@ void** cell_get_faces(void* cell_) {
     f_i_order = vertices[0];
     output_list = new vector<int>();
     for (j = 1; j <= f_i_order; j++) {
-      output_list->push_back(vertices[i]);
+      output_list->push_back(vertices[j]);
     }
     output_list->push_back(neighbours[i]);
     vertices.erase(vertices.begin(),vertices.begin()+f_i_order+1);
