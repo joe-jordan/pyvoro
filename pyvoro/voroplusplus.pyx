@@ -14,6 +14,7 @@
 #
 
 from libcpp.vector cimport vector
+from cython.operator cimport dereference as deref
 
 cdef extern from "vpp.h":
   void* container_create(double ax_, double bx_, double ay_, double by_,
@@ -130,7 +131,7 @@ Output format is a list of cells as follows:
       py_vertex_adjacency = []
       vptr = <vector[int]*>lists[j]
       for k from 0 <= k < vptr.size():
-        py_vertex_adjacency.append(int(vptr[k]))
+        py_vertex_adjacency.append(int(deref(vptr)[k]))
       del vptr
       adjacency.append(py_vertex_adjacency)
       j += 1
@@ -144,9 +145,9 @@ Output format is a list of cells as follows:
       face_vertices = []
       vptr = <vector[int]*>lists[j]
       for k from 0 <= k < vptr.size() - 1:
-        face_vertices.append(int(vptr[k]))
+        face_vertices.append(int(deref(vptr)[k]))
       faces.append({
-        'adjacent_cell' : int(vptr[vptr.size() - 1]),
+        'adjacent_cell' : int(deref(vptr)[vptr.size() - 1]),
         'vertices' : face_vertices
       })
       del vptr
