@@ -58,7 +58,7 @@ Output format is a list of cells as follows:
       'faces' : [
         {
           'vertices' : [7,4,13, ...], # vertex ids in loop order
-          'adjacent_cell' : 34 # *cell* id
+          'adjacent_cell' : 34 # *cell* id, negative if a wall
         }, ...]
       'original' : point[index] # the original instance from args
     },
