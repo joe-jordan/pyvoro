@@ -93,15 +93,9 @@ double cell_get_volume(void* cell_) {
  */
 vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, double z_) {
   voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
-  int i, limit = cell->p;
-  
   vector<double> positions;
   
-  for (i = 0; i < limit; i++) {
-    positions.push_back(cell->pts[i] / 2.0 + x_);
-    positions.push_back(cell->pts[i+1] / 2.0 + y_);
-    positions.push_back(cell->pts[i+2] / 2.0 + z_);
-  }
+  cell->vertices(x_, y_, z_, positions);
   
   return positions;
 }
