@@ -17,15 +17,15 @@ returning an array of voronoi cells in the form:
     { # (note, this cell is not calculated using the above example)
       'volume': 4.994865455303808,
       'faces': [
-        { 'adjacent_cell': 2, 'vertices': [1, 5, 11, 6]},
-        { 'adjacent_cell': -3, 'vertices': [1, 0, 4, 7, 5]},
-        { 'adjacent_cell': -5, 'vertices': [1, 6, 3, 2, 0]},
-        { 'adjacent_cell': 9, 'vertices': [2, 3, 8, 10, 9]},
-        { 'adjacent_cell': 0, 'vertices': [2, 9, 4, 0]},
-        { 'adjacent_cell': 12, 'vertices': [3, 6, 11, 12, 8]},
-        { 'adjacent_cell': 139, 'vertices': [4, 9, 10, 13, 7]},
-        { 'adjacent_cell': 140, 'vertices': [5, 7, 13, 12, 11]},
-        { 'adjacent_cell': 149, 'vertices': [8, 12, 13, 10]}
+        { 'adjacent_cell': 2, 'vertices': [1, 5, 11, 6] },
+        { 'adjacent_cell': -3, 'vertices': [1, 0, 4, 7, 5] },
+        { 'adjacent_cell': -5, 'vertices': [1, 6, 3, 2, 0] },
+        { 'adjacent_cell': 9, 'vertices': [2, 3, 8, 10, 9] },
+        { 'adjacent_cell': 0, 'vertices': [2, 9, 4, 0] },
+        { 'adjacent_cell': 12, 'vertices': [3, 6, 11, 12, 8] },
+        { 'adjacent_cell': 139, 'vertices': [4, 9, 10, 13, 7] },
+        { 'adjacent_cell': 140, 'vertices': [5, 7, 13, 12, 11] },
+        { 'adjacent_cell': 149, 'vertices': [8, 12, 13, 10] }
       ],
       'adjacency': [
         [2, 1, 4],
@@ -46,27 +46,25 @@ returning an array of voronoi cells in the form:
       'original': [3.76670864155, 0.864888724917, 0.859956333632],
       'vertices': [
         [0.0, 0.0, 0.0],
-        [0.0, 0.0, 2.6952010660213537],
-        [0.0, 2.6952010660213537, 0.0],
         [2.6952010660213537, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
         [0.0, 0.0, 1.3157105644765856],
-        [0.0, 1.3157105644765856, 2.6796085747800173],
-        [1.3157105644765856, 2.6796085747800173, 0.9893738662896467],
         [2.6796085747800173, 0.9893738662896467, 0.0],
-        [0.9893738662896467, 0.0, 0.0],
-        [0.0, 0.0, 1.1577688788929044]
+        [0.0, 1.1577688788929044, 0.9667194826924593],
+        [2.685575135451888, 0.0, 1.2139446383811037],
+        [1.5434724537773115, 0.0, 2.064891808748473],
+        [0.0, 1.2236852383897006, 0.0],
+        [2.6700186049990116, 1.0246853171897545, 1.1392273839598812],
+        [1.6298653128290692, 1.8592211309121414, 0.0],
+        [1.8470793965350985, 1.7199178301499591, 1.6938166537039874],
+        [1.7528279426840703, 1.7963648490662445, 1.625024494263244]
       ]
     }
 
-*debug note: repeated vertices are under investigation, but this appears to be what voro++ returns.*
-
-Note that this particle was near the coord system origin - hence
+Note that this particle was the closest to the coord system origin - hence
 (unimportantly) lots of vertex positions that are zero or roughly zero, and
 (importantly) **negative cell ids** which correspond to the boundaries (of which
-there are three at the corner of a box, specifically ids `3` and `5`, (the
-`y = 0` and `z = 0` boundaries, represented with negative ids hence `-3` and `-5` --
+there are three at the corner of a box, specifically ids `1`, `3` and `5`, (the
+`x_i = 0` boundaries, represented with negative ids hence `-1`, `-3` and `-5` --
 this is voro++'s conventional way of referring to boundary interfaces.)
 
 Initially only non-radical tessellation, and computing *all* information 

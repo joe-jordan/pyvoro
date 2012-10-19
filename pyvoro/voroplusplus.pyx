@@ -118,9 +118,9 @@ Output format is a list of cells as follows:
     cell_vertices = []
     for j from 0 <= j < vertex_positions.size() / 3:
       cell_vertices.append(vector_class([
-        float(vertex_positions[j]),
-        float(vertex_positions[j+1]),
-        float(vertex_positions[j+2])
+        float(vertex_positions[3 * j]),
+        float(vertex_positions[3 * j + 1]),
+        float(vertex_positions[3 * j + 2])
       ]))
     py_cells[i]['vertices'] = cell_vertices
     
