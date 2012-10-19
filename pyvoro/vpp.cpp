@@ -98,9 +98,9 @@ vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, doub
   vector<double> positions;
   
   for (i = 0; i < limit; i++) {
-    positions.push_back(cell->pts[i] + x_);
-    positions.push_back(cell->pts[i+1] + y_);
-    positions.push_back(cell->pts[i+2] + z_);
+    positions.push_back(cell->pts[i] / 2.0 + x_);
+    positions.push_back(cell->pts[i+1] / 2.0 + y_);
+    positions.push_back(cell->pts[i+2] / 2.0 + z_);
   }
   
   return positions;

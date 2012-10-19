@@ -14,7 +14,7 @@ example:
 
 returning an array of voronoi cells in the form:
 
-    {
+    { # (note, this cell is not calculated using the above example)
       'volume': 6.07031902214448, 
       'faces': [
         {'adjacent_cell': 1, 'vertices': [1, 5, 8, 3]},
@@ -42,20 +42,27 @@ returning an array of voronoi cells in the form:
       ],
       'original': [1.58347382116, 0.830481034382, 0.84264445125],
       'vertices': [
-        [-1.58347382116, -0.830481034382, -0.84264445125],
-        [-0.830481034382, -0.84264445125, -0.0774882476040002],
-        [-0.84264445125, -0.0774882476040002, -0.8548078681179999],
-        [-0.0774882476040002, -0.8548078681179999, 3.066098940972707],
-        [-0.8548078681179999, 3.066098940972707, -0.10181508134000006],
-        [3.066098940972707, -0.10181508134000006, 3.0539355241047073],
-        [-0.10181508134000006, 3.0539355241047073, -0.8183176175140001],
-        [3.0539355241047073, -0.8183176175140001, 3.8069283108827072],
-        [-0.8183176175140001, 3.8069283108827072, -0.830481034382],
-        [3.8069283108827072, -0.830481034382, -0.84264445125],
-        [-0.830481034382, -0.84264445125, -0.0774882476040002],
-        [-0.84264445125, -0.0774882476040002, -0.8548078681179999]
+          [0.0, 0.0, 0.0],
+          [0.0, 0.0, 0.7529927867779999],
+          [0.0, 0.7529927867779999, -0.012163416867999932],
+          [0.7529927867779999, -0.012163416867999932, 1.9543716961113535],
+          [-0.012163416867999932, 1.9543716961113535, 0.7408293699099999],
+          [1.9543716961113535, 0.7408293699099999, 1.9422082792433537],
+          [0.7408293699099999, 1.9422082792433537, 0.012163416867999932],
+          [1.9422082792433537, 0.012163416867999932, 2.6952010660213537],
+          [0.012163416867999932, 2.6952010660213537, 0.0],
+          [2.6952010660213537, 0.0, 0.0],
+          [0.0, 0.0, 0.7529927867779999],
+          [0.0, 0.7529927867779999, -0.012163416867999932]
       ]
     }
+
+Note that this particle was the closest to the coord system origin - hence
+(unimportantly) lots of vertex positions that are zero or roughly zero, and
+(importantly) **negative cell ids** which correspond to the boundaries (of which
+there are three at the corner of a box, specifically ids `1` `3` and `5`, the
+`x_i = 0` boundaries, represented with negative ids hence `-1`, `-3` and `-5` --
+this is voro++'s conventional way of referring to boundary interfaces.)
 
 Initially only non-radical tessellation, and computing *all* information 
 (including cell adjacency). Other code paths may be added later.
