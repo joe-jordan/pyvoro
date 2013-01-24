@@ -74,6 +74,15 @@ Output format is a list of cells as follows:
   cdef void** voronoi_cells
   vector_class = points[0].__class__
   
+  # we must make sure we have at least one block, or voro++ will segfault when
+  # we look for cells.
+  
+  blocks = [
+    max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
+    max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
+    max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
+  ]
+  
   # build the container object
   cdef void* container = container_create(
     <double>limits[0][0],
@@ -82,9 +91,9 @@ Output format is a list of cells as follows:
     <double>limits[1][1],
     <double>limits[2][0],
     <double>limits[2][1],
-    <int>int(math.floor((limits[0][1] - limits[0][0]) / dispersion)),
-    <int>int(math.floor((limits[1][1] - limits[1][0]) / dispersion)),
-    <int>int(math.floor((limits[2][1] - limits[2][0]) / dispersion))
+    <int>blocks[0],
+    <int>blocks[1],
+    <int>blocks[2]
   )
   
   xs = <double*>malloc(sizeof(double) * n)
