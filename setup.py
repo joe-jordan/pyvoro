@@ -8,17 +8,41 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
-from distutils.core import setup, Extension
-from Cython.Build import cythonize
-from Cython.Distutils import build_ext
+from distutils.core import setup
 
-cythonize('pyvoro/voroplusplus.pyx', sources=["pyvoro/vpp.cpp", "src/voro++.cc"], language="c++")
+try:
+  import cb
+except ImportError:
+  print "downloading complicated build..."
+  import urllib2
+  response = urllib2.urlopen('https://raw.github.com/joe-jordan/complicated_build/master/cb/__init__.py')
+  content = response.read()
+  f = open('cb.py', 'w')
+  f.write(content)
+  f.close()
+  import cb
+  print "done!"
+
+cb.compiler['cc'] = 'g++'
+
+extensions = [
+  {
+    'name': "pyvoro.voroplusplus",
+    'sources' : [
+      'pyvoro/voroplusplus.pyx',
+      "pyvoro/vpp.cpp",
+      "src/voro++.cc"
+    ]
+  }
+]
+
+import sys, os.path
+if 'build' in sys.argv or ('install' in sys.argv and not os.path.exists('build')):
+    cb.build(extensions)
 
 setup(
-  cmdclass = {'build_ext': build_ext},
-  ext_modules = [Extension("voroplusplus", ["pyvoro/voroplusplus.cpp", "pyvoro/vpp.cpp", "src/voro++.cc"])],
   name="pyvoro",
-  version="1.0",
+  version="1.0.1",
   description="Python wrapper for the voro++ c++ library.",
   author="Joe Jordan",
   author_email="joe.jordan@imperial.ac.uk",
