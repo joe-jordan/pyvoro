@@ -44,19 +44,19 @@ void** compute_voronoi_tesselation(void* container_, int n_) {
   int i;
   double x, y, z, r;
   c_loop_all* cla = new c_loop_all(*(con));
-	voronoicell_neighbor cell;
+  voronoicell_neighbor cell;
   voronoicell_neighbor* cellptr = NULL;
   
   void** vorocells = (void**)malloc(sizeof(void*) * n_);
   
   for (i = 0; i < n_; i++) vorocells[i] = NULL;
   
-	if(cla->start()) do if (con->compute_cell(cell, *(cla))) {
+  if(cla->start()) do if (con->compute_cell(cell, *(cla))) {
 
-		// Get the position and ID information for the particle
-		// currently being considered by the loop. Ignore the radius
-		// information.
-		cla->pos(i, x, y, z, r);
+    // Get the position and ID information for the particle
+    // currently being considered by the loop. Ignore the radius
+    // information.
+    cla->pos(i, x, y, z, r);
     
     // Store the resulting cell instance at the appropriate index on vorocells.
     cellptr = new voronoicell_neighbor();
@@ -64,7 +64,7 @@ void** compute_voronoi_tesselation(void* container_, int n_) {
     vorocells[i] = (void*)cellptr;
     found++;
     
-	} while (cla->inc());
+  } while (cla->inc());
   
   delete cla;
   
