@@ -23,7 +23,7 @@ except ImportError:
   import cb
   print "done!"
 
-cb.compiler['cc'] = 'g++'
+cb.compiler['cc'] = cb.compiler['cpp']
 
 extensions = [
   {
