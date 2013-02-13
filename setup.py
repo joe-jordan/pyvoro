@@ -8,8 +8,6 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
-from distutils.core import setup
-
 try:
   import cb
 except ImportError:
@@ -36,11 +34,7 @@ extensions = [
   }
 ]
 
-import sys, os.path
-if 'build' in sys.argv or ('install' in sys.argv and not os.path.exists('build')):
-    cb.build(extensions)
-
-setup(
+cb.setup(extensions)(
   name="pyvoro",
   version="1.0.1",
   description="Python wrapper for the voro++ c++ library.",
