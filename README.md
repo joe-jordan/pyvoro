@@ -14,6 +14,8 @@ pyvoro.compute_voronoi(
 )
 ```
 
+*NEW:* 2D support has been added - see below for an example!
+
 returning an array of voronoi cells in the form:
 
 ```python
@@ -70,6 +72,58 @@ this is voro++'s conventional way of referring to boundary interfaces.)
 
 Initially only non-radical tessellation, and computing *all* information 
 (including cell adjacency). Other code paths may be added later.
+
+2D tessellation
+---------------
+
+You can now run a simpler function to get the 2D cells around your points, with all the details
+handled for you:
+
+```python
+import pyvoro
+cells = pyvoro.compute_2d_voronoi(
+  [[5.0, 7.0], [1.7, 3.2], ...], # point positions, 2D vectors this time.
+  [[0.0, 10.0], [0.0, 10.0]], # box size, again only 2D this time.
+  2.0 # block size; same as before.
+)
+```
+
+the output follows the same schema as the 3D for now, since this is not as annoying as having a 
+whole new schema to handle. The adjacency is now a bit redundant since the cell is a polygon and the
+vertices are returned in the correct order. The cells look like a list of these:
+
+```python
+{ # note that again, this is computed with a different example
+  'adjacency': [
+    [5, 1],
+    [0, 2],
+    [1, 3],
+    [2, 4],
+    [3, 5],
+    [4, 0]
+  ],
+  'faces': [
+    { 'adjacent_cell': 23, 'vertices': [0, 5]},
+    { 'adjacent_cell': -2, 'vertices': [0, 1]},
+    { 'adjacent_cell': 39, 'vertices': [2, 1]},
+    { 'adjacent_cell': 25, 'vertices': [2, 3]},
+    { 'adjacent_cell': 12, 'vertices': [4, 3]},
+    { 'adjacent_cell': 9, 'vertices': [5, 4]}
+  ],
+  'original': [8.168525781010283, 5.943711239620341],
+  'vertices': [
+    [10.0, 5.324580764844442],
+    [10.0, 6.442713105218478],
+    [9.088894888250326, 7.118847221681966],
+    [6.740750220282158, 6.444386346261051],
+    [6.675322891805883, 5.678806294642725],
+    [7.77400067532073, 5.02320427474993]
+  ],
+  'volume': 5.102702932807149
+}
+```
+
+*(note that the edges will now be indexed -1 to -4, and the 'volume' key is in fact the area.)*
 
 DEPENDENCIES:
 requires Cython > 0.13, which is when c++ support was added. Tested with Cython 0.17.
