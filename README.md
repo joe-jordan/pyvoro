@@ -16,6 +16,8 @@ pyvoro.compute_voronoi(
 
 *NEW:* 2D support has been added - see below for an example!
 
+*Coming soon:* I will be adding both radical tessellations (weighted by point radii) and support for periodic boundary conditions in the near future. Voro++ supports both of these functions, I'll just be adding access to them from the python interface.
+
 returning an array of voronoi cells in the form:
 
 ```python
