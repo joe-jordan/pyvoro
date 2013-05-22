@@ -3,6 +3,18 @@ pyvoro
 
 3D Voronoi tessellations: a python entry point for the [voro++ library](http://math.lbl.gov/voro++/)
 
+**Recently Added Features:**
+
+*2D helper*, which translates the results of a 3D tesselation of points on the plane back into
+2D vectors and cells (see below for an example.)
+
+*Radical (weighted) option*, which weights the voronoi cell sizes according to a set of supplied
+radius values.
+
+*periodic boundary support*, note that each cell is returned in the frame of reference of its source
+point, so points can (and will) be outside the bounding box.
+
+
 example:
 
 ```python
@@ -14,12 +26,6 @@ pyvoro.compute_voronoi(
   radii=[1.3, 1.4] # particle radii -- optional, and keyword-compatible arg.
 )
 ```
-
-*NEW:* 2D support has been added - see below for an example!
-
-*ALSO NEW:* radical tesselation support has now been added - see the new optional `radii` arguments to the `compute_*` functions.
-
-*Coming soon:* I will be adding support for periodic boundary conditions in the near future. Voro++ supports this function, I'll just be adding access to it from the python interface.
 
 returning an array of voronoi cells in the form:
 

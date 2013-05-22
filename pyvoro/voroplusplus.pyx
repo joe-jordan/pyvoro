@@ -18,7 +18,7 @@ from cython.operator cimport dereference as deref
 
 cdef extern from "vpp.h":
   void* container_poly_create(double ax_, double bx_, double ay_, double by_,
-    double az_, double bz_, int nx_, int ny_, int nz_)
+    double az_, double bz_, int nx_, int ny_, int nz_, int px_, int py_, int pz_)
   void put_particle(void* container_poly_, int i_, double x_, double y_, double z_, double r_)
   void put_particles(void* container_poly_, int n_, double* x_, double* y_, double* z_, double* r_)
   void** compute_voronoi_tesselation(void* container_poly_, int n_)
@@ -39,7 +39,7 @@ import math
 class VoronoiPlusPlusError(Exception):
   pass
 
-def compute_voronoi(points, limits, dispersion, radii=[]):
+def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):
   """
 Input arg formats:
   points = list of 3-vectors (lists or compatible class instances) of doubles,
@@ -48,6 +48,10 @@ Input arg formats:
     points are in.
   dispersion = max distance between two points that might be adjacent (sets
     voro++ block sizes.)
+  radii (optional) = list of python floats as the sphere radii of the points,
+    for radical (weighted) tessellation.
+  periodic (optional) = 3-list of bools indicating x, y and z periodicity of 
+    the system box.
   
 Output format is a list of cells as follows:
   [ # list in same order as original points.
@@ -74,6 +78,8 @@ Output format is a list of cells as follows:
   cdef void** voronoi_cells
   vector_class = points[0].__class__
   
+  periodic = [1 if p else 0 for p in periodic]
+  
   # we must make sure we have at least one block, or voro++ will segfault when
   # we look for cells.
   
@@ -97,7 +103,10 @@ Output format is a list of cells as follows:
     <double>limits[2][1],
     <int>blocks[0],
     <int>blocks[1],
-    <int>blocks[2]
+    <int>blocks[2],
+    <int>periodic[0],
+    <int>periodic[1],
+    <int>periodic[2]
   )
   
   xs = <double*>malloc(sizeof(double) * n)

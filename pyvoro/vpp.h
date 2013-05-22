@@ -20,7 +20,7 @@
 #include <vector>
 
 void* container_poly_create(double ax_, double bx_, double ay_, double by_,
-  double az_, double bz_, int nx_, int ny_, int nz_);
+  double az_, double bz_, int nx_, int ny_, int nz_, int px_, int py_, int pz_);
 
 void put_particle(void* container_poly_, int i_, double x_, double y_, double z_, double r_);
 

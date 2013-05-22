@@ -36,7 +36,7 @@ extensions = [
 
 cb.setup(extensions)(
   name="pyvoro",
-  version="1.1.0",
+  version="1.2.0",
   description="Python wrapper for the voro++ c++ library.",
   author="Joe Jordan",
   author_email="joe.jordan@imperial.ac.uk",

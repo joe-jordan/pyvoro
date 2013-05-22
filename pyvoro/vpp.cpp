@@ -18,9 +18,10 @@ using namespace voro;
 using namespace std;
 
 void* container_poly_create(double ax_, double bx_, double ay_, double by_,
-  double az_, double bz_, int nx_, int ny_, int nz_) {
+  double az_, double bz_, int nx_, int ny_, int nz_, int px_, int py_, int pz_) {
   
-  return (void*)new container_poly(ax_, bx_, ay_, by_, az_, bz_, nx_, ny_, nz_, false, false, false, 3);
+  return (void*)new container_poly(ax_, bx_, ay_, by_, az_, bz_, nx_, ny_, nz_, (bool)px_,
+      (bool)py_, (bool)pz_, 3);
 }
 
 void put_particle(void* container_poly_, int i_, double x_, double y_, double z_, double r_) {
@@ -161,3 +162,4 @@ void dispose_all(void* container_poly_, void** vorocells, int n_) {
   
   free(vorocells);
 }
+
