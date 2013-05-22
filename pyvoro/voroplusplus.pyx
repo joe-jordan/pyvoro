@@ -17,16 +17,16 @@ from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 
 cdef extern from "vpp.h":
-  void* container_create(double ax_, double bx_, double ay_, double by_,
+  void* container_poly_create(double ax_, double bx_, double ay_, double by_,
     double az_, double bz_, int nx_, int ny_, int nz_)
-  void put_particle(void* container_, int i_, double x_, double y_, double z_)
-  void put_particles(void* container_, int n_, double* x_, double* y_, double* z_)
-  void** compute_voronoi_tesselation(void* container_, int n_)
+  void put_particle(void* container_poly_, int i_, double x_, double y_, double z_, double r_)
+  void put_particles(void* container_poly_, int n_, double* x_, double* y_, double* z_, double* r_)
+  void** compute_voronoi_tesselation(void* container_poly_, int n_)
   double cell_get_volume(void* cell_)
   vector[double] cell_get_vertex_positions(void* cell_, double x_, double y_, double z_)
   void** cell_get_vertex_adjacency(void* cell_)
   void** cell_get_faces(void* cell_)
-  void dispose_all(void* container_, void** vorocells, int n_)
+  void dispose_all(void* container_poly_, void** vorocells, int n_)
 
 
 cdef extern from "stdlib.h":
@@ -39,7 +39,7 @@ import math
 class VoronoiPlusPlusError(Exception):
   pass
 
-def compute_voronoi(points, limits, dispersion):
+def compute_voronoi(points, limits, dispersion, radii=[]):
   """
 Input arg formats:
   points = list of 3-vectors (lists or compatible class instances) of doubles,
@@ -53,7 +53,7 @@ Output format is a list of cells as follows:
   [ # list in same order as original points.
     {
       'volume' : 1.0,
-      'vetices' : [[1.0, 2.0, 3.0], ...], # positions of vertices
+      'vertices' : [[1.0, 2.0, 3.0], ...], # positions of vertices
       'adjacency' : [[1,3,4, ...], ...], # cell-vertices adjacent to i by index
       'faces' : [
         {
@@ -70,7 +70,7 @@ Output format is a list of cells as follows:
   (python's list type does satisfy this requirement.)
   """
   cdef int n = len(points), i, j
-  cdef double *xs, *ys, *zs
+  cdef double *xs, *ys, *zs, *rs
   cdef void** voronoi_cells
   vector_class = points[0].__class__
   
@@ -83,8 +83,12 @@ Output format is a list of cells as follows:
     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
   ]
   
+  # if no radii provided, we still run the radical routine, but with all the same small radius.
+  if len(radii) != len(points):
+    radii = [dispersion / 10.] * len(points)
+  
   # build the container object
-  cdef void* container = container_create(
+  cdef void* container = container_poly_create(
     <double>limits[0][0],
     <double>limits[0][1],
     <double>limits[1][0],
@@ -99,15 +103,17 @@ Output format is a list of cells as follows:
   xs = <double*>malloc(sizeof(double) * n)
   ys = <double*>malloc(sizeof(double) * n)
   zs = <double*>malloc(sizeof(double) * n)
+  rs = <double*>malloc(sizeof(double) * n)
   
   # initialise particle positions:
   for i from 0 <= i < n:
     xs[i] = <double>points[i][0]
     ys[i] = <double>points[i][1]
     zs[i] = <double>points[i][2]
+    rs[i] = <double>radii[i]
   
   # and add them to the container:
-  put_particles(container, n, xs, ys, zs)
+  put_particles(container, n, xs, ys, zs, rs)
   
   # now compute the tessellation:
   voronoi_cells = compute_voronoi_tesselation(container, n)
@@ -169,5 +175,6 @@ Output format is a list of cells as follows:
   free(xs)
   free(ys)
   free(zs)
+  free(rs)
   return py_cells
 

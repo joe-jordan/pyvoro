@@ -1,6 +1,6 @@
 import voroplusplus
 
-def compute_voronoi(points, limits, dispersion):
+def compute_voronoi(points, limits, dispersion, radii=[]):
   """
 Input arg formats:
   points = list of 3-vectors (lists or compatible class instances) of doubles,
@@ -9,6 +9,8 @@ Input arg formats:
     points are in.
   dispersion = max distance between two points that might be adjacent (sets
     voro++ block sizes.)
+  radii (optional) = list of python floats as the sphere radii of the points,
+    for radical (weighted) tessellation.
   
 Output format is a list of cells as follows:
   [ # list in same order as original points.
@@ -30,7 +32,7 @@ Output format is a list of cells as follows:
   outputs. It must have a constructor which accepts a list of 3 python floats
   (python's list type does satisfy this requirement.)
   """
-  return voroplusplus.compute_voronoi(points, limits, dispersion)
+  return voroplusplus.compute_voronoi(points, limits, dispersion, radii)
 
 
 def _2d_vol_calc(py_cell):
@@ -45,7 +47,7 @@ def _2d_vol_calc(py_cell):
   return area
   
 
-def compute_2d_voronoi(points, limits, dispersion):
+def compute_2d_voronoi(points, limits, dispersion, radii=[]):
   """Input arg formats:
   points = list of 2-vectors (lists or compatible class instances) of doubles,
     being the coordinates of the points to Voronoi-tessellate.
@@ -53,6 +55,8 @@ def compute_2d_voronoi(points, limits, dispersion):
     points are in.
   dispersion = max distance between two points that might be adjacent (sets
     voro++ block sizes.)
+  radii (optional) = list of python floats as the circle radii of the points,
+    for radical (weighted) tessellation.
   
 Output format is a list of cells as follows:
   [ # list in same order as original points.
@@ -72,7 +76,7 @@ Output format is a list of cells as follows:
   vector_class = points[0].__class__
   points3d = [p[:] +[0.] for p in points]
   limits3d = [l[:] for l in limits] + [[-0.5, +0.5]]
-  py_cells3d = voroplusplus.compute_voronoi(points3d, limits3d, dispersion)
+  py_cells3d = voroplusplus.compute_voronoi(points3d, limits3d, dispersion, radii)
   
   # we assume that each cell is a prism, and so the 2D solution for each cell contains
   # half of the vertices from the 3D solution. We verify this assumption by asserting

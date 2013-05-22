@@ -19,16 +19,14 @@
 
 #include <vector>
 
-void* container_create(double ax_, double bx_, double ay_, double by_,
+void* container_poly_create(double ax_, double bx_, double ay_, double by_,
   double az_, double bz_, int nx_, int ny_, int nz_);
 
-/* void* container_periodic_create(); (TODO) */
+void put_particle(void* container_poly_, int i_, double x_, double y_, double z_, double r_);
 
-void put_particle(void* container_, int i_, double x_, double y_, double z_);
+void put_particles(void* container_poly_, int n_, double* x_, double* y_, double* z_, double* r_);
 
-void put_particles(void* container_, int n_, double* x_, double* y_, double* z_);
-
-void** compute_voronoi_tesselation(void* container_, int n_);
+void** compute_voronoi_tesselation(void* container_poly_, int n_);
 
 /* access methods for retrieving voronoi cell instance data. */
 double cell_get_volume(void* cell_);
@@ -48,7 +46,7 @@ void** cell_get_vertex_adjacency(void* cell_);
  */
 void** cell_get_faces(void* cell_);
 
-void dispose_all(void* container_, void** vorocells, int n_);
+void dispose_all(void* container_poly_, void** vorocells, int n_);
 
 #endif
 
