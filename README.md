@@ -11,12 +11,13 @@ pyvoro.compute_voronoi(
   [[1.0, 2.0, 3.0], [4.0, 5.5, 6.0]], # point positions
   [[0.0, 10.0], [0.0, 10.0], [0.0, 10.0]], # limits
   2.0, # block size
-  [1.3, 1.4] # particle radii
+  radii=[1.3, 1.4] # particle radii -- optional, and keyword-compatible arg.
 )
 ```
 
 *NEW:* 2D support has been added - see below for an example!
-*ALSO NEW:* radical tesselation support has now been added - see the new `radii` arguments to the `compute_*` functions.
+
+*ALSO NEW:* radical tesselation support has now been added - see the new optional `radii` arguments to the `compute_*` functions.
 
 *Coming soon:* I will be adding support for periodic boundary conditions in the near future. Voro++ supports this function, I'll just be adding access to it from the python interface.
 
@@ -89,7 +90,7 @@ cells = pyvoro.compute_2d_voronoi(
   [[5.0, 7.0], [1.7, 3.2], ...], # point positions, 2D vectors this time.
   [[0.0, 10.0], [0.0, 10.0]], # box size, again only 2D this time.
   2.0, # block size; same as before.
-  [1.2, 0.9, ...] # particle radii, for radical tesselation.
+  radii=[1.2, 0.9, ...] # particle radii -- optional and keyword-compatible.
 )
 ```
 
