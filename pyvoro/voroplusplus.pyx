@@ -66,7 +66,7 @@ Output format is a list of cells as follows:
   ]
   
   NOTE: The class from items in input points list is reused for all 3-vector
-  outputs. It must have a contructor which accepts a list of 3 python floats
+  outputs. It must have a constructor which accepts a list of 3 python floats
   (python's list type does satisfy this requirement.)
   """
   cdef int n = len(points), i, j
