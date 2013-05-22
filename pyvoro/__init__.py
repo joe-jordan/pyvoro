@@ -69,6 +69,7 @@ Output format is a list of cells as follows:
     },
     ... 
   ]"""
+  vector_class = points[0].__class__
   points3d = [p[:] +[0.] for p in points]
   limits3d = [l[:] for l in limits] + [[-0.5, +0.5]]
   py_cells3d = voroplusplus.compute_voronoi(points3d, limits3d, dispersion)
@@ -96,8 +97,8 @@ Output format is a list of cells as follows:
     
     py_cells.append({
       'faces' : faces2d,
-      'original' : p3d['original'][:-1],
-      'vertices' : [p3d['vertices'][v][:-1] for v in vertices_to_keep]
+      'original' : vector_class(p3d['original'][:-1]),
+      'vertices' : [vector_class(p3d['vertices'][v][:-1]) for v in vertices_to_keep]
     })
     
     py_cells[-1]['volume'] = _2d_vol_calc(py_cells[-1])
