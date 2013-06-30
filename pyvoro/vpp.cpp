@@ -14,6 +14,7 @@
 
 #include "vpp.h"
 #include "../src/voro++.hh"
+#include <stdio.h>
 using namespace voro;
 using namespace std;
 
@@ -67,12 +68,16 @@ void** compute_voronoi_tesselation(void* container_poly_, int n_) {
   delete cla;
   
   if (found != n_) {
+    printf("missing cells: ");
     for (i = 0; i < n_; i++) {
       if (vorocells[i] != NULL) {
         delete (voronoicell_neighbor*)vorocells[i];
+      } else {
+        printf("%i ", i);
       }
     }
     free(vorocells);
+    printf("\n");
     return NULL;
   }
   

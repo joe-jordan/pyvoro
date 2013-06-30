@@ -120,17 +120,17 @@ Output format is a list of cells as follows:
     ys[i] = <double>points[i][1]
     zs[i] = <double>points[i][2]
     rs[i] = <double>radii[i]
-  
+    
   # and add them to the container:
   put_particles(container, n, xs, ys, zs, rs)
-  
+    
   # now compute the tessellation:
   voronoi_cells = compute_voronoi_tesselation(container, n)
   
   if voronoi_cells == NULL:
     dispose_all(container, NULL, 0)
     raise VoronoiPlusPlusError("number of cells found was not equal to the number of particles.")
-  
+    
   # extract the Voronoi cells into python objects:
   py_cells = [{'original':p} for p in points]
   cdef vector[double] vertex_positions
@@ -178,7 +178,7 @@ Output format is a list of cells as follows:
       j += 1
     free(lists)
     py_cells[i]['faces'] = faces
-  
+    
   # finally, tidy up.
   dispose_all(container, voronoi_cells, n)
   free(xs)

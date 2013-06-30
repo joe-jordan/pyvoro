@@ -36,20 +36,7 @@ Output format is a list of cells as follows:
   """
   return voroplusplus.compute_voronoi(points, limits, dispersion, radii, periodic)
 
-
-def _2d_vol_calc(py_cell):
-  area = 0.0
-  vertices = py_cell['vertices']
-  
-  for i in range(2, len(vertices)):
-    base = [vertices[i][0] - vertices[i-1][0], vertices[i][1] - vertices[i-1][1]]
-    side = [vertices[0][0] - vertices[i-1][0], vertices[0][1] - vertices[i-1][1]]
-    area += 0.5 * abs(base[0] * side[1] - base[1] * side[0])
-  
-  return area
-  
-
-def compute_2d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*2):
+def compute_2d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*2, z_height=0.5):
   """Input arg formats:
   points = list of 2-vectors (lists or compatible class instances) of doubles,
     being the coordinates of the points to Voronoi-tessellate.
@@ -61,6 +48,8 @@ def compute_2d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*2)
     for radical (weighted) tessellation.
   periodic (optional) = 2-list of bools indicating x and y periodicity of 
     the system box.
+  z_height = a suitable system-size dimension value (if this is particularly different to the
+    other system lengths, voro++ will be very inefficient.)
   
 Output format is a list of cells as follows:
   [ # list in same order as original points.
@@ -78,9 +67,11 @@ Output format is a list of cells as follows:
     ... 
   ]"""
   vector_class = points[0].__class__
+  points = [list(p) for p in points]
   points3d = [p[:] +[0.] for p in points]
-  limits3d = [l[:] for l in limits] + [[-0.5, +0.5]]
+  limits3d = [l[:] for l in limits] + [[-z_height, +z_height]]
   periodic = periodic + [False]
+  
   py_cells3d = voroplusplus.compute_voronoi(points3d, limits3d, dispersion, radii, periodic)
   
   # we assume that each cell is a prism, and so the 2D solution for each cell contains
@@ -89,6 +80,7 @@ Output format is a list of cells as follows:
   # any vertices. We simply take the -5 cell, and ignore the z components.
   
   py_cells = []
+  depth = z_height * 2
   
   for p3d in py_cells3d:
     faces_to = [f['adjacent_cell'] for f in p3d['faces']]
@@ -107,10 +99,9 @@ Output format is a list of cells as follows:
     py_cells.append({
       'faces' : faces2d,
       'original' : vector_class(p3d['original'][:-1]),
-      'vertices' : [vector_class(p3d['vertices'][v][:-1]) for v in vertices_to_keep]
+      'vertices' : [vector_class(p3d['vertices'][v][:-1]) for v in vertices_to_keep],
+      'volume' : p3d['volume'] / depth
     })
-    
-    py_cells[-1]['volume'] = _2d_vol_calc(py_cells[-1])
     
     adj = [[len(vertices_to_keep)-1, 1]]
     for i in range(1, len(vertices_to_keep)-1):
@@ -120,5 +111,4 @@ Output format is a list of cells as follows:
     py_cells[-1]['adjacency'] = adj
   
   return py_cells
-
 
