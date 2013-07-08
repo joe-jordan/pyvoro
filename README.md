@@ -138,7 +138,8 @@ vertices are returned in the correct order. The cells look like a list of these:
 *(note that the edges will now be indexed -1 to -4, and the 'volume' key is in fact the area.)*
 
 DEPENDENCIES:
-requires Cython > 0.13, which is when c++ support was added. Tested with Cython 0.17.
+requires Cython > 0.13, which is when c++ support was added. Tested with Cython 0.17 and 0.19. Known to be broken with 
+Cython 0.14.1.
 
 NOTES:
 * on compilation: if a cython .pyx file is being compiled in C++ mode, all cython-visible code must be compiled "as c++" - this will not be compatible with any C functions declared `extern "C" { ... }`. In this library, the author just used c++ functions for everything, in order to be able to utilise the c++ `std::vector<T>` classes to represent the (ridiculously non-specific) geometry of a Voronoi cell.
