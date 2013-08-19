@@ -66,7 +66,7 @@ Output format is a list of cells as follows:
     },
     ... 
   ]"""
-  vector_class = points[0].__class__
+  vector_class = voroplusplus.get_constructor(points[0])
   points = [list(p) for p in points]
   points3d = [p[:] +[0.] for p in points]
   limits3d = [l[:] for l in limits] + [[-z_height, +z_height]]
