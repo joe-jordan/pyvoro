@@ -34,10 +34,28 @@ cdef extern from "stdlib.h":
   void free(void *ptr)
   void* malloc(size_t size)
 
+import sys
 import math
 
 class VoronoiPlusPlusError(Exception):
   pass
+
+
+def get_constructor(obj):
+  """
+Input arg format:
+  obj = the object we want to get the constructor for
+  """
+  typ = type(obj)
+
+  # Test if we have a numpy array
+  if hasattr(typ, '__module__'):
+    if typ.__module__ == 'numpy':
+      numpy = sys.modules['numpy']
+      typ = numpy.array
+  
+  return typ
+
 
 def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):
   """
@@ -76,8 +94,9 @@ Output format is a list of cells as follows:
   cdef int n = len(points), i, j
   cdef double *xs, *ys, *zs, *rs
   cdef void** voronoi_cells
-  vector_class = points[0].__class__
   
+  vector_class = get_constructor(points[0])
+
   periodic = [1 if p else 0 for p in periodic]
   
   # we must make sure we have at least one block, or voro++ will segfault when
