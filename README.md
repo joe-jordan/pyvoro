@@ -5,6 +5,9 @@ pyvoro
 
 **Recently Added Features:**
 
+*support for numpy arrays* - thanks to a contribution from @christopherpoole, you can now pass in
+a 2D (Nx3 or Nx2) numpy array.
+
 *2D helper*, which translates the results of a 3D tesselation of points on the plane back into
 2D vectors and cells (see below for an example.)
 
@@ -14,8 +17,22 @@ radius values.
 *periodic boundary support*, note that each cell is returned in the frame of reference of its source
 point, so points can (and will) be outside the bounding box.
 
+Installation
+------------
 
-example:
+The same as any other python module, in spite of the mess in the root folder:
+
+    python setup.py build
+    python setup.py install --user
+
+You can then use the code with:
+
+    import pyvoro
+    pyvoro.compute_voronoi( ... )
+    pyvoro.compute_2d_voronoi( ... )
+
+Example:
+--------
 
 ```python
 import pyvoro
