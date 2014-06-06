@@ -26,7 +26,7 @@ import Cython
 cython_major_version = int(Cython.__version__.split('.')[0])
 if cython_major_version == 0:
   cython_minor_version = int(Cython.__version__.split('.')[1])
-  assert cython_minor_version > 14, "pyvoro requires a more recent Cython version." + \
+  assert cython_minor_version > 15, "pyvoro requires a more recent Cython version." + \
     " If you are using a Linux distro's default package, you should switch to a version" + \
     " from https://github.com/cython/cython/ (preferably a stable version above 0.17.x.)"
 
