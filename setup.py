@@ -14,6 +14,7 @@ from Cython.Build import cythonize
 
 # make library
 pipe = subprocess.Popen("make")
+pipe.wait()
 
 extensions = [
     Extension("voroplusplus", ["pyvoro/voroplusplus.pyx"],
