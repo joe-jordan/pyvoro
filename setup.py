@@ -8,7 +8,16 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
-from setuptools import setup, Extension
+from distutils.core import setup, Extension
+
+# check for Cython version
+try:
+    from Cython import __version__ as cython_version
+    assert cython_version >= "0.15"
+except (ImportError, AssertionError) as e:
+    print "You need Cython >= 0.15 to build pyvoro"
+    raise
+
 from Cython.Build import cythonize
 
 extensions = [
@@ -39,5 +48,5 @@ setup(
     url="http://github.com/joe-jordan/pyvoro",
     packages=["pyvoro",],
     package_dir={"pyvoro": "pyvoro"},
-    ext_modules=cythonize(extensions)
+    ext_modules=cythonize(extensions),
 )
