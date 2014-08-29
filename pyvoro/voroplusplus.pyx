@@ -1,7 +1,4 @@
 # distutils: language = c++
-# distutils: sources = pyvoro/vpp.cpp
-# distutils: libraries = voro++
-# distutils: library_dirs = src
 #
 # voroplusplus.pyx : pyvoro cython interface to voro++
 #

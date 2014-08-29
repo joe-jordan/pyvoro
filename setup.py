@@ -8,17 +8,26 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
-import subprocess
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 
-# make library
-pipe = subprocess.Popen("make")
-pipe.wait()
-
 extensions = [
-    Extension("voroplusplus", ["pyvoro/voroplusplus.pyx"],
-              language="c++")
+    Extension("voroplusplus",
+              sources=["pyvoro/voroplusplus.pyx",
+                       "pyvoro/vpp.cpp",
+                       "src/c_loops.cc",
+                       "src/cell.cc",
+                       "src/common.cc",
+                       "src/container.cc",
+                       "src/container_prd.cc",
+                       "src/pre_container.cc",
+                       "src/unitcell.cc",
+                       "src/v_base.cc",
+                       "src/v_compute.cc",
+                       "src/wall.cc"],
+              include_dirs=["src"],
+              language="c++",
+              )
 ]
 
 setup(
