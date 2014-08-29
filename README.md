@@ -20,10 +20,31 @@ point, so points can (and will) be outside the bounding box.
 Installation
 ------------
 
-The same as any other python module, in spite of the mess in the root folder:
+Pyvoro requires Cython 0.15 or later to be built. If you have `pip` installed on  your system, you can optionally 
+check for (and install missing) dependencies by typing  
+    
+    pip install -r requirements.txt
+    
+in `pyvoro` folder. Then the installation goes the same way as for any other python module. Issuing 
+  
+    python setup.py install
+    
+will install pyvoro system-wide, while 
 
-    python setup.py build
     python setup.py install --user
+
+will install it only for the current user. Any 
+[other](https://pythonhosted.org/an_example_pypi_project/setuptools.html#using-setup-py)  `setup.py` keywords 
+can also be used, including 
+ 
+    python setup.py develop
+    
+to install the package in 'development' mode. Alternatively, if you want all the dependencies pulled in automatically,  
+you can still use `pip`:
+
+    pip install -e .
+
+`-e` option makes pip install package from source in development mode. 
 
 You can then use the code with:
 

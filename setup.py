@@ -14,8 +14,14 @@ from distutils.core import setup, Extension
 try:
     from Cython import __version__ as cython_version
     assert cython_version >= "0.15"
-except (ImportError, AssertionError) as e:
-    print "You need Cython >= 0.15 to build pyvoro"
+except ImportError:
+    print " You need to install Cython >= 0.15 to build pyvoro. " \
+          " Please use `pip|yum|apt-get install Cython` depending on your Linux distribution"
+    raise
+except AssertionError:
+    print " pyvoro requires a more recent Cython version." + \
+          " If you are using a Linux distro's default package, you should switch to a version" + \
+          " from https://github.com/cython/cython/ (preferably a stable version above 0.17.x.)"
     raise
 
 from Cython.Build import cythonize
