@@ -13,28 +13,28 @@ from distutils.core import setup, Extension
 # check for Cython version
 try:
     from Cython import __version__ as cython_version
-    assert cython_version >= "0.15"
-except ImportError:
-    print " You need to install Cython >= 0.15 to build pyvoro. " \
-          " Please use `pip|yum|apt-get install Cython` depending on your Linux distribution"
-    raise
-except AssertionError:
-    print " pyvoro requires a more recent Cython version." + \
-          " If you are using a Linux distro's default package, you should switch to a version" + \
-          " from https://github.com/cython/cython/ (preferably a stable version above 0.17.x.)"
-    raise
+    assert cython_version > "0.15"
+    use_cython = True
+    ext = ".pyx"
+except (ImportError, AssertionError):
+    use_cython = False
+    ext = ".cpp"
 
-from Cython.Build import cythonize
-
+# fall back to provided cpp file if Cython is not found
 extensions = [
     Extension("voroplusplus",
-              sources=["pyvoro/voroplusplus.pyx",
+              sources=["pyvoro/voroplusplus" + ext,
                        "pyvoro/vpp.cpp",
                        "src/voro++.cc"],
               include_dirs=["src"],
               language="c++",
               )
 ]
+
+# cythonize pyx file if right version of Cython is found
+if use_cython:
+    from Cython.Build import cythonize
+    extensions = cythonize(extensions)
 
 setup(
     name="pyvoro",
@@ -45,5 +45,5 @@ setup(
     url="http://github.com/joe-jordan/pyvoro",
     packages=["pyvoro",],
     package_dir={"pyvoro": "pyvoro"},
-    ext_modules=cythonize(extensions),
+    ext_modules=extensions,
 )
