@@ -38,12 +38,15 @@ if use_cython:
 
 setup(
     name="pyvoro",
-    version="1.3.0",
+    version="1.3.1",
     description="Python wrapper for the voro++ c++ library.",
     author="Joe Jordan",
     author_email="joe.jordan@imperial.ac.uk",
-    url="http://github.com/joe-jordan/pyvoro",
+    url="https://github.com/joe-jordan/pyvoro",
+    download_url="https://github.com/joe-jordan/pyvoro/tarball/v1.3.1",
     packages=["pyvoro",],
     package_dir={"pyvoro": "pyvoro"},
     ext_modules=extensions,
+    keywords=["geometry", "mathematics", "Voronoi"],
+    classifiers=[],
 )
