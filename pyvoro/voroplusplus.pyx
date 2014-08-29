@@ -1,6 +1,5 @@
 # distutils: language = c++
-# distutils: sources = vpp.cpp
-# 
+#
 # voroplusplus.pyx : pyvoro cython interface to voro++
 #
 # this file provides a python interface for performing 3D voronoi tesselations

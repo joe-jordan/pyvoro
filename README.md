@@ -20,10 +20,26 @@ point, so points can (and will) be outside the bounding box.
 Installation
 ------------
 
-The same as any other python module, in spite of the mess in the root folder:
+Installation is the same as for any other python module. Issuing 
+  
+    python setup.py install
+    
+will install pyvoro system-wide, while 
 
-    python setup.py build
     python setup.py install --user
+
+will install it only for the current user. Any 
+[other](https://pythonhosted.org/an_example_pypi_project/setuptools.html#using-setup-py)  `setup.py` keywords 
+can also be used, including 
+ 
+    python setup.py develop
+    
+to install the package in 'development' mode. Alternatively, if you want all the dependencies pulled in automatically,  
+you can still use `pip`:
+
+    pip install -e .
+
+`-e` option makes pip install package from source in development mode. 
 
 You can then use the code with:
 
@@ -153,10 +169,6 @@ vertices are returned in the correct order. The cells look like a list of these:
 ```
 
 *(note that the edges will now be indexed -1 to -4, and the 'volume' key is in fact the area.)*
-
-DEPENDENCIES:
-requires Cython > 0.13, which is when c++ support was added. Tested with Cython 0.17 and 0.19. Known to be broken with 
-Cython 0.14.1.
 
 NOTES:
 * on compilation: if a cython .pyx file is being compiled in C++ mode, all cython-visible code must be compiled "as c++" - this will not be compatible with any C functions declared `extern "C" { ... }`. In this library, the author just used c++ functions for everything, in order to be able to utilise the c++ `std::vector<T>` classes to represent the (ridiculously non-specific) geometry of a Voronoi cell.
