@@ -38,7 +38,7 @@ if use_cython:
 
 setup(
     name="pyvoro",
-    version="1.2.1",
+    version="1.3.0",
     description="Python wrapper for the voro++ c++ library.",
     author="Joe Jordan",
     author_email="joe.jordan@imperial.ac.uk",
