@@ -39,7 +39,7 @@ if use_cython:
 setup(
     name="pyvoro",
     version="1.3.1",
-    description="Python wrapper for the voro++ c++ library.",
+    description="2D and 3D Voronoi tessellations: a python entry point for the voro++ library.",
     author="Joe Jordan",
     author_email="joe.jordan@imperial.ac.uk",
     url="https://github.com/joe-jordan/pyvoro",
