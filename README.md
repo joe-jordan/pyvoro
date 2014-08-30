@@ -5,6 +5,9 @@ pyvoro
 
 **Recently Added Features:**
 
+*Released on PyPI* - thanks to a contribution from @ansobolev, you can now install the project with
+`pip` - just type `pip install pyvoro`, with sudo if that's your thing.
+
 *support for numpy arrays* - thanks to a contribution from @christopherpoole, you can now pass in
 a 2D (Nx3 or Nx2) numpy array.
 
@@ -20,7 +23,11 @@ point, so points can (and will) be outside the bounding box.
 Installation
 ------------
 
-Installation is the same as for any other python module. Issuing 
+Recommended - installation via `pip`:
+
+    pip install pyvoro
+
+Installation from source is the same as for any other python module. Issuing 
   
     python setup.py install
     
