@@ -10,20 +10,10 @@
 
 from distutils.core import setup, Extension
 
-# check for Cython version
-try:
-    from Cython import __version__ as cython_version
-    assert cython_version > "0.15"
-    use_cython = True
-    ext = ".pyx"
-except (ImportError, AssertionError):
-    use_cython = False
-    ext = ".cpp"
-
 # fall back to provided cpp file if Cython is not found
 extensions = [
     Extension("voroplusplus",
-              sources=["pyvoro/voroplusplus" + ext,
+              sources=["pyvoro/voroplusplus.cpp",
                        "pyvoro/vpp.cpp",
                        "src/voro++.cc"],
               include_dirs=["src"],
@@ -31,19 +21,14 @@ extensions = [
               )
 ]
 
-# cythonize pyx file if right version of Cython is found
-if use_cython:
-    from Cython.Build import cythonize
-    extensions = cythonize(extensions)
-
 setup(
     name="pyvoro",
-    version="1.3.1",
+    version="1.3.2",
     description="2D and 3D Voronoi tessellations: a python entry point for the voro++ library.",
     author="Joe Jordan",
     author_email="joe.jordan@imperial.ac.uk",
     url="https://github.com/joe-jordan/pyvoro",
-    download_url="https://github.com/joe-jordan/pyvoro/tarball/v1.3.1",
+    download_url="https://github.com/joe-jordan/pyvoro/tarball/v1.3.2",
     packages=["pyvoro",],
     package_dir={"pyvoro": "pyvoro"},
     ext_modules=extensions,
