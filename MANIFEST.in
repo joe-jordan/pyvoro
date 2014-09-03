@@ -1,0 +1,4 @@
+include pyvoro/voroplusplus.pyx
+include pyvoro/vpp.h
+include src/*.cc
+include src/*.hh
