@@ -12,6 +12,8 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
+from __future__ import division
+
 from libcpp.vector cimport vector
 from cython.operator cimport dereference as deref
 
@@ -91,7 +93,10 @@ Output format is a list of cells as follows:
   (python's list type does satisfy this requirement.)
   """
   cdef int n = len(points), i, j
-  cdef double *xs, *ys, *zs, *rs
+  cdef double *xs
+  cdef double *ys
+  cdef double *zs
+  cdef double *rs
   cdef void** voronoi_cells
   
   vector_class = get_constructor(points[0])
