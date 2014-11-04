@@ -33,5 +33,14 @@ setup(
     package_dir={"pyvoro": "pyvoro"},
     ext_modules=extensions,
     keywords=["geometry", "mathematics", "Voronoi"],
-    classifiers=[],
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Topic :: Scientific/Engineering :: Mathematics",
+        "Topic :: Scientific/Engineering :: Physics",
+        "Intended Audience :: Science/Research",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: BSD License",
+    ],
 )

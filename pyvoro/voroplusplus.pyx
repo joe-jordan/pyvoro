@@ -158,7 +158,7 @@ Output format is a list of cells as follows:
     py_cells[i]['volume'] = float(cell_get_volume(voronoi_cells[i]))
     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])
     cell_vertices = []
-    for j from 0 <= j < vertex_positions.size() / 3:
+    for j from 0 <= j < vertex_positions.size() // 3:
       cell_vertices.append(vector_class([
         float(vertex_positions[3 * j]),
         float(vertex_positions[3 * j + 1]),
