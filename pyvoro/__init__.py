@@ -1,4 +1,4 @@
-import voroplusplus
+from . import voroplusplus
 
 def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):
   """
