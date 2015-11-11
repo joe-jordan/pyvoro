@@ -8,7 +8,8 @@
 # contact: <joe.jordan@imperial.ac.uk> or <tehwalrus@h2j9k.org>
 #
 
-from distutils.core import setup, Extension
+import setuptools
+from setuptools import setup, Extension
 
 # fall back to provided cpp file if Cython is not found
 extensions = [
@@ -43,4 +44,5 @@ setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
     ],
+    test_suite="test",
 )
