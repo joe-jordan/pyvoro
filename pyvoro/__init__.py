@@ -1,4 +1,4 @@
-import voroplusplus
+from . import voroplusplus
 
 def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):
   """
@@ -111,4 +111,5 @@ Output format is a list of cells as follows:
     py_cells[-1]['adjacency'] = adj
   
   return py_cells
+
 
