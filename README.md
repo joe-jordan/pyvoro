@@ -1,12 +1,14 @@
 pyvoro
 ======
 
-3D Voronoi tessellations: a python entry point for the [voro++ library](http://math.lbl.gov/voro++/)
+3D Voronoi tessellations: a Python 2 entry point for the [voro++ library](http://math.lbl.gov/voro++/)
 
 **Recently Added Features:**
 
-*Released on PyPI* - thanks to a contribution from @ansobolev, you can now install the project with
-`pip` - just type `pip install pyvoro`, with sudo if that's your thing.
+*Released on PyPI* - thanks to a contribution from @ansobolev, you can now install pyvoro as a library in
+your current Python 2 installation with `pip` - just type `pip install pyvoro`, with sudo if that's your thing.
+This project, which is the library posted on pypi, the one you get by running pip install pyvoro, will only
+work in a Python 2 environment.
 
 *support for numpy arrays* - thanks to a contribution from @christopherpoole, you can now pass in
 a 2D (Nx3 or Nx2) numpy array.
@@ -27,26 +29,26 @@ Recommended - installation via `pip`:
 
     pip install pyvoro
 
-Installation from source is the same as for any other python module. Issuing 
-  
+Installation from source is the same as for any other python module. Issuing
+
     python setup.py install
-    
-will install pyvoro system-wide, while 
+
+will install pyvoro system-wide, while
 
     python setup.py install --user
 
-will install it only for the current user. Any 
-[other](https://pythonhosted.org/an_example_pypi_project/setuptools.html#using-setup-py)  `setup.py` keywords 
-can also be used, including 
- 
+will install it only for the current user. Any
+[other](https://pythonhosted.org/an_example_pypi_project/setuptools.html#using-setup-py)  `setup.py` keywords
+can also be used, including
+
     python setup.py develop
-    
+
 to install the package in 'development' mode. Alternatively, if you want all the dependencies pulled in automatically,  
 you can still use `pip`:
 
     pip install -e .
 
-`-e` option makes pip install package from source in development mode. 
+`-e` option makes pip install package from source in development mode.
 
 You can then use the code with:
 
@@ -73,7 +75,7 @@ returning an array of voronoi cells in the form:
 { # (note, this cell is not calculated using the above example)
   'volume': 6.07031902214448,
   'faces': [
-    {'adjacent_cell': 1, 'vertices': [1, 5, 8, 3]}, 
+    {'adjacent_cell': 1, 'vertices': [1, 5, 8, 3]},
     {'adjacent_cell': -3, 'vertices': [1, 0, 2, 6, 5]},
     {'adjacent_cell': -5, 'vertices': [1, 3, 9, 7, 0]},
     {'adjacent_cell': 146, 'vertices': [2, 4, 11, 10, 6]},
@@ -121,7 +123,7 @@ there are three at the corner of a box, specifically ids `1`, `3` and `5`, (the
 `x_i = 0` boundaries, represented with negative ids hence `-1`, `-3` and `-5` --
 this is voro++'s conventional way of referring to boundary interfaces.)
 
-Initially only non-radical tessellation, and computing *all* information 
+Initially only non-radical tessellation, and computing *all* information
 (including cell adjacency). Other code paths may be added later.
 
 2D tessellation
@@ -140,7 +142,7 @@ cells = pyvoro.compute_2d_voronoi(
 )
 ```
 
-the output follows the same schema as the 3D for now, since this is not as annoying as having a 
+the output follows the same schema as the 3D for now, since this is not as annoying as having a
 whole new schema to handle. The adjacency is now a bit redundant since the cell is a polygon and the
 vertices are returned in the correct order. The cells look like a list of these:
 
