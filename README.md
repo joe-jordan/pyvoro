@@ -52,7 +52,10 @@ You can then use the code with:
 
     import pyvoro
     pyvoro.compute_voronoi( ... )
+    pyvoro.compute_3d_voronoi( ... )    
     pyvoro.compute_2d_voronoi( ... )
+
+The compute_3d_voronoi method requires less memory than compute_voronoi and gives better control concerning the points to be considered for the tessellation and the properties to be retrieved for each Voronoi cell.
 
 Example:
 --------
@@ -123,6 +126,57 @@ this is voro++'s conventional way of referring to boundary interfaces.)
 
 Initially only non-radical tessellation, and computing *all* information 
 (including cell adjacency). Other code paths may be added later.
+
+The `pyvoro.compute_3d_voronoi` method is similar to `pyvoro.compute_voronoi` but with minimal memory requirements and extra arguments controlling the points to be used for the tessellation and the properties of the Voronoi cells to be retrieved. The calculation is performed in a slightly different way so that the properties of each cell can be retrieved right after its identification. This may cause problems that can be avoided using the original `pyvoro.compute_vorono` method. The following list of properties can be retrieved for each cell:
+
+```python
+  [
+    'original',  # corresponding point coordinates.
+    'radius',    # corresponding point radius.
+    'volume',    # cell volume.
+    'surface',   # cell surfae.
+    'rmaxsq',    # the maximum radius squared of a vertex from the center of the cell.
+    'vertices',  # positions of cell verices.
+    'normals',   # faces normal vectors.
+    'areas',     # faces surface area.
+    'adjacency', # for eaech cell-vertice the adjacent cell-vertices.
+    'faces',     # for eaech cell-face its vertices and the corrsponding adjacent cel#.
+    'neighbors'  # the neighbor cells.
+  ]
+```
+
+If the properties argument is omitted the only the `'neighbors'` property will be retrieved while if it is an empty list, all the properties will be retrieved.
+
+For example:
+```python
+import pyvoro
+pyvoro.compute_3d_voronoi(
+  [[1.0, 2.0, 3.0], [4.0, 5.5, 6.0],[2.0, 2.0, 8.0],[7.5, 8.5, 9.0]],
+  [[0.0, 10.0], [0.0, 10.0], [0.0, 10.0]],
+  2.0, 
+  radii=[1.3, 1.4, 1.2, 1.1],
+  excluded=[False, False, False, True],
+  properties=['volume','neighbors']
+)
+```
+calculates the tessellation using the first four points and retieving only the `'volume'` and `'neighbors'` properties for the corresponding cells. The returned list of dictionaries should look like:
+```python
+[
+  {
+    'volume': 177.64722095982148, 
+    'neighbors': (0, 0, 0, 1, 0, 2)
+  }, 
+  {
+    'volume': 685.3951916480655, 
+    'neighbors': (0, 0, 0, 0, 0, 0, 2, 0)
+  }, 
+  {
+    'volume': 136.95758739211308, 
+    'neighbors': (0, 1, 0, 0, 0, 0)
+  },
+  {} # empty dict for excluded points
+]
+```
 
 2D tessellation
 ---------------
