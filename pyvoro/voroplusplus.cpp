@@ -4,7 +4,10 @@
 {
     "distutils": {
         "depends": [
-            "/home/joe/Code/pyvoro/pyvoro/vpp.h"
+            "pyvoro/vpp.h"
+        ], 
+        "include_dirs": [
+            "src"
         ], 
         "language": "c++"
     }
@@ -261,6 +264,8 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "new"
 #include "stdexcept"
 #include "typeinfo"
+#include <utility>
+#include <map>
 #include "vpp.h"
 #include "stdlib.h"
 #ifdef _OPENMP
@@ -562,12 +567,6 @@ static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int eq
 
 static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals);
 
-#if PY_MAJOR_VERSION >= 3
-#define __Pyx_PyString_Equals __Pyx_PyUnicode_Equals
-#else
-#define __Pyx_PyString_Equals __Pyx_PyBytes_Equals
-#endif
-
 static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name);
 
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
@@ -656,6 +655,11 @@ static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
 #define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
 #endif
 
+static CYTHON_INLINE int __Pyx_PySequence_ContainsTF(PyObject* item, PyObject* seq, int eq) {
+    int result = PySequence_Contains(seq, item);
+    return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
+}
+
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases);
@@ -688,6 +692,8 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
+
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
 
 static int __Pyx_check_binary_version(void);
@@ -697,53 +703,92 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* Module declarations from 'libcpp.vector' */
 
+/* Module declarations from 'libcpp.utility' */
+
+/* Module declarations from 'libcpp.map' */
+
 /* Module declarations from 'pyvoro.voroplusplus' */
 #define __Pyx_MODULE_NAME "pyvoro.voroplusplus"
 int __pyx_module_is_main_pyvoro__voroplusplus = 0;
 
 /* Implementation of 'pyvoro.voroplusplus' */
 static PyObject *__pyx_builtin_Exception;
+static PyObject *__pyx_builtin_sum;
+static PyObject *__pyx_builtin_range;
 static char __pyx_k_i[] = "i";
 static char __pyx_k_j[] = "j";
 static char __pyx_k_k[] = "k";
 static char __pyx_k_n[] = "n";
-static char __pyx_k_p[] = "p";
 static char __pyx_k_rs[] = "rs";
+static char __pyx_k_xn[] = "_xn";
 static char __pyx_k_xs[] = "xs";
 static char __pyx_k_ys[] = "ys";
 static char __pyx_k_zs[] = "zs";
 static char __pyx_k_doc[] = "__doc__";
+static char __pyx_k_i_2[] = "_i";
 static char __pyx_k_obj[] = "obj";
+static char __pyx_k_sum[] = "sum";
 static char __pyx_k_sys[] = "sys";
 static char __pyx_k_typ[] = "typ";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_math[] = "math";
 static char __pyx_k_test[] = "__test__";
 static char __pyx_k_vptr[] = "vptr";
+static char __pyx_k_xmap[] = "_xmap";
+static char __pyx_k_areas[] = "areas";
 static char __pyx_k_array[] = "array";
 static char __pyx_k_faces[] = "faces";
 static char __pyx_k_floor[] = "floor";
+static char __pyx_k_found[] = "found";
 static char __pyx_k_lists[] = "lists";
 static char __pyx_k_numpy[] = "numpy";
 static char __pyx_k_radii[] = "radii";
+static char __pyx_k_range[] = "range";
 static char __pyx_k_blocks[] = "blocks";
 static char __pyx_k_import[] = "__import__";
+static char __pyx_k_isempy[] = "_isempy";
 static char __pyx_k_limits[] = "limits";
 static char __pyx_k_module[] = "__module__";
 static char __pyx_k_points[] = "points";
+static char __pyx_k_radius[] = "radius";
+static char __pyx_k_rmaxsq[] = "rmaxsq";
 static char __pyx_k_volume[] = "volume";
+static char __pyx_k_cellptr[] = "cellptr";
+static char __pyx_k_found_2[] = "found_";
 static char __pyx_k_modules[] = "modules";
+static char __pyx_k_normals[] = "normals";
 static char __pyx_k_prepare[] = "__prepare__";
+static char __pyx_k_py_cell[] = "py_cell";
+static char __pyx_k_surface[] = "surface";
+static char __pyx_k_GETareas[] = "GETareas";
+static char __pyx_k_GETfaces[] = "GETfaces";
+static char __pyx_k_adjacent[] = "adjacent";
+static char __pyx_k_excluded[] = "excluded";
+static char __pyx_k_nexclude[] = "nexclude";
 static char __pyx_k_original[] = "original";
 static char __pyx_k_periodic[] = "periodic";
 static char __pyx_k_py_cells[] = "py_cells";
 static char __pyx_k_qualname[] = "__qualname__";
 static char __pyx_k_vertices[] = "vertices";
 static char __pyx_k_Exception[] = "Exception";
+static char __pyx_k_GETradius[] = "GETradius";
+static char __pyx_k_GETrmaxsq[] = "GETrmaxsq";
+static char __pyx_k_GETvolume[] = "GETvolume";
 static char __pyx_k_adjacency[] = "adjacency";
 static char __pyx_k_container[] = "container";
 static char __pyx_k_metaclass[] = "__metaclass__";
+static char __pyx_k_neighbors[] = "neighbors";
+static char __pyx_k_GETnormals[] = "GETnormals";
+static char __pyx_k_GETsurface[] = "GETsurface";
+static char __pyx_k_c_loop_all[] = "c_loop_all";
 static char __pyx_k_dispersion[] = "dispersion";
+static char __pyx_k_face_areas[] = "face_areas";
+static char __pyx_k_properties[] = "properties";
+static char __pyx_k_GEToriginal[] = "GEToriginal";
+static char __pyx_k_GETvertices[] = "GETvertices";
+static char __pyx_k_GETadjacency[] = "GETadjacency";
+static char __pyx_k_GETneighbors[] = "GETneighbors";
+static char __pyx_k_face_normals[] = "face_normals";
 static char __pyx_k_vector_class[] = "vector_class";
 static char __pyx_k_adjacent_cell[] = "adjacent_cell";
 static char __pyx_k_cell_vertices[] = "cell_vertices";
@@ -752,29 +797,57 @@ static char __pyx_k_voronoi_cells[] = "voronoi_cells";
 static char __pyx_k_compute_voronoi[] = "compute_voronoi";
 static char __pyx_k_get_constructor[] = "get_constructor";
 static char __pyx_k_vertex_positions[] = "vertex_positions";
+static char __pyx_k_compute_3d_voronoi[] = "compute_3d_voronoi";
 static char __pyx_k_py_vertex_adjacency[] = "py_vertex_adjacency";
 static char __pyx_k_pyvoro_voroplusplus[] = "pyvoro.voroplusplus";
 static char __pyx_k_VoronoiPlusPlusError[] = "VoronoiPlusPlusError";
-static char __pyx_k_home_joe_Code_pyvoro_pyvoro_vor[] = "/home/joe/Code/pyvoro/pyvoro/voroplusplus.pyx";
+static char __pyx_k_Users_loukas_peristeras_work_pr[] = "/Users/loukas.peristeras/work/programming/postlammps/postlammps3/pyvoro-master/pyvoro/voroplusplus.pyx";
+static char __pyx_k_number_of_cells_found_d_was_not[] = "number of cells found (%d) was not equal to the number of particles (%d).";
 static char __pyx_k_number_of_cells_found_was_not_eq[] = "number of cells found was not equal to the number of particles.";
 static PyObject *__pyx_n_s_Exception;
+static PyObject *__pyx_n_s_GETadjacency;
+static PyObject *__pyx_n_s_GETareas;
+static PyObject *__pyx_n_s_GETfaces;
+static PyObject *__pyx_n_s_GETneighbors;
+static PyObject *__pyx_n_s_GETnormals;
+static PyObject *__pyx_n_s_GEToriginal;
+static PyObject *__pyx_n_s_GETradius;
+static PyObject *__pyx_n_s_GETrmaxsq;
+static PyObject *__pyx_n_s_GETsurface;
+static PyObject *__pyx_n_s_GETvertices;
+static PyObject *__pyx_n_s_GETvolume;
+static PyObject *__pyx_kp_s_Users_loukas_peristeras_work_pr;
 static PyObject *__pyx_n_s_VoronoiPlusPlusError;
 static PyObject *__pyx_n_s_adjacency;
-static PyObject *__pyx_n_s_adjacent_cell;
+static PyObject *__pyx_n_u_adjacency;
+static PyObject *__pyx_n_s_adjacent;
+static PyObject *__pyx_n_u_adjacent_cell;
+static PyObject *__pyx_n_s_areas;
+static PyObject *__pyx_n_u_areas;
 static PyObject *__pyx_n_s_array;
 static PyObject *__pyx_n_s_blocks;
+static PyObject *__pyx_n_s_c_loop_all;
 static PyObject *__pyx_n_s_cell_vertices;
+static PyObject *__pyx_n_s_cellptr;
+static PyObject *__pyx_n_s_compute_3d_voronoi;
 static PyObject *__pyx_n_s_compute_voronoi;
 static PyObject *__pyx_n_s_container;
 static PyObject *__pyx_n_s_dispersion;
 static PyObject *__pyx_n_s_doc;
+static PyObject *__pyx_n_s_excluded;
+static PyObject *__pyx_n_s_face_areas;
+static PyObject *__pyx_n_s_face_normals;
 static PyObject *__pyx_n_s_face_vertices;
 static PyObject *__pyx_n_s_faces;
+static PyObject *__pyx_n_u_faces;
 static PyObject *__pyx_n_s_floor;
+static PyObject *__pyx_n_s_found;
+static PyObject *__pyx_n_s_found_2;
 static PyObject *__pyx_n_s_get_constructor;
-static PyObject *__pyx_kp_s_home_joe_Code_pyvoro_pyvoro_vor;
 static PyObject *__pyx_n_s_i;
+static PyObject *__pyx_n_s_i_2;
 static PyObject *__pyx_n_s_import;
+static PyObject *__pyx_n_s_isempy;
 static PyObject *__pyx_n_s_j;
 static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_limits;
@@ -783,48 +856,70 @@ static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_math;
 static PyObject *__pyx_n_s_metaclass;
 static PyObject *__pyx_n_s_module;
+static PyObject *__pyx_n_u_module;
 static PyObject *__pyx_n_s_modules;
 static PyObject *__pyx_n_s_n;
-static PyObject *__pyx_kp_s_number_of_cells_found_was_not_eq;
+static PyObject *__pyx_n_u_neighbors;
+static PyObject *__pyx_n_s_nexclude;
+static PyObject *__pyx_n_s_normals;
+static PyObject *__pyx_n_u_normals;
+static PyObject *__pyx_kp_u_number_of_cells_found_d_was_not;
+static PyObject *__pyx_kp_u_number_of_cells_found_was_not_eq;
 static PyObject *__pyx_n_s_numpy;
+static PyObject *__pyx_n_u_numpy;
 static PyObject *__pyx_n_s_obj;
-static PyObject *__pyx_n_s_original;
-static PyObject *__pyx_n_s_p;
+static PyObject *__pyx_n_u_original;
 static PyObject *__pyx_n_s_periodic;
 static PyObject *__pyx_n_s_points;
 static PyObject *__pyx_n_s_prepare;
+static PyObject *__pyx_n_s_properties;
+static PyObject *__pyx_n_s_py_cell;
 static PyObject *__pyx_n_s_py_cells;
 static PyObject *__pyx_n_s_py_vertex_adjacency;
 static PyObject *__pyx_n_s_pyvoro_voroplusplus;
 static PyObject *__pyx_n_s_qualname;
 static PyObject *__pyx_n_s_radii;
+static PyObject *__pyx_n_u_radius;
+static PyObject *__pyx_n_s_range;
+static PyObject *__pyx_n_u_rmaxsq;
 static PyObject *__pyx_n_s_rs;
+static PyObject *__pyx_n_s_sum;
+static PyObject *__pyx_n_u_surface;
 static PyObject *__pyx_n_s_sys;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_typ;
 static PyObject *__pyx_n_s_vector_class;
 static PyObject *__pyx_n_s_vertex_positions;
-static PyObject *__pyx_n_s_vertices;
-static PyObject *__pyx_n_s_volume;
+static PyObject *__pyx_n_u_vertices;
+static PyObject *__pyx_n_u_volume;
 static PyObject *__pyx_n_s_voronoi_cells;
 static PyObject *__pyx_n_s_vptr;
+static PyObject *__pyx_n_s_xmap;
+static PyObject *__pyx_n_s_xn;
 static PyObject *__pyx_n_s_xs;
 static PyObject *__pyx_n_s_ys;
 static PyObject *__pyx_n_s_zs;
 static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj); /* proto */
 static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_points, PyObject *__pyx_v_limits, PyObject *__pyx_v_dispersion, PyObject *__pyx_v_radii, PyObject *__pyx_v_periodic); /* proto */
+static PyObject *__pyx_pf_6pyvoro_12voroplusplus_4compute_3d_voronoi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_points, PyObject *__pyx_v_limits, PyObject *__pyx_v_dispersion, PyObject *__pyx_v_radii, PyObject *__pyx_v_periodic, PyObject *__pyx_v_excluded, PyObject *__pyx_v_properties); /* proto */
 static PyObject *__pyx_float_10_;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_k_;
 static PyObject *__pyx_k__2;
+static PyObject *__pyx_k__4;
+static PyObject *__pyx_k__5;
+static PyObject *__pyx_k__6;
+static PyObject *__pyx_k__7;
 static PyObject *__pyx_tuple__3;
-static PyObject *__pyx_tuple__4;
-static PyObject *__pyx_tuple__6;
-static PyObject *__pyx_codeobj__5;
-static PyObject *__pyx_codeobj__7;
+static PyObject *__pyx_tuple__8;
+static PyObject *__pyx_tuple__10;
+static PyObject *__pyx_tuple__12;
+static PyObject *__pyx_codeobj__9;
+static PyObject *__pyx_codeobj__11;
+static PyObject *__pyx_codeobj__13;
 
-/* "pyvoro/voroplusplus.pyx":45
+/* "pyvoro/voroplusplus.pyx":54
  * 
  * 
  * def get_constructor(obj):             # <<<<<<<<<<<<<<
@@ -861,7 +956,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_constructor", 0);
 
-  /* "pyvoro/voroplusplus.pyx":50
+  /* "pyvoro/voroplusplus.pyx":59
  *   obj = the object we want to get the constructor for
  *   """
  *   typ = type(obj)             # <<<<<<<<<<<<<<
@@ -871,61 +966,61 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_obj)));
   __pyx_v_typ = ((PyObject *)Py_TYPE(__pyx_v_obj));
 
-  /* "pyvoro/voroplusplus.pyx":53
+  /* "pyvoro/voroplusplus.pyx":62
  * 
  *   # Test if we have a numpy array
  *   if hasattr(typ, '__module__'):             # <<<<<<<<<<<<<<
  *     if typ.__module__ == 'numpy':
  *       numpy = sys.modules['numpy']
  */
-  __pyx_t_1 = PyObject_HasAttr(__pyx_v_typ, __pyx_n_s_module); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 53; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_HasAttr(__pyx_v_typ, __pyx_n_u_module); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 62; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyvoro/voroplusplus.pyx":54
+    /* "pyvoro/voroplusplus.pyx":63
  *   # Test if we have a numpy array
  *   if hasattr(typ, '__module__'):
  *     if typ.__module__ == 'numpy':             # <<<<<<<<<<<<<<
  *       numpy = sys.modules['numpy']
  *       typ = numpy.array
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_typ, __pyx_n_s_module); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_typ, __pyx_n_s_module); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = (__Pyx_PyString_Equals(__pyx_t_3, __pyx_n_s_numpy, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = (__Pyx_PyUnicode_Equals(__pyx_t_3, __pyx_n_u_numpy, Py_EQ)); if (unlikely(__pyx_t_2 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_2) {
 
-      /* "pyvoro/voroplusplus.pyx":55
+      /* "pyvoro/voroplusplus.pyx":64
  *   if hasattr(typ, '__module__'):
  *     if typ.__module__ == 'numpy':
  *       numpy = sys.modules['numpy']             # <<<<<<<<<<<<<<
  *       typ = numpy.array
  * 
  */
-      __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_sys); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_modules); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_modules); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = PyObject_GetItem(__pyx_t_4, __pyx_n_s_numpy); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 55; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_3 = PyObject_GetItem(__pyx_t_4, __pyx_n_u_numpy); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 64; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_v_numpy = __pyx_t_3;
       __pyx_t_3 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":56
+      /* "pyvoro/voroplusplus.pyx":65
  *     if typ.__module__ == 'numpy':
  *       numpy = sys.modules['numpy']
  *       typ = numpy.array             # <<<<<<<<<<<<<<
  * 
  *   return typ
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_numpy, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_numpy, __pyx_n_s_array); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 65; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF_SET(__pyx_v_typ, __pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":54
+      /* "pyvoro/voroplusplus.pyx":63
  *   # Test if we have a numpy array
  *   if hasattr(typ, '__module__'):
  *     if typ.__module__ == 'numpy':             # <<<<<<<<<<<<<<
@@ -934,7 +1029,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
  */
     }
 
-    /* "pyvoro/voroplusplus.pyx":53
+    /* "pyvoro/voroplusplus.pyx":62
  * 
  *   # Test if we have a numpy array
  *   if hasattr(typ, '__module__'):             # <<<<<<<<<<<<<<
@@ -943,7 +1038,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
  */
   }
 
-  /* "pyvoro/voroplusplus.pyx":58
+  /* "pyvoro/voroplusplus.pyx":67
  *       typ = numpy.array
  * 
  *   return typ             # <<<<<<<<<<<<<<
@@ -955,7 +1050,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
   __pyx_r = __pyx_v_typ;
   goto __pyx_L0;
 
-  /* "pyvoro/voroplusplus.pyx":45
+  /* "pyvoro/voroplusplus.pyx":54
  * 
  * 
  * def get_constructor(obj):             # <<<<<<<<<<<<<<
@@ -977,7 +1072,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "pyvoro/voroplusplus.pyx":61
+/* "pyvoro/voroplusplus.pyx":70
  * 
  * 
  * def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):             # <<<<<<<<<<<<<<
@@ -987,7 +1082,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_get_constructor(CYTHON_UNUSED P
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6pyvoro_12voroplusplus_2compute_voronoi[] = "\nInput arg formats:\n  points = list of 3-vectors (lists or compatible class instances) of doubles,\n    being the coordinates of the points to voronoi-tesselate.\n  limits = 3-list of 2-lists, specifying the start and end sizes of the box the\n    points are in.\n  dispersion = max distance between two points that might be adjacent (sets\n    voro++ block sizes.)\n  radii (optional) = list of python floats as the sphere radii of the points,\n    for radical (weighted) tessellation.\n  periodic (optional) = 3-list of bools indicating x, y and z periodicity of \n    the system box.\n  \nOutput format is a list of cells as follows:\n  [ # list in same order as original points.\n    {\n      'volume' : 1.0,\n      'vertices' : [[1.0, 2.0, 3.0], ...], # positions of vertices\n      'adjacency' : [[1,3,4, ...], ...], # cell-vertices adjacent to i by index\n      'faces' : [\n        {\n          'vertices' : [7,4,13, ...], # vertex ids in loop order\n          'adjacent_cell' : 34 # *cell* id, negative if a wall\n        }, ...]\n      'original' : point[index] # the original instance from args\n    },\n    ... \n  ]\n  \n  NOTE: The class from items in input points list is reused for all 3-vector\n  outputs. It must have a constructor which accepts a list of 3 python floats\n  (python's list type does satisfy this requirement.)\n  ";
+static char __pyx_doc_6pyvoro_12voroplusplus_2compute_voronoi[] = "\nInput arg formats:\n  points = list of 3-vectors (lists or compatible class instances) of doubles,\n    being the coordinates of the points to voronoi-tesselate.\n  limits = 3-list of 2-lists, specifying the start and end sizes of the box the\n    points are in.\n  dispersion = max distance between two points that might be adjacent (sets\n    voro++ block sizes.)\n  radii (optional) = list of python floats as the sphere radii of the points,\n    for radical (weighted) tessellation.\n  periodic (optional) = 3-list of bools indicating x, y and z periodicity of\n    the system box.\n\nOutput format is a list of cells as follows:\n  [ # list in same order as original points.\n    {\n      'volume' : 1.0,\n      'vertices' : [[1.0, 2.0, 3.0], ...], # positions of vertices\n      'adjacency' : [[1,3,4, ...], ...],   # cell-vertices adjacent to i by index\n      'faces' : [\n        {\n          'vertices' : [7,4,13, ...], # vertex ids in loop order\n          'adjacent_cell' : 34 # *cell* id, negative if a wall\n        }, ...]\n      'original' : point[index] # the original instance from args\n    },\n    ...\n  ]\n\n  NOTE: The class from items in input points list is reused for all 3-vector\n  outputs. It must have a constructor which accepts a list of 3 python floats\n  (python's list type does satisfy this requirement.)\n  ";
 static PyMethodDef __pyx_mdef_6pyvoro_12voroplusplus_3compute_voronoi = {"compute_voronoi", (PyCFunction)__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pyvoro_12voroplusplus_2compute_voronoi};
 static PyObject *__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_points = 0;
@@ -1026,12 +1121,12 @@ static PyObject *__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi(PyObject *__py
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_limits)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dispersion)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (kw_args > 0) {
@@ -1045,7 +1140,7 @@ static PyObject *__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi(PyObject *__py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_voronoi") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_voronoi") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1066,7 +1161,7 @@ static PyObject *__pyx_pw_6pyvoro_12voroplusplus_3compute_voronoi(PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("compute_voronoi", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyvoro.voroplusplus.compute_voronoi", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1101,7 +1196,6 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   long __pyx_v_k;
   PyObject *__pyx_v_faces = NULL;
   PyObject *__pyx_v_face_vertices = NULL;
-  PyObject *__pyx_v_p = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
@@ -1137,26 +1231,26 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __Pyx_INCREF(__pyx_v_radii);
   __Pyx_INCREF(__pyx_v_periodic);
 
-  /* "pyvoro/voroplusplus.pyx":95
+  /* "pyvoro/voroplusplus.pyx":104
  *   (python's list type does satisfy this requirement.)
  *   """
  *   cdef int n = len(points), i, j             # <<<<<<<<<<<<<<
- *   cdef double *xs
- *   cdef double *ys
+ *   cdef double *xs, *ys, *zs, *rs
+ *   cdef void** voronoi_cells
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 95; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_n = __pyx_t_1;
 
-  /* "pyvoro/voroplusplus.pyx":102
+  /* "pyvoro/voroplusplus.pyx":108
  *   cdef void** voronoi_cells
  * 
  *   vector_class = get_constructor(points[0])             # <<<<<<<<<<<<<<
  * 
  *   periodic = [1 if p else 0 for p in periodic]
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_constructor); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_constructor); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_5 = NULL;
   if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -1169,17 +1263,17 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_4);
     __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 102; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_6, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 108; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   }
@@ -1187,98 +1281,107 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __pyx_v_vector_class = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":104
+  /* "pyvoro/voroplusplus.pyx":110
  *   vector_class = get_constructor(points[0])
  * 
  *   periodic = [1 if p else 0 for p in periodic]             # <<<<<<<<<<<<<<
  * 
  *   # we must make sure we have at least one block, or voro++ will segfault when
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  if (likely(PyList_CheckExact(__pyx_v_periodic)) || PyTuple_CheckExact(__pyx_v_periodic)) {
-    __pyx_t_3 = __pyx_v_periodic; __Pyx_INCREF(__pyx_t_3); __pyx_t_1 = 0;
-    __pyx_t_7 = NULL;
-  } else {
-    __pyx_t_1 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_periodic); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  for (;;) {
-    if (likely(!__pyx_t_7)) {
-      if (likely(PyList_CheckExact(__pyx_t_3))) {
-        if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_3)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_6); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_6);
-        #endif
-      } else {
-        if (__pyx_t_1 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_6); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_6);
-        #endif
-      }
+  { /* enter inner scope */
+    PyObject *__pyx_7genexpr__pyx_v_p = NULL;
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    if (likely(PyList_CheckExact(__pyx_v_periodic)) || PyTuple_CheckExact(__pyx_v_periodic)) {
+      __pyx_t_3 = __pyx_v_periodic; __Pyx_INCREF(__pyx_t_3); __pyx_t_1 = 0;
+      __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = __pyx_t_7(__pyx_t_3);
-      if (unlikely(!__pyx_t_6)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_periodic); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+    }
+    for (;;) {
+      if (likely(!__pyx_t_7)) {
+        if (likely(PyList_CheckExact(__pyx_t_3))) {
+          if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_3)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_6); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          #else
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          __Pyx_GOTREF(__pyx_t_6);
+          #endif
+        } else {
+          if (__pyx_t_1 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_1); __Pyx_INCREF(__pyx_t_6); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          #else
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          __Pyx_GOTREF(__pyx_t_6);
+          #endif
         }
-        break;
+      } else {
+        __pyx_t_6 = __pyx_t_7(__pyx_t_3);
+        if (unlikely(!__pyx_t_6)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_6);
       }
-      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_p, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_7genexpr__pyx_v_p); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      if (__pyx_t_8) {
+        __Pyx_INCREF(__pyx_int_1);
+        __pyx_t_6 = __pyx_int_1;
+      } else {
+        __Pyx_INCREF(__pyx_int_0);
+        __pyx_t_6 = __pyx_int_0;
+      }
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_6))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     }
-    __Pyx_XDECREF_SET(__pyx_v_p, __pyx_t_6);
-    __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_p); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (__pyx_t_8) {
-      __Pyx_INCREF(__pyx_int_1);
-      __pyx_t_6 = __pyx_int_1;
-    } else {
-      __Pyx_INCREF(__pyx_int_0);
-      __pyx_t_6 = __pyx_int_0;
-    }
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_6))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 104; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF(__pyx_7genexpr__pyx_v_p);
+    goto __pyx_L8_exit_scope;
+    __pyx_L5_error:;
+    __Pyx_XDECREF(__pyx_7genexpr__pyx_v_p);
+    goto __pyx_L1_error;
+    __pyx_L8_exit_scope:;
+  } /* exit inner scope */
   __Pyx_DECREF_SET(__pyx_v_periodic, __pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":110
+  /* "pyvoro/voroplusplus.pyx":116
  * 
  *   blocks = [
  *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),             # <<<<<<<<<<<<<<
  *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
  *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
  */
-  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_floor); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_floor); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_3, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Subtract(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyNumber_Subtract(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_v_dispersion); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyNumber_Divide(__pyx_t_3, __pyx_v_dispersion); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -1292,69 +1395,69 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     }
   }
   if (!__pyx_t_3) {
-    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_GOTREF(__pyx_t_2);
   } else {
-    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyTuple_New(1+1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     __Pyx_GIVEREF(__pyx_t_5);
     PyTuple_SET_ITEM(__pyx_t_4, 0+1, __pyx_t_5);
     __pyx_t_5 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_6 = PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_9 = 1;
-  __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_6, __pyx_t_4, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyObject_RichCompare(__pyx_t_6, __pyx_t_4, Py_GT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (__pyx_t_8) {
     __Pyx_INCREF(__pyx_t_6);
     __pyx_t_2 = __pyx_t_6;
   } else {
-    __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 110; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_2 = __pyx_t_5;
     __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":111
+  /* "pyvoro/voroplusplus.pyx":117
  *   blocks = [
  *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
  *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),             # <<<<<<<<<<<<<<
  *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
  *   ]
  */
-  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_floor); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_floor); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_5, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_5, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_10 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PyNumber_Subtract(__pyx_t_3, __pyx_t_10); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PyNumber_Subtract(__pyx_t_3, __pyx_t_10); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_t_5, __pyx_v_dispersion); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_10 = __Pyx_PyNumber_Divide(__pyx_t_5, __pyx_v_dispersion); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_t_5 = NULL;
@@ -1368,69 +1471,69 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     }
   }
   if (!__pyx_t_5) {
-    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_10); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_10); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_GOTREF(__pyx_t_6);
   } else {
-    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_5); __pyx_t_5 = NULL;
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_3, NULL); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = PyNumber_Int(__pyx_t_6); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __pyx_t_9 = 1;
-  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_10 = PyObject_RichCompare(__pyx_t_4, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_10 = PyObject_RichCompare(__pyx_t_4, __pyx_t_3, Py_GT); __Pyx_XGOTREF(__pyx_t_10); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_10); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (__pyx_t_8) {
     __Pyx_INCREF(__pyx_t_4);
     __pyx_t_6 = __pyx_t_4;
   } else {
-    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 111; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_10 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_6 = __pyx_t_10;
     __pyx_t_10 = 0;
   }
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":112
+  /* "pyvoro/voroplusplus.pyx":118
  *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
  *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
  *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])             # <<<<<<<<<<<<<<
  *   ]
  * 
  */
-  __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_10 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_floor); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_floor); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_10 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_10, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_10, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_10 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_10 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_10, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_11 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_10, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_11 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = PyNumber_Subtract(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_10 = PyNumber_Subtract(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_PyNumber_Divide(__pyx_t_10, __pyx_v_dispersion); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = __Pyx_PyNumber_Divide(__pyx_t_10, __pyx_v_dispersion); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_t_10 = NULL;
@@ -1444,50 +1547,50 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     }
   }
   if (!__pyx_t_10) {
-    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_11); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_11); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __Pyx_GOTREF(__pyx_t_4);
   } else {
-    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_10); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_10); __pyx_t_10 = NULL;
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_9 = 1;
-  __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_11 = PyObject_RichCompare(__pyx_t_3, __pyx_t_5, Py_GT); __Pyx_XGOTREF(__pyx_t_11); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_11 = PyObject_RichCompare(__pyx_t_3, __pyx_t_5, Py_GT); __Pyx_XGOTREF(__pyx_t_11); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_11); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_11); if (unlikely(__pyx_t_8 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   if (__pyx_t_8) {
     __Pyx_INCREF(__pyx_t_3);
     __pyx_t_4 = __pyx_t_3;
   } else {
-    __pyx_t_11 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 112; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_11 = __Pyx_PyInt_From_long(__pyx_t_9); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 118; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_11);
     __pyx_t_4 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":109
+  /* "pyvoro/voroplusplus.pyx":115
  *   # we look for cells.
  * 
  *   blocks = [             # <<<<<<<<<<<<<<
  *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
  *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
  */
-  __pyx_t_3 = PyList_New(3); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = PyList_New(3); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 115; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_INCREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
@@ -1504,29 +1607,29 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __pyx_v_blocks = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":116
+  /* "pyvoro/voroplusplus.pyx":122
  * 
  *   # if no radii provided, we still run the radical routine, but with all the same small radius.
  *   if len(radii) != len(points):             # <<<<<<<<<<<<<<
  *     radii = [dispersion / 10.] * len(points)
  * 
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_radii); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_t_12 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_12 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 116; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyObject_Length(__pyx_v_radii); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_12 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_12 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_t_8 = ((__pyx_t_1 != __pyx_t_12) != 0);
   if (__pyx_t_8) {
 
-    /* "pyvoro/voroplusplus.pyx":117
+    /* "pyvoro/voroplusplus.pyx":123
  *   # if no radii provided, we still run the radical routine, but with all the same small radius.
  *   if len(radii) != len(points):
  *     radii = [dispersion / 10.] * len(points)             # <<<<<<<<<<<<<<
  * 
  *   # build the container object
  */
-    __pyx_t_3 = __Pyx_PyFloat_TrueDivideObjC(__pyx_v_dispersion, __pyx_float_10_, 10., 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_PyFloat_TrueDivideObjC(__pyx_v_dispersion, __pyx_float_10_, 10., 0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_12 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_12 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __pyx_t_4 = PyList_New(1 * ((__pyx_t_12<0) ? 0:__pyx_t_12)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 117; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_12 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_12 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyList_New(1 * ((__pyx_t_12<0) ? 0:__pyx_t_12)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     { Py_ssize_t __pyx_temp;
       for (__pyx_temp=0; __pyx_temp < __pyx_t_12; __pyx_temp++) {
@@ -1539,7 +1642,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     __Pyx_DECREF_SET(__pyx_v_radii, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":116
+    /* "pyvoro/voroplusplus.pyx":122
  * 
  *   # if no radii provided, we still run the radical routine, but with all the same small radius.
  *   if len(radii) != len(points):             # <<<<<<<<<<<<<<
@@ -1548,169 +1651,169 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   }
 
-  /* "pyvoro/voroplusplus.pyx":121
+  /* "pyvoro/voroplusplus.pyx":127
  *   # build the container object
  *   cdef void* container = container_poly_create(
  *     <double>limits[0][0],             # <<<<<<<<<<<<<<
  *     <double>limits[0][1],
  *     <double>limits[1][0],
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_13 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 121; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_13 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":122
+  /* "pyvoro/voroplusplus.pyx":128
  *   cdef void* container = container_poly_create(
  *     <double>limits[0][0],
  *     <double>limits[0][1],             # <<<<<<<<<<<<<<
  *     <double>limits[1][0],
  *     <double>limits[1][1],
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_14 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_14 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 122; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_14 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_14 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":123
+  /* "pyvoro/voroplusplus.pyx":129
  *     <double>limits[0][0],
  *     <double>limits[0][1],
  *     <double>limits[1][0],             # <<<<<<<<<<<<<<
  *     <double>limits[1][1],
  *     <double>limits[2][0],
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 123; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":124
+  /* "pyvoro/voroplusplus.pyx":130
  *     <double>limits[0][1],
  *     <double>limits[1][0],
  *     <double>limits[1][1],             # <<<<<<<<<<<<<<
  *     <double>limits[2][0],
  *     <double>limits[2][1],
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_16 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_16 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 124; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_16 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_16 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":125
+  /* "pyvoro/voroplusplus.pyx":131
  *     <double>limits[1][0],
  *     <double>limits[1][1],
  *     <double>limits[2][0],             # <<<<<<<<<<<<<<
  *     <double>limits[2][1],
  *     <int>blocks[0],
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":126
+  /* "pyvoro/voroplusplus.pyx":132
  *     <double>limits[1][1],
  *     <double>limits[2][0],
  *     <double>limits[2][1],             # <<<<<<<<<<<<<<
  *     <int>blocks[0],
  *     <int>blocks[1],
  */
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 126; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":127
+  /* "pyvoro/voroplusplus.pyx":133
  *     <double>limits[2][0],
  *     <double>limits[2][1],
  *     <int>blocks[0],             # <<<<<<<<<<<<<<
  *     <int>blocks[1],
  *     <int>blocks[2],
  */
-  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_19 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_19 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_19 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_19 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 133; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":128
+  /* "pyvoro/voroplusplus.pyx":134
  *     <double>limits[2][1],
  *     <int>blocks[0],
  *     <int>blocks[1],             # <<<<<<<<<<<<<<
  *     <int>blocks[2],
  *     <int>periodic[0],
  */
-  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 1, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 1, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_20 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_20 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_20 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_20 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 134; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":129
+  /* "pyvoro/voroplusplus.pyx":135
  *     <int>blocks[0],
  *     <int>blocks[1],
  *     <int>blocks[2],             # <<<<<<<<<<<<<<
  *     <int>periodic[0],
  *     <int>periodic[1],
  */
-  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 2, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_blocks, 2, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 129; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 135; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":130
+  /* "pyvoro/voroplusplus.pyx":136
  *     <int>blocks[1],
  *     <int>blocks[2],
  *     <int>periodic[0],             # <<<<<<<<<<<<<<
  *     <int>periodic[1],
  *     <int>periodic[2]
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_22 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_22 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 130; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_22 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_22 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":131
+  /* "pyvoro/voroplusplus.pyx":137
  *     <int>blocks[2],
  *     <int>periodic[0],
  *     <int>periodic[1],             # <<<<<<<<<<<<<<
  *     <int>periodic[2]
  *   )
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 131; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 137; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":132
+  /* "pyvoro/voroplusplus.pyx":138
  *     <int>periodic[0],
  *     <int>periodic[1],
  *     <int>periodic[2]             # <<<<<<<<<<<<<<
  *   )
  * 
  */
-  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_periodic, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_24 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_24 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 132; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_24 = __Pyx_PyInt_As_int(__pyx_t_4); if (unlikely((__pyx_t_24 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 138; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":120
+  /* "pyvoro/voroplusplus.pyx":126
  * 
  *   # build the container object
  *   cdef void* container = container_poly_create(             # <<<<<<<<<<<<<<
@@ -1719,7 +1822,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_container = container_poly_create(((double)__pyx_t_13), ((double)__pyx_t_14), ((double)__pyx_t_15), ((double)__pyx_t_16), ((double)__pyx_t_17), ((double)__pyx_t_18), ((int)__pyx_t_19), ((int)__pyx_t_20), ((int)__pyx_t_21), ((int)__pyx_t_22), ((int)__pyx_t_23), ((int)__pyx_t_24));
 
-  /* "pyvoro/voroplusplus.pyx":135
+  /* "pyvoro/voroplusplus.pyx":141
  *   )
  * 
  *   xs = <double*>malloc(sizeof(double) * n)             # <<<<<<<<<<<<<<
@@ -1728,7 +1831,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_xs = ((double *)malloc(((sizeof(double)) * __pyx_v_n)));
 
-  /* "pyvoro/voroplusplus.pyx":136
+  /* "pyvoro/voroplusplus.pyx":142
  * 
  *   xs = <double*>malloc(sizeof(double) * n)
  *   ys = <double*>malloc(sizeof(double) * n)             # <<<<<<<<<<<<<<
@@ -1737,7 +1840,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_ys = ((double *)malloc(((sizeof(double)) * __pyx_v_n)));
 
-  /* "pyvoro/voroplusplus.pyx":137
+  /* "pyvoro/voroplusplus.pyx":143
  *   xs = <double*>malloc(sizeof(double) * n)
  *   ys = <double*>malloc(sizeof(double) * n)
  *   zs = <double*>malloc(sizeof(double) * n)             # <<<<<<<<<<<<<<
@@ -1746,7 +1849,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_zs = ((double *)malloc(((sizeof(double)) * __pyx_v_n)));
 
-  /* "pyvoro/voroplusplus.pyx":138
+  /* "pyvoro/voroplusplus.pyx":144
  *   ys = <double*>malloc(sizeof(double) * n)
  *   zs = <double*>malloc(sizeof(double) * n)
  *   rs = <double*>malloc(sizeof(double) * n)             # <<<<<<<<<<<<<<
@@ -1755,7 +1858,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_rs = ((double *)malloc(((sizeof(double)) * __pyx_v_n)));
 
-  /* "pyvoro/voroplusplus.pyx":141
+  /* "pyvoro/voroplusplus.pyx":147
  * 
  *   # initialise particle positions:
  *   for i from 0 <= i < n:             # <<<<<<<<<<<<<<
@@ -1765,69 +1868,69 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __pyx_t_24 = __pyx_v_n;
   for (__pyx_v_i = 0; __pyx_v_i < __pyx_t_24; __pyx_v_i++) {
 
-    /* "pyvoro/voroplusplus.pyx":142
+    /* "pyvoro/voroplusplus.pyx":148
  *   # initialise particle positions:
  *   for i from 0 <= i < n:
  *     xs[i] = <double>points[i][0]             # <<<<<<<<<<<<<<
  *     ys[i] = <double>points[i][1]
  *     zs[i] = <double>points[i][2]
  */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 148; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     (__pyx_v_xs[__pyx_v_i]) = ((double)__pyx_t_18);
 
-    /* "pyvoro/voroplusplus.pyx":143
+    /* "pyvoro/voroplusplus.pyx":149
  *   for i from 0 <= i < n:
  *     xs[i] = <double>points[i][0]
  *     ys[i] = <double>points[i][1]             # <<<<<<<<<<<<<<
  *     zs[i] = <double>points[i][2]
  *     rs[i] = <double>radii[i]
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_3, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 143; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_4); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 149; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     (__pyx_v_ys[__pyx_v_i]) = ((double)__pyx_t_18);
 
-    /* "pyvoro/voroplusplus.pyx":144
+    /* "pyvoro/voroplusplus.pyx":150
  *     xs[i] = <double>points[i][0]
  *     ys[i] = <double>points[i][1]
  *     zs[i] = <double>points[i][2]             # <<<<<<<<<<<<<<
  *     rs[i] = <double>radii[i]
  * 
  */
-    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 144; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 144; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_4, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 144; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     (__pyx_v_zs[__pyx_v_i]) = ((double)__pyx_t_18);
 
-    /* "pyvoro/voroplusplus.pyx":145
+    /* "pyvoro/voroplusplus.pyx":151
  *     ys[i] = <double>points[i][1]
  *     zs[i] = <double>points[i][2]
  *     rs[i] = <double>radii[i]             # <<<<<<<<<<<<<<
  * 
  *   # and add them to the container:
  */
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_radii, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_radii, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_3); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 151; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     (__pyx_v_rs[__pyx_v_i]) = ((double)__pyx_t_18);
   }
 
-  /* "pyvoro/voroplusplus.pyx":148
+  /* "pyvoro/voroplusplus.pyx":154
  * 
  *   # and add them to the container:
  *   put_particles(container, n, xs, ys, zs, rs)             # <<<<<<<<<<<<<<
@@ -1836,7 +1939,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   put_particles(__pyx_v_container, __pyx_v_n, __pyx_v_xs, __pyx_v_ys, __pyx_v_zs, __pyx_v_rs);
 
-  /* "pyvoro/voroplusplus.pyx":151
+  /* "pyvoro/voroplusplus.pyx":157
  * 
  *   # now compute the tessellation:
  *   voronoi_cells = compute_voronoi_tesselation(container, n)             # <<<<<<<<<<<<<<
@@ -1845,7 +1948,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_voronoi_cells = compute_voronoi_tesselation(__pyx_v_container, __pyx_v_n);
 
-  /* "pyvoro/voroplusplus.pyx":153
+  /* "pyvoro/voroplusplus.pyx":159
  *   voronoi_cells = compute_voronoi_tesselation(container, n)
  * 
  *   if voronoi_cells == NULL:             # <<<<<<<<<<<<<<
@@ -1855,7 +1958,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __pyx_t_8 = ((__pyx_v_voronoi_cells == NULL) != 0);
   if (__pyx_t_8) {
 
-    /* "pyvoro/voroplusplus.pyx":154
+    /* "pyvoro/voroplusplus.pyx":160
  * 
  *   if voronoi_cells == NULL:
  *     dispose_all(container, NULL, 0)             # <<<<<<<<<<<<<<
@@ -1864,23 +1967,23 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     dispose_all(__pyx_v_container, NULL, 0);
 
-    /* "pyvoro/voroplusplus.pyx":155
+    /* "pyvoro/voroplusplus.pyx":161
  *   if voronoi_cells == NULL:
  *     dispose_all(container, NULL, 0)
  *     raise VoronoiPlusPlusError("number of cells found was not equal to the number of particles.")             # <<<<<<<<<<<<<<
  * 
  *   # extract the Voronoi cells into python objects:
  */
-    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_VoronoiPlusPlusError); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_3 = __Pyx_GetModuleGlobalName(__pyx_n_s_VoronoiPlusPlusError); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-    /* "pyvoro/voroplusplus.pyx":153
+    /* "pyvoro/voroplusplus.pyx":159
  *   voronoi_cells = compute_voronoi_tesselation(container, n)
  * 
  *   if voronoi_cells == NULL:             # <<<<<<<<<<<<<<
@@ -1889,67 +1992,76 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   }
 
-  /* "pyvoro/voroplusplus.pyx":158
+  /* "pyvoro/voroplusplus.pyx":164
  * 
  *   # extract the Voronoi cells into python objects:
  *   py_cells = [{'original':p} for p in points]             # <<<<<<<<<<<<<<
  *   cdef vector[double] vertex_positions
  *   cdef void** lists = NULL
  */
-  __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  if (likely(PyList_CheckExact(__pyx_v_points)) || PyTuple_CheckExact(__pyx_v_points)) {
-    __pyx_t_3 = __pyx_v_points; __Pyx_INCREF(__pyx_t_3); __pyx_t_12 = 0;
-    __pyx_t_7 = NULL;
-  } else {
-    __pyx_t_12 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_points); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  for (;;) {
-    if (likely(!__pyx_t_7)) {
-      if (likely(PyList_CheckExact(__pyx_t_3))) {
-        if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_3)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_6 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_6); __pyx_t_12++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_6);
-        #endif
-      } else {
-        if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
-        #if CYTHON_COMPILING_IN_CPYTHON
-        __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_6); __pyx_t_12++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        #else
-        __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        __Pyx_GOTREF(__pyx_t_6);
-        #endif
-      }
+  { /* enter inner scope */
+    PyObject *__pyx_8genexpr1__pyx_v_p = NULL;
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    if (likely(PyList_CheckExact(__pyx_v_points)) || PyTuple_CheckExact(__pyx_v_points)) {
+      __pyx_t_3 = __pyx_v_points; __Pyx_INCREF(__pyx_t_3); __pyx_t_12 = 0;
+      __pyx_t_7 = NULL;
     } else {
-      __pyx_t_6 = __pyx_t_7(__pyx_t_3);
-      if (unlikely(!__pyx_t_6)) {
-        PyObject* exc_type = PyErr_Occurred();
-        if (exc_type) {
-          if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-        }
-        break;
-      }
-      __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_12 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_v_points); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+      __Pyx_GOTREF(__pyx_t_3);
+      __pyx_t_7 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
     }
-    __Pyx_XDECREF_SET(__pyx_v_p, __pyx_t_6);
-    __pyx_t_6 = 0;
-    __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_GOTREF(__pyx_t_6);
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_original, __pyx_v_p) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    if (unlikely(__Pyx_ListComp_Append(__pyx_t_4, (PyObject*)__pyx_t_6))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 158; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  }
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    for (;;) {
+      if (likely(!__pyx_t_7)) {
+        if (likely(PyList_CheckExact(__pyx_t_3))) {
+          if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_3)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_6 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_6); __pyx_t_12++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+          #else
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+          __Pyx_GOTREF(__pyx_t_6);
+          #endif
+        } else {
+          if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_6 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_12); __Pyx_INCREF(__pyx_t_6); __pyx_t_12++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+          #else
+          __pyx_t_6 = PySequence_ITEM(__pyx_t_3, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+          __Pyx_GOTREF(__pyx_t_6);
+          #endif
+        }
+      } else {
+        __pyx_t_6 = __pyx_t_7(__pyx_t_3);
+        if (unlikely(!__pyx_t_6)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_6);
+      }
+      __Pyx_XDECREF_SET(__pyx_8genexpr1__pyx_v_p, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_6 = PyDict_New(); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+      __Pyx_GOTREF(__pyx_t_6);
+      if (PyDict_SetItem(__pyx_t_6, __pyx_n_u_original, __pyx_8genexpr1__pyx_v_p) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_4, (PyObject*)__pyx_t_6))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 164; __pyx_clineno = __LINE__; goto __pyx_L15_error;}
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr1__pyx_v_p);
+    goto __pyx_L18_exit_scope;
+    __pyx_L15_error:;
+    __Pyx_XDECREF(__pyx_8genexpr1__pyx_v_p);
+    goto __pyx_L1_error;
+    __pyx_L18_exit_scope:;
+  } /* exit inner scope */
   __pyx_v_py_cells = ((PyObject*)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":160
+  /* "pyvoro/voroplusplus.pyx":166
  *   py_cells = [{'original':p} for p in points]
  *   cdef vector[double] vertex_positions
  *   cdef void** lists = NULL             # <<<<<<<<<<<<<<
@@ -1958,7 +2070,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_lists = NULL;
 
-  /* "pyvoro/voroplusplus.pyx":161
+  /* "pyvoro/voroplusplus.pyx":167
  *   cdef vector[double] vertex_positions
  *   cdef void** lists = NULL
  *   cdef vector[int]* vptr = NULL             # <<<<<<<<<<<<<<
@@ -1967,7 +2079,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   __pyx_v_vptr = NULL;
 
-  /* "pyvoro/voroplusplus.pyx":162
+  /* "pyvoro/voroplusplus.pyx":168
  *   cdef void** lists = NULL
  *   cdef vector[int]* vptr = NULL
  *   for i from 0 <= i < n:             # <<<<<<<<<<<<<<
@@ -1977,22 +2089,22 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __pyx_t_24 = __pyx_v_n;
   for (__pyx_v_i = 0; __pyx_v_i < __pyx_t_24; __pyx_v_i++) {
 
-    /* "pyvoro/voroplusplus.pyx":163
+    /* "pyvoro/voroplusplus.pyx":169
  *   cdef vector[int]* vptr = NULL
  *   for i from 0 <= i < n:
  *     py_cells[i]['volume'] = float(cell_get_volume(voronoi_cells[i]))             # <<<<<<<<<<<<<<
  *     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])
  *     cell_vertices = []
  */
-    __pyx_t_4 = PyFloat_FromDouble(cell_get_volume((__pyx_v_voronoi_cells[__pyx_v_i]))); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyFloat_FromDouble(cell_get_volume((__pyx_v_voronoi_cells[__pyx_v_i]))); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_3 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_3 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_n_s_volume, __pyx_t_4) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(PyObject_SetItem(__pyx_t_3, __pyx_n_u_volume, __pyx_t_4) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":164
+    /* "pyvoro/voroplusplus.pyx":170
  *   for i from 0 <= i < n:
  *     py_cells[i]['volume'] = float(cell_get_volume(voronoi_cells[i]))
  *     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])             # <<<<<<<<<<<<<<
@@ -2001,19 +2113,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     __pyx_v_vertex_positions = cell_get_vertex_positions((__pyx_v_voronoi_cells[__pyx_v_i]), (__pyx_v_xs[__pyx_v_i]), (__pyx_v_ys[__pyx_v_i]), (__pyx_v_zs[__pyx_v_i]));
 
-    /* "pyvoro/voroplusplus.pyx":165
+    /* "pyvoro/voroplusplus.pyx":171
  *     py_cells[i]['volume'] = float(cell_get_volume(voronoi_cells[i]))
  *     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])
  *     cell_vertices = []             # <<<<<<<<<<<<<<
  *     for j from 0 <= j < vertex_positions.size() // 3:
  *       cell_vertices.append(vector_class([
  */
-    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 165; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 171; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_cell_vertices, ((PyObject*)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":166
+    /* "pyvoro/voroplusplus.pyx":172
  *     vertex_positions = cell_get_vertex_positions(voronoi_cells[i], xs[i], ys[i], zs[i])
  *     cell_vertices = []
  *     for j from 0 <= j < vertex_positions.size() // 3:             # <<<<<<<<<<<<<<
@@ -2023,44 +2135,44 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
     __pyx_t_25 = (__pyx_v_vertex_positions.size() / 3);
     for (__pyx_v_j = 0; __pyx_v_j < __pyx_t_25; __pyx_v_j++) {
 
-      /* "pyvoro/voroplusplus.pyx":168
+      /* "pyvoro/voroplusplus.pyx":174
  *     for j from 0 <= j < vertex_positions.size() // 3:
  *       cell_vertices.append(vector_class([
  *         float(vertex_positions[3 * j]),             # <<<<<<<<<<<<<<
  *         float(vertex_positions[3 * j + 1]),
  *         float(vertex_positions[3 * j + 2])
  */
-      __pyx_t_3 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[(3 * __pyx_v_j)]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 168; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[(3 * __pyx_v_j)]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 174; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
 
-      /* "pyvoro/voroplusplus.pyx":169
+      /* "pyvoro/voroplusplus.pyx":175
  *       cell_vertices.append(vector_class([
  *         float(vertex_positions[3 * j]),
  *         float(vertex_positions[3 * j + 1]),             # <<<<<<<<<<<<<<
  *         float(vertex_positions[3 * j + 2])
  *       ]))
  */
-      __pyx_t_6 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 1)]))); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 169; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 1)]))); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_6);
 
-      /* "pyvoro/voroplusplus.pyx":170
+      /* "pyvoro/voroplusplus.pyx":176
  *         float(vertex_positions[3 * j]),
  *         float(vertex_positions[3 * j + 1]),
  *         float(vertex_positions[3 * j + 2])             # <<<<<<<<<<<<<<
  *       ]))
  *     py_cells[i]['vertices'] = cell_vertices
  */
-      __pyx_t_2 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 2)]))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 170; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 2)]))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 176; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "pyvoro/voroplusplus.pyx":167
+      /* "pyvoro/voroplusplus.pyx":173
  *     cell_vertices = []
  *     for j from 0 <= j < vertex_positions.size() // 3:
  *       cell_vertices.append(vector_class([             # <<<<<<<<<<<<<<
  *         float(vertex_positions[3 * j]),
  *         float(vertex_positions[3 * j + 1]),
  */
-      __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_11 = PyList_New(3); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_GIVEREF(__pyx_t_3);
       PyList_SET_ITEM(__pyx_t_11, 0, __pyx_t_3);
@@ -2083,38 +2195,38 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
         }
       }
       if (!__pyx_t_6) {
-        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_GOTREF(__pyx_t_4);
       } else {
-        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6); __pyx_t_6 = NULL;
         __Pyx_GIVEREF(__pyx_t_11);
         PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_11);
         __pyx_t_11 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       }
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_cell_vertices, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 167; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_cell_vertices, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
 
-    /* "pyvoro/voroplusplus.pyx":172
+    /* "pyvoro/voroplusplus.pyx":178
  *         float(vertex_positions[3 * j + 2])
  *       ]))
  *     py_cells[i]['vertices'] = cell_vertices             # <<<<<<<<<<<<<<
  * 
  *     lists = cell_get_vertex_adjacency(voronoi_cells[i])
  */
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_s_vertices, __pyx_v_cell_vertices) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 172; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_u_vertices, __pyx_v_cell_vertices) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":174
+    /* "pyvoro/voroplusplus.pyx":180
  *     py_cells[i]['vertices'] = cell_vertices
  * 
  *     lists = cell_get_vertex_adjacency(voronoi_cells[i])             # <<<<<<<<<<<<<<
@@ -2123,19 +2235,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     __pyx_v_lists = cell_get_vertex_adjacency((__pyx_v_voronoi_cells[__pyx_v_i]));
 
-    /* "pyvoro/voroplusplus.pyx":175
+    /* "pyvoro/voroplusplus.pyx":181
  * 
  *     lists = cell_get_vertex_adjacency(voronoi_cells[i])
  *     adjacency = []             # <<<<<<<<<<<<<<
  *     j = 0
  *     while lists[j] != NULL:
  */
-    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_adjacency, ((PyObject*)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":176
+    /* "pyvoro/voroplusplus.pyx":182
  *     lists = cell_get_vertex_adjacency(voronoi_cells[i])
  *     adjacency = []
  *     j = 0             # <<<<<<<<<<<<<<
@@ -2144,7 +2256,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     __pyx_v_j = 0;
 
-    /* "pyvoro/voroplusplus.pyx":177
+    /* "pyvoro/voroplusplus.pyx":183
  *     adjacency = []
  *     j = 0
  *     while lists[j] != NULL:             # <<<<<<<<<<<<<<
@@ -2155,19 +2267,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_t_8 = (((__pyx_v_lists[__pyx_v_j]) != NULL) != 0);
       if (!__pyx_t_8) break;
 
-      /* "pyvoro/voroplusplus.pyx":178
+      /* "pyvoro/voroplusplus.pyx":184
  *     j = 0
  *     while lists[j] != NULL:
  *       py_vertex_adjacency = []             # <<<<<<<<<<<<<<
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size():
  */
-      __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 178; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 184; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_XDECREF_SET(__pyx_v_py_vertex_adjacency, ((PyObject*)__pyx_t_4));
       __pyx_t_4 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":179
+      /* "pyvoro/voroplusplus.pyx":185
  *     while lists[j] != NULL:
  *       py_vertex_adjacency = []
  *       vptr = <vector[int]*>lists[j]             # <<<<<<<<<<<<<<
@@ -2176,7 +2288,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
       __pyx_v_vptr = ((std::vector<int>  *)(__pyx_v_lists[__pyx_v_j]));
 
-      /* "pyvoro/voroplusplus.pyx":180
+      /* "pyvoro/voroplusplus.pyx":186
  *       py_vertex_adjacency = []
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size():             # <<<<<<<<<<<<<<
@@ -2186,28 +2298,28 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_t_25 = __pyx_v_vptr->size();
       for (__pyx_v_k = 0; __pyx_v_k < __pyx_t_25; __pyx_v_k++) {
 
-        /* "pyvoro/voroplusplus.pyx":181
+        /* "pyvoro/voroplusplus.pyx":187
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size():
  *         py_vertex_adjacency.append(int(deref(vptr)[k]))             # <<<<<<<<<<<<<<
  *       del vptr
  *       adjacency.append(py_vertex_adjacency)
  */
-        __pyx_t_4 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_py_vertex_adjacency, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_py_vertex_adjacency, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 187; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
 
-      /* "pyvoro/voroplusplus.pyx":182
+      /* "pyvoro/voroplusplus.pyx":188
  *       for k from 0 <= k < vptr.size():
  *         py_vertex_adjacency.append(int(deref(vptr)[k]))
  *       del vptr             # <<<<<<<<<<<<<<
@@ -2216,16 +2328,16 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
       delete __pyx_v_vptr;
 
-      /* "pyvoro/voroplusplus.pyx":183
+      /* "pyvoro/voroplusplus.pyx":189
  *         py_vertex_adjacency.append(int(deref(vptr)[k]))
  *       del vptr
  *       adjacency.append(py_vertex_adjacency)             # <<<<<<<<<<<<<<
  *       j += 1
  *     free(lists)
  */
-      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_adjacency, __pyx_v_py_vertex_adjacency); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 183; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_adjacency, __pyx_v_py_vertex_adjacency); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-      /* "pyvoro/voroplusplus.pyx":184
+      /* "pyvoro/voroplusplus.pyx":190
  *       del vptr
  *       adjacency.append(py_vertex_adjacency)
  *       j += 1             # <<<<<<<<<<<<<<
@@ -2235,7 +2347,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_v_j = (__pyx_v_j + 1);
     }
 
-    /* "pyvoro/voroplusplus.pyx":185
+    /* "pyvoro/voroplusplus.pyx":191
  *       adjacency.append(py_vertex_adjacency)
  *       j += 1
  *     free(lists)             # <<<<<<<<<<<<<<
@@ -2244,19 +2356,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     free(__pyx_v_lists);
 
-    /* "pyvoro/voroplusplus.pyx":186
+    /* "pyvoro/voroplusplus.pyx":192
  *       j += 1
  *     free(lists)
  *     py_cells[i]['adjacency'] = adjacency             # <<<<<<<<<<<<<<
  * 
  *     lists = cell_get_faces(voronoi_cells[i])
  */
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_s_adjacency, __pyx_v_adjacency) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_u_adjacency, __pyx_v_adjacency) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":188
+    /* "pyvoro/voroplusplus.pyx":194
  *     py_cells[i]['adjacency'] = adjacency
  * 
  *     lists = cell_get_faces(voronoi_cells[i])             # <<<<<<<<<<<<<<
@@ -2265,19 +2377,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     __pyx_v_lists = cell_get_faces((__pyx_v_voronoi_cells[__pyx_v_i]));
 
-    /* "pyvoro/voroplusplus.pyx":189
+    /* "pyvoro/voroplusplus.pyx":195
  * 
  *     lists = cell_get_faces(voronoi_cells[i])
  *     faces = []             # <<<<<<<<<<<<<<
  *     j = 0
  *     while lists[j] != NULL:
  */
-    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 189; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_XDECREF_SET(__pyx_v_faces, ((PyObject*)__pyx_t_4));
     __pyx_t_4 = 0;
 
-    /* "pyvoro/voroplusplus.pyx":190
+    /* "pyvoro/voroplusplus.pyx":196
  *     lists = cell_get_faces(voronoi_cells[i])
  *     faces = []
  *     j = 0             # <<<<<<<<<<<<<<
@@ -2286,7 +2398,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     __pyx_v_j = 0;
 
-    /* "pyvoro/voroplusplus.pyx":191
+    /* "pyvoro/voroplusplus.pyx":197
  *     faces = []
  *     j = 0
  *     while lists[j] != NULL:             # <<<<<<<<<<<<<<
@@ -2297,19 +2409,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_t_8 = (((__pyx_v_lists[__pyx_v_j]) != NULL) != 0);
       if (!__pyx_t_8) break;
 
-      /* "pyvoro/voroplusplus.pyx":192
+      /* "pyvoro/voroplusplus.pyx":198
  *     j = 0
  *     while lists[j] != NULL:
  *       face_vertices = []             # <<<<<<<<<<<<<<
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size() - 1:
  */
-      __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 192; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PyList_New(0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 198; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_XDECREF_SET(__pyx_v_face_vertices, ((PyObject*)__pyx_t_4));
       __pyx_t_4 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":193
+      /* "pyvoro/voroplusplus.pyx":199
  *     while lists[j] != NULL:
  *       face_vertices = []
  *       vptr = <vector[int]*>lists[j]             # <<<<<<<<<<<<<<
@@ -2318,7 +2430,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
       __pyx_v_vptr = ((std::vector<int>  *)(__pyx_v_lists[__pyx_v_j]));
 
-      /* "pyvoro/voroplusplus.pyx":194
+      /* "pyvoro/voroplusplus.pyx":200
  *       face_vertices = []
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size() - 1:             # <<<<<<<<<<<<<<
@@ -2328,69 +2440,69 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_t_25 = (__pyx_v_vptr->size() - 1);
       for (__pyx_v_k = 0; __pyx_v_k < __pyx_t_25; __pyx_v_k++) {
 
-        /* "pyvoro/voroplusplus.pyx":195
+        /* "pyvoro/voroplusplus.pyx":201
  *       vptr = <vector[int]*>lists[j]
  *       for k from 0 <= k < vptr.size() - 1:
  *         face_vertices.append(int(deref(vptr)[k]))             # <<<<<<<<<<<<<<
  *       faces.append({
  *         'adjacent_cell' : int(deref(vptr)[vptr.size() - 1]),
  */
-        __pyx_t_4 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GIVEREF(__pyx_t_4);
         PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
         __pyx_t_4 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_2, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_face_vertices, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 195; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_face_vertices, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 201; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       }
 
-      /* "pyvoro/voroplusplus.pyx":197
+      /* "pyvoro/voroplusplus.pyx":203
  *         face_vertices.append(int(deref(vptr)[k]))
  *       faces.append({
  *         'adjacent_cell' : int(deref(vptr)[vptr.size() - 1]),             # <<<<<<<<<<<<<<
  *         'vertices' : face_vertices
  *       })
  */
-      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[(__pyx_v_vptr->size() - 1)])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[(__pyx_v_vptr->size() - 1)])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_3 = PyTuple_New(1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GIVEREF(__pyx_t_2);
       PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2);
       __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_adjacent_cell, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_u_adjacent_cell, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":199
+      /* "pyvoro/voroplusplus.pyx":205
  *         'adjacent_cell' : int(deref(vptr)[vptr.size() - 1]),
  *         'vertices' : face_vertices
  *       })             # <<<<<<<<<<<<<<
  *       del vptr
  *       j += 1
  */
-      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_vertices, __pyx_v_face_vertices) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_u_vertices, __pyx_v_face_vertices) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-      /* "pyvoro/voroplusplus.pyx":196
+      /* "pyvoro/voroplusplus.pyx":202
  *       for k from 0 <= k < vptr.size() - 1:
  *         face_vertices.append(int(deref(vptr)[k]))
  *       faces.append({             # <<<<<<<<<<<<<<
  *         'adjacent_cell' : int(deref(vptr)[vptr.size() - 1]),
  *         'vertices' : face_vertices
  */
-      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_faces, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_26 = __Pyx_PyList_Append(__pyx_v_faces, __pyx_t_4); if (unlikely(__pyx_t_26 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 202; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "pyvoro/voroplusplus.pyx":200
+      /* "pyvoro/voroplusplus.pyx":206
  *         'vertices' : face_vertices
  *       })
  *       del vptr             # <<<<<<<<<<<<<<
@@ -2399,7 +2511,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
       delete __pyx_v_vptr;
 
-      /* "pyvoro/voroplusplus.pyx":201
+      /* "pyvoro/voroplusplus.pyx":207
  *       })
  *       del vptr
  *       j += 1             # <<<<<<<<<<<<<<
@@ -2409,7 +2521,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
       __pyx_v_j = (__pyx_v_j + 1);
     }
 
-    /* "pyvoro/voroplusplus.pyx":202
+    /* "pyvoro/voroplusplus.pyx":208
  *       del vptr
  *       j += 1
  *     free(lists)             # <<<<<<<<<<<<<<
@@ -2418,20 +2530,20 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
     free(__pyx_v_lists);
 
-    /* "pyvoro/voroplusplus.pyx":203
+    /* "pyvoro/voroplusplus.pyx":209
  *       j += 1
  *     free(lists)
  *     py_cells[i]['faces'] = faces             # <<<<<<<<<<<<<<
  * 
  *   # finally, tidy up.
  */
-    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __pyx_t_4 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_4 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
     __Pyx_GOTREF(__pyx_t_4);
-    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_s_faces, __pyx_v_faces) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 203; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (unlikely(PyObject_SetItem(__pyx_t_4, __pyx_n_u_faces, __pyx_v_faces) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 209; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
 
-  /* "pyvoro/voroplusplus.pyx":206
+  /* "pyvoro/voroplusplus.pyx":212
  * 
  *   # finally, tidy up.
  *   dispose_all(container, voronoi_cells, n)             # <<<<<<<<<<<<<<
@@ -2440,7 +2552,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   dispose_all(__pyx_v_container, __pyx_v_voronoi_cells, __pyx_v_n);
 
-  /* "pyvoro/voroplusplus.pyx":207
+  /* "pyvoro/voroplusplus.pyx":213
  *   # finally, tidy up.
  *   dispose_all(container, voronoi_cells, n)
  *   free(xs)             # <<<<<<<<<<<<<<
@@ -2449,7 +2561,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   free(__pyx_v_xs);
 
-  /* "pyvoro/voroplusplus.pyx":208
+  /* "pyvoro/voroplusplus.pyx":214
  *   dispose_all(container, voronoi_cells, n)
  *   free(xs)
  *   free(ys)             # <<<<<<<<<<<<<<
@@ -2458,7 +2570,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   free(__pyx_v_ys);
 
-  /* "pyvoro/voroplusplus.pyx":209
+  /* "pyvoro/voroplusplus.pyx":215
  *   free(xs)
  *   free(ys)
  *   free(zs)             # <<<<<<<<<<<<<<
@@ -2467,7 +2579,7 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   free(__pyx_v_zs);
 
-  /* "pyvoro/voroplusplus.pyx":210
+  /* "pyvoro/voroplusplus.pyx":216
  *   free(ys)
  *   free(zs)
  *   free(rs)             # <<<<<<<<<<<<<<
@@ -2476,18 +2588,19 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
  */
   free(__pyx_v_rs);
 
-  /* "pyvoro/voroplusplus.pyx":211
+  /* "pyvoro/voroplusplus.pyx":217
  *   free(zs)
  *   free(rs)
  *   return py_cells             # <<<<<<<<<<<<<<
  * 
+ * def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=[]):
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v_py_cells);
   __pyx_r = __pyx_v_py_cells;
   goto __pyx_L0;
 
-  /* "pyvoro/voroplusplus.pyx":61
+  /* "pyvoro/voroplusplus.pyx":70
  * 
  * 
  * def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):             # <<<<<<<<<<<<<<
@@ -2515,7 +2628,2600 @@ static PyObject *__pyx_pf_6pyvoro_12voroplusplus_2compute_voronoi(CYTHON_UNUSED 
   __Pyx_XDECREF(__pyx_v_py_vertex_adjacency);
   __Pyx_XDECREF(__pyx_v_faces);
   __Pyx_XDECREF(__pyx_v_face_vertices);
-  __Pyx_XDECREF(__pyx_v_p);
+  __Pyx_XDECREF(__pyx_v_radii);
+  __Pyx_XDECREF(__pyx_v_periodic);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyvoro/voroplusplus.pyx":219
+ *   return py_cells
+ * 
+ * def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=[]):             # <<<<<<<<<<<<<<
+ *   """
+ *   Same as compute_voronoi method with lower memory requirements and extra arguments for
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pyvoro_12voroplusplus_5compute_3d_voronoi(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_6pyvoro_12voroplusplus_4compute_3d_voronoi[] = "\n  Same as compute_voronoi method with lower memory requirements and extra arguments for\n  controlling the points to be used for the tessellation and the properties of the voronoi\n  cells to be retrieved.  \nInput arg formats:\n  points = list of 3-vectors (lists or compatible class instances) of doubles,\n    being the coordinates of the points to voronoi-tesselate.\n  limits = 3-list of 2-lists, specifying the start and end sizes of the box the\n    points are in.\n  dispersion = max distance between two points that might be adjacent (sets\n    voro++ block sizes.)\n  radii (optional) = list of python floats as the sphere radii of the points,\n    for radical (weighted) tessellation.\n  periodic (optional) = 3-list of bools indicating x, y and z periodicity of\n    the system box.\n  excluded = boolean indicating if a point should be considered or not.\n  properties = (optional) a str list with the properties to retrieve and\n    return for each cell. The available properties are:\n    'original'  : 3-vectors, point coordinates\n    'radius'    : float, point radius\n    'volume'    : float, cell volume\n    'surface'   : float, cell surfae\n    'rmaxsq'    : float, the maximum radius squared of a vertex from the center of the cell\n    'vertices'  : list (3-vectors), positions of cell verices\n    'normals'   : lits (3-vectors), faces normal vectors\n    'areas'     : list (flost), faces surface area\n    'adjacency' : list (list(int)), for eaech cell-vertice the adjacent cell-vertices\n    'faces'     : list ({}),[{'vertices':[],'adjacent_cell'}:int] for each adjacent cell\n                  its id and the list of the common vertices.\n    'neighbors' : list (int), the indxes of the neighbor cells.\n    If this argument is ommited or the provided list in empty, all the\n    available properties will be retrieved.\nOutput format is a list of cells as follows (the keys of the dictionaries\ndepends on the properties argument):\n  [ # list in same order as origin""al points.\n    {\n      'original' : point[index]   # the original instance from args\n      'radius' : 1.0,             # point radius\n      'volume' : 1.0,\n      'surface' : 1.0,\n      'rmaxsq' : 1.0,\n      'vertices' : [[1.0, 2.0, 3.0], ...], # positions of vertices\n      'normals' : [[1.0, 2.0, 3.0], ...],  # faces normal vectors\n      'areas' : [1.0, 2.0, 3.0, ...],      # faces surface area\n      'adjacency' : [[1,3,4, ...], ...],   # cell-vertices adjacent to i by index\n      'faces' : [\n        {\n          'vertices' : [7,4,13, ...], # vertex ids in loop order\n          'adjacent_cell' : 34 # *cell* id, negative if a wall\n        }, ...]\n      'neighbors' : [1,2,3,...]       # neighbor cells\n    },\n    ...\n  ]\n  NOTE: The class from items in input points list is reused for all 3-vector\n  outputs. It must have a constructor which accepts a list of 3 python floats\n  (python's list type does satisfy this requirement.)\n  ";
+static PyMethodDef __pyx_mdef_6pyvoro_12voroplusplus_5compute_3d_voronoi = {"compute_3d_voronoi", (PyCFunction)__pyx_pw_6pyvoro_12voroplusplus_5compute_3d_voronoi, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6pyvoro_12voroplusplus_4compute_3d_voronoi};
+static PyObject *__pyx_pw_6pyvoro_12voroplusplus_5compute_3d_voronoi(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_points = 0;
+  PyObject *__pyx_v_limits = 0;
+  PyObject *__pyx_v_dispersion = 0;
+  PyObject *__pyx_v_radii = 0;
+  PyObject *__pyx_v_periodic = 0;
+  PyObject *__pyx_v_excluded = 0;
+  PyObject *__pyx_v_properties = 0;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("compute_3d_voronoi (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_points,&__pyx_n_s_limits,&__pyx_n_s_dispersion,&__pyx_n_s_radii,&__pyx_n_s_periodic,&__pyx_n_s_excluded,&__pyx_n_s_properties,0};
+    PyObject* values[7] = {0,0,0,0,0,0,0};
+    values[3] = __pyx_k__4;
+    values[4] = __pyx_k__5;
+    values[5] = __pyx_k__6;
+    values[6] = __pyx_k__7;
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_points)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        case  1:
+        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_limits)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("compute_3d_voronoi", 0, 3, 7, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  2:
+        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_dispersion)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("compute_3d_voronoi", 0, 3, 7, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        }
+        case  3:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_radii);
+          if (value) { values[3] = value; kw_args--; }
+        }
+        case  4:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_periodic);
+          if (value) { values[4] = value; kw_args--; }
+        }
+        case  5:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_excluded);
+          if (value) { values[5] = value; kw_args--; }
+        }
+        case  6:
+        if (kw_args > 0) {
+          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_properties);
+          if (value) { values[6] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "compute_3d_voronoi") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
+        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
+        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
+        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_points = values[0];
+    __pyx_v_limits = values[1];
+    __pyx_v_dispersion = values[2];
+    __pyx_v_radii = values[3];
+    __pyx_v_periodic = values[4];
+    __pyx_v_excluded = values[5];
+    __pyx_v_properties = values[6];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("compute_3d_voronoi", 0, 3, 7, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("pyvoro.voroplusplus.compute_3d_voronoi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_6pyvoro_12voroplusplus_4compute_3d_voronoi(__pyx_self, __pyx_v_points, __pyx_v_limits, __pyx_v_dispersion, __pyx_v_radii, __pyx_v_periodic, __pyx_v_excluded, __pyx_v_properties);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pyvoro_12voroplusplus_4compute_3d_voronoi(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_points, PyObject *__pyx_v_limits, PyObject *__pyx_v_dispersion, PyObject *__pyx_v_radii, PyObject *__pyx_v_periodic, PyObject *__pyx_v_excluded, PyObject *__pyx_v_properties) {
+  int __pyx_v_n;
+  int __pyx_v_i;
+  int __pyx_v__i;
+  int __pyx_v_j;
+  int __pyx_v_nexclude;
+  PyObject *__pyx_v__xn = 0;
+  std::map<int,int>  __pyx_v__xmap;
+  double *__pyx_v_xs;
+  double *__pyx_v_ys;
+  double *__pyx_v_zs;
+  double *__pyx_v_rs;
+  PyObject *__pyx_v_vector_class = NULL;
+  PyObject *__pyx_v_blocks = NULL;
+  void *__pyx_v_container;
+  void *__pyx_v_c_loop_all;
+  void *__pyx_v_cellptr;
+  PyObject *__pyx_v_py_cells = NULL;
+  std::vector<double>  __pyx_v_vertex_positions;
+  void **__pyx_v_lists;
+  std::vector<int>  *__pyx_v_vptr;
+  int __pyx_v_found;
+  int __pyx_v_found_;
+  PyObject *__pyx_v__isempy = NULL;
+  int __pyx_v_GEToriginal;
+  int __pyx_v_GETradius;
+  int __pyx_v_GETvolume;
+  int __pyx_v_GETsurface;
+  int __pyx_v_GETrmaxsq;
+  int __pyx_v_GETvertices;
+  int __pyx_v_GETnormals;
+  int __pyx_v_GETareas;
+  int __pyx_v_GETadjacency;
+  int __pyx_v_GETfaces;
+  int __pyx_v_GETneighbors;
+  PyObject *__pyx_v_py_cell = NULL;
+  PyObject *__pyx_v_cell_vertices = NULL;
+  std::vector<double>  __pyx_v_normals;
+  PyObject *__pyx_v_face_normals = NULL;
+  std::vector<double>  __pyx_v_areas;
+  PyObject *__pyx_v_face_areas = NULL;
+  PyObject *__pyx_v_adjacency = NULL;
+  PyObject *__pyx_v_py_vertex_adjacency = NULL;
+  long __pyx_v_k;
+  PyObject *__pyx_v_faces = NULL;
+  PyObject *__pyx_v_face_vertices = NULL;
+  PyObject *__pyx_v_adjacent = NULL;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  Py_ssize_t __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *(*__pyx_t_8)(PyObject *);
+  int __pyx_t_9;
+  long __pyx_t_10;
+  PyObject *__pyx_t_11 = NULL;
+  PyObject *__pyx_t_12 = NULL;
+  Py_ssize_t __pyx_t_13;
+  double __pyx_t_14;
+  double __pyx_t_15;
+  double __pyx_t_16;
+  double __pyx_t_17;
+  double __pyx_t_18;
+  double __pyx_t_19;
+  int __pyx_t_20;
+  int __pyx_t_21;
+  int __pyx_t_22;
+  int __pyx_t_23;
+  int __pyx_t_24;
+  size_t __pyx_t_25;
+  int __pyx_t_26;
+  int __pyx_t_27;
+  int __pyx_t_28;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("compute_3d_voronoi", 0);
+  __Pyx_INCREF(__pyx_v_radii);
+  __Pyx_INCREF(__pyx_v_periodic);
+
+  /* "pyvoro/voroplusplus.pyx":278
+ *   (python's list type does satisfy this requirement.)
+ *   """
+ *   cdef int n = len(points), i, _i, j, nexclude = sum(excluded)             # <<<<<<<<<<<<<<
+ *   cdef _xn = n - nexclude
+ *   cdef map[int,int] _xmap
+ */
+  __pyx_t_1 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_v_n = __pyx_t_1;
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_v_excluded);
+  __Pyx_GIVEREF(__pyx_v_excluded);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_excluded);
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_sum, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_3); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_v_nexclude = __pyx_t_4;
+
+  /* "pyvoro/voroplusplus.pyx":279
+ *   """
+ *   cdef int n = len(points), i, _i, j, nexclude = sum(excluded)
+ *   cdef _xn = n - nexclude             # <<<<<<<<<<<<<<
+ *   cdef map[int,int] _xmap
+ *   cdef double *xs, *ys, *zs, *rs
+ */
+  __pyx_t_3 = __Pyx_PyInt_From_int((__pyx_v_n - __pyx_v_nexclude)); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 279; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_v__xn = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":284
+ *   cdef void** voronoi_cells
+ * 
+ *   vector_class = get_constructor( points[0])             # <<<<<<<<<<<<<<
+ * 
+ *   periodic = [1 if p else 0 for p in periodic]
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_get_constructor); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_points, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_6) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
+  } else {
+    __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6); __pyx_t_6 = NULL;
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_5);
+    __pyx_t_5 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_7, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 284; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_vector_class = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":286
+ *   vector_class = get_constructor( points[0])
+ * 
+ *   periodic = [1 if p else 0 for p in periodic]             # <<<<<<<<<<<<<<
+ * 
+ *   # we must make sure we have at least one block, or voro++ will segfault when
+ */
+  { /* enter inner scope */
+    PyObject *__pyx_8genexpr2__pyx_v_p = NULL;
+    __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    if (likely(PyList_CheckExact(__pyx_v_periodic)) || PyTuple_CheckExact(__pyx_v_periodic)) {
+      __pyx_t_2 = __pyx_v_periodic; __Pyx_INCREF(__pyx_t_2); __pyx_t_1 = 0;
+      __pyx_t_8 = NULL;
+    } else {
+      __pyx_t_1 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_periodic); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_8 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+    }
+    for (;;) {
+      if (likely(!__pyx_t_8)) {
+        if (likely(PyList_CheckExact(__pyx_t_2))) {
+          if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_2)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_7 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_7); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          #else
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          __Pyx_GOTREF(__pyx_t_7);
+          #endif
+        } else {
+          if (__pyx_t_1 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
+          #if CYTHON_COMPILING_IN_CPYTHON
+          __pyx_t_7 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_1); __Pyx_INCREF(__pyx_t_7); __pyx_t_1++; if (unlikely(0 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          #else
+          __pyx_t_7 = PySequence_ITEM(__pyx_t_2, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          __Pyx_GOTREF(__pyx_t_7);
+          #endif
+        }
+      } else {
+        __pyx_t_7 = __pyx_t_8(__pyx_t_2);
+        if (unlikely(!__pyx_t_7)) {
+          PyObject* exc_type = PyErr_Occurred();
+          if (exc_type) {
+            if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
+            else {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+          }
+          break;
+        }
+        __Pyx_GOTREF(__pyx_t_7);
+      }
+      __Pyx_XDECREF_SET(__pyx_8genexpr2__pyx_v_p, __pyx_t_7);
+      __pyx_t_7 = 0;
+      __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_8genexpr2__pyx_v_p); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      if (__pyx_t_9) {
+        __Pyx_INCREF(__pyx_int_1);
+        __pyx_t_7 = __pyx_int_1;
+      } else {
+        __Pyx_INCREF(__pyx_int_0);
+        __pyx_t_7 = __pyx_int_0;
+      }
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_3, (PyObject*)__pyx_t_7))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 286; __pyx_clineno = __LINE__; goto __pyx_L5_error;}
+      __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_p);
+    goto __pyx_L8_exit_scope;
+    __pyx_L5_error:;
+    __Pyx_XDECREF(__pyx_8genexpr2__pyx_v_p);
+    goto __pyx_L1_error;
+    __pyx_L8_exit_scope:;
+  } /* exit inner scope */
+  __Pyx_DECREF_SET(__pyx_v_periodic, __pyx_t_3);
+  __pyx_t_3 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":292
+ * 
+ *   blocks = [
+ *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),             # <<<<<<<<<<<<<<
+ *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
+ *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
+ */
+  __pyx_t_2 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_floor); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Subtract(__pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_PyNumber_Divide(__pyx_t_2, __pyx_v_dispersion); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_7))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_7);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_7, function);
+    }
+  }
+  if (!__pyx_t_2) {
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_GOTREF(__pyx_t_3);
+  } else {
+    __pyx_t_5 = PyTuple_New(1+1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2); __pyx_t_2 = NULL;
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_5, 0+1, __pyx_t_6);
+    __pyx_t_6 = 0;
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_5, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = PyNumber_Int(__pyx_t_3); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_7);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_10 = 1;
+  __pyx_t_5 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PyObject_RichCompare(__pyx_t_7, __pyx_t_5, Py_GT); __Pyx_XGOTREF(__pyx_t_6); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_6); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (__pyx_t_9) {
+    __Pyx_INCREF(__pyx_t_7);
+    __pyx_t_3 = __pyx_t_7;
+  } else {
+    __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_3 = __pyx_t_6;
+    __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":293
+ *   blocks = [
+ *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
+ *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),             # <<<<<<<<<<<<<<
+ *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])
+ *   ]
+ */
+  __pyx_t_6 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_floor); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_11 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_11);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = PyNumber_Subtract(__pyx_t_2, __pyx_t_11); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = __Pyx_PyNumber_Divide(__pyx_t_6, __pyx_v_dispersion); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_11);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_6 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_6)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_6);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+    }
+  }
+  if (!__pyx_t_6) {
+    __pyx_t_7 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __Pyx_GOTREF(__pyx_t_7);
+  } else {
+    __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6); __pyx_t_6 = NULL;
+    __Pyx_GIVEREF(__pyx_t_11);
+    PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_11);
+    __pyx_t_11 = 0;
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PyNumber_Int(__pyx_t_7); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_10 = 1;
+  __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_11 = PyObject_RichCompare(__pyx_t_5, __pyx_t_2, Py_GT); __Pyx_XGOTREF(__pyx_t_11); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_11); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  if (__pyx_t_9) {
+    __Pyx_INCREF(__pyx_t_5);
+    __pyx_t_7 = __pyx_t_5;
+  } else {
+    __pyx_t_11 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_11);
+    __pyx_t_7 = __pyx_t_11;
+    __pyx_t_11 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":294
+ *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
+ *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
+ *     max([1, int(math.floor((limits[2][1] - limits[2][0]) / dispersion))])             # <<<<<<<<<<<<<<
+ *   ]
+ * 
+ */
+  __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_math); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_11);
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_floor); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_11 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_11);
+  __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_11, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_6 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_11 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_11);
+  __pyx_t_12 = __Pyx_GetItemInt(__pyx_t_11, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_12 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = PyNumber_Subtract(__pyx_t_6, __pyx_t_12); if (unlikely(!__pyx_t_11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_11);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_12 = __Pyx_PyNumber_Divide(__pyx_t_11, __pyx_v_dispersion); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_12);
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = NULL;
+  if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_11)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_11);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  if (!__pyx_t_11) {
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_12); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    __Pyx_GOTREF(__pyx_t_5);
+  } else {
+    __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_11); __pyx_t_11 = NULL;
+    __Pyx_GIVEREF(__pyx_t_12);
+    PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_12);
+    __pyx_t_12 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_6, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = PyNumber_Int(__pyx_t_5); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_10 = 1;
+  __pyx_t_6 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_12 = PyObject_RichCompare(__pyx_t_2, __pyx_t_6, Py_GT); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  if (__pyx_t_9) {
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_t_5 = __pyx_t_2;
+  } else {
+    __pyx_t_12 = __Pyx_PyInt_From_long(__pyx_t_10); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_12);
+    __pyx_t_5 = __pyx_t_12;
+    __pyx_t_12 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":291
+ *   # we look for cells.
+ * 
+ *   blocks = [             # <<<<<<<<<<<<<<
+ *     max([1, int(math.floor((limits[0][1] - limits[0][0]) / dispersion))]),
+ *     max([1, int(math.floor((limits[1][1] - limits[1][0]) / dispersion))]),
+ */
+  __pyx_t_2 = PyList_New(3); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_3);
+  PyList_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
+  __Pyx_INCREF(__pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_7);
+  PyList_SET_ITEM(__pyx_t_2, 1, __pyx_t_7);
+  __Pyx_INCREF(__pyx_t_5);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyList_SET_ITEM(__pyx_t_2, 2, __pyx_t_5);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_blocks = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":298
+ * 
+ *   # if no radii provided, we still run the radical routine, but with all the same small radius.
+ *   if len(radii) != len(points):             # <<<<<<<<<<<<<<
+ *     radii = [dispersion / 10.] * len(points)
+ * 
+ */
+  __pyx_t_1 = PyObject_Length(__pyx_v_radii); if (unlikely(__pyx_t_1 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_13 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_13 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 298; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_9 = ((__pyx_t_1 != __pyx_t_13) != 0);
+  if (__pyx_t_9) {
+
+    /* "pyvoro/voroplusplus.pyx":299
+ *   # if no radii provided, we still run the radical routine, but with all the same small radius.
+ *   if len(radii) != len(points):
+ *     radii = [dispersion / 10.] * len(points)             # <<<<<<<<<<<<<<
+ * 
+ *   # build the container object
+ */
+    __pyx_t_2 = __Pyx_PyFloat_TrueDivideObjC(__pyx_v_dispersion, __pyx_float_10_, 10., 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_13 = PyObject_Length(__pyx_v_points); if (unlikely(__pyx_t_13 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyList_New(1 * ((__pyx_t_13<0) ? 0:__pyx_t_13)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 299; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    { Py_ssize_t __pyx_temp;
+      for (__pyx_temp=0; __pyx_temp < __pyx_t_13; __pyx_temp++) {
+        __Pyx_INCREF(__pyx_t_2);
+        __Pyx_GIVEREF(__pyx_t_2);
+        PyList_SET_ITEM(__pyx_t_5, __pyx_temp, __pyx_t_2);
+      }
+    }
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF_SET(__pyx_v_radii, __pyx_t_5);
+    __pyx_t_5 = 0;
+
+    /* "pyvoro/voroplusplus.pyx":298
+ * 
+ *   # if no radii provided, we still run the radical routine, but with all the same small radius.
+ *   if len(radii) != len(points):             # <<<<<<<<<<<<<<
+ *     radii = [dispersion / 10.] * len(points)
+ * 
+ */
+  }
+
+  /* "pyvoro/voroplusplus.pyx":303
+ *   # build the container object
+ *   cdef void* container = container_poly_create(
+ *     <double>limits[0][0],             # <<<<<<<<<<<<<<
+ *     <double>limits[0][1],
+ *     <double>limits[1][0],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_14 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_14 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 303; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":304
+ *   cdef void* container = container_poly_create(
+ *     <double>limits[0][0],
+ *     <double>limits[0][1],             # <<<<<<<<<<<<<<
+ *     <double>limits[1][0],
+ *     <double>limits[1][1],
+ */
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_limits, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_15 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_15 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 304; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":305
+ *     <double>limits[0][0],
+ *     <double>limits[0][1],
+ *     <double>limits[1][0],             # <<<<<<<<<<<<<<
+ *     <double>limits[1][1],
+ *     <double>limits[2][0],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_16 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_16 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 305; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":306
+ *     <double>limits[0][1],
+ *     <double>limits[1][0],
+ *     <double>limits[1][1],             # <<<<<<<<<<<<<<
+ *     <double>limits[2][0],
+ *     <double>limits[2][1],
+ */
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_limits, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":307
+ *     <double>limits[1][0],
+ *     <double>limits[1][1],
+ *     <double>limits[2][0],             # <<<<<<<<<<<<<<
+ *     <double>limits[2][1],
+ *     <int>blocks[0],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_18 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_18 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":308
+ *     <double>limits[1][1],
+ *     <double>limits[2][0],
+ *     <double>limits[2][1],             # <<<<<<<<<<<<<<
+ *     <int>blocks[0],
+ *     <int>blocks[1],
+ */
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_limits, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_19 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_19 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":309
+ *     <double>limits[2][0],
+ *     <double>limits[2][1],
+ *     <int>blocks[0],             # <<<<<<<<<<<<<<
+ *     <int>blocks[1],
+ *     <int>blocks[2],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_blocks, 0, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_4 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":310
+ *     <double>limits[2][1],
+ *     <int>blocks[0],
+ *     <int>blocks[1],             # <<<<<<<<<<<<<<
+ *     <int>blocks[2],
+ *     <int>periodic[0],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_blocks, 1, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_20 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_20 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":311
+ *     <int>blocks[0],
+ *     <int>blocks[1],
+ *     <int>blocks[2],             # <<<<<<<<<<<<<<
+ *     <int>periodic[0],
+ *     <int>periodic[1],
+ */
+  __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_blocks, 2, long, 1, __Pyx_PyInt_From_long, 1, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_21 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_21 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":312
+ *     <int>blocks[1],
+ *     <int>blocks[2],
+ *     <int>periodic[0],             # <<<<<<<<<<<<<<
+ *     <int>periodic[1],
+ *     <int>periodic[2]
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_periodic, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_22 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_22 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":313
+ *     <int>blocks[2],
+ *     <int>periodic[0],
+ *     <int>periodic[1],             # <<<<<<<<<<<<<<
+ *     <int>periodic[2]
+ *   )
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_periodic, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 313; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_23 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_23 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 313; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":314
+ *     <int>periodic[0],
+ *     <int>periodic[1],
+ *     <int>periodic[2]             # <<<<<<<<<<<<<<
+ *   )
+ * 
+ */
+  __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_periodic, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_24 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_24 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 314; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":302
+ * 
+ *   # build the container object
+ *   cdef void* container = container_poly_create(             # <<<<<<<<<<<<<<
+ *     <double>limits[0][0],
+ *     <double>limits[0][1],
+ */
+  __pyx_v_container = container_poly_create(((double)__pyx_t_14), ((double)__pyx_t_15), ((double)__pyx_t_16), ((double)__pyx_t_17), ((double)__pyx_t_18), ((double)__pyx_t_19), ((int)__pyx_t_4), ((int)__pyx_t_20), ((int)__pyx_t_21), ((int)__pyx_t_22), ((int)__pyx_t_23), ((int)__pyx_t_24));
+
+  /* "pyvoro/voroplusplus.pyx":317
+ *   )
+ * 
+ *   xs = <double*>malloc(sizeof(double) * _xn)             # <<<<<<<<<<<<<<
+ *   ys = <double*>malloc(sizeof(double) * _xn)
+ *   zs = <double*>malloc(sizeof(double) * _xn)
+ */
+  __pyx_t_5 = __Pyx_PyInt_FromSize_t((sizeof(double))); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_v__xn); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_25 = __Pyx_PyInt_As_size_t(__pyx_t_2); if (unlikely((__pyx_t_25 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_xs = ((double *)malloc(__pyx_t_25));
+
+  /* "pyvoro/voroplusplus.pyx":318
+ * 
+ *   xs = <double*>malloc(sizeof(double) * _xn)
+ *   ys = <double*>malloc(sizeof(double) * _xn)             # <<<<<<<<<<<<<<
+ *   zs = <double*>malloc(sizeof(double) * _xn)
+ *   rs = <double*>malloc(sizeof(double) * _xn)
+ */
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(double))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = PyNumber_Multiply(__pyx_t_2, __pyx_v__xn); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_25 = __Pyx_PyInt_As_size_t(__pyx_t_5); if (unlikely((__pyx_t_25 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 318; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_ys = ((double *)malloc(__pyx_t_25));
+
+  /* "pyvoro/voroplusplus.pyx":319
+ *   xs = <double*>malloc(sizeof(double) * _xn)
+ *   ys = <double*>malloc(sizeof(double) * _xn)
+ *   zs = <double*>malloc(sizeof(double) * _xn)             # <<<<<<<<<<<<<<
+ *   rs = <double*>malloc(sizeof(double) * _xn)
+ * 
+ */
+  __pyx_t_5 = __Pyx_PyInt_FromSize_t((sizeof(double))); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 319; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_v__xn); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 319; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_25 = __Pyx_PyInt_As_size_t(__pyx_t_2); if (unlikely((__pyx_t_25 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 319; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_zs = ((double *)malloc(__pyx_t_25));
+
+  /* "pyvoro/voroplusplus.pyx":320
+ *   ys = <double*>malloc(sizeof(double) * _xn)
+ *   zs = <double*>malloc(sizeof(double) * _xn)
+ *   rs = <double*>malloc(sizeof(double) * _xn)             # <<<<<<<<<<<<<<
+ * 
+ *   # initialise particle positions:
+ */
+  __pyx_t_2 = __Pyx_PyInt_FromSize_t((sizeof(double))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 320; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_5 = PyNumber_Multiply(__pyx_t_2, __pyx_v__xn); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 320; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_25 = __Pyx_PyInt_As_size_t(__pyx_t_5); if (unlikely((__pyx_t_25 == (size_t)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 320; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_v_rs = ((double *)malloc(__pyx_t_25));
+
+  /* "pyvoro/voroplusplus.pyx":323
+ * 
+ *   # initialise particle positions:
+ *   j = 0             # <<<<<<<<<<<<<<
+ *   for i from 0 <= i < n:
+ *     if nexclude > 0 and excluded[i]: continue
+ */
+  __pyx_v_j = 0;
+
+  /* "pyvoro/voroplusplus.pyx":324
+ *   # initialise particle positions:
+ *   j = 0
+ *   for i from 0 <= i < n:             # <<<<<<<<<<<<<<
+ *     if nexclude > 0 and excluded[i]: continue
+ *     xs[j] = <double>points[i][0]
+ */
+  __pyx_t_24 = __pyx_v_n;
+  for (__pyx_v_i = 0; __pyx_v_i < __pyx_t_24; __pyx_v_i++) {
+
+    /* "pyvoro/voroplusplus.pyx":325
+ *   j = 0
+ *   for i from 0 <= i < n:
+ *     if nexclude > 0 and excluded[i]: continue             # <<<<<<<<<<<<<<
+ *     xs[j] = <double>points[i][0]
+ *     ys[j] = <double>points[i][1]
+ */
+    __pyx_t_26 = ((__pyx_v_nexclude > 0) != 0);
+    if (__pyx_t_26) {
+    } else {
+      __pyx_t_9 = __pyx_t_26;
+      goto __pyx_L13_bool_binop_done;
+    }
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_excluded, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_9 = __pyx_t_26;
+    __pyx_L13_bool_binop_done:;
+    if (__pyx_t_9) {
+      goto __pyx_L10_continue;
+    }
+
+    /* "pyvoro/voroplusplus.pyx":326
+ *   for i from 0 <= i < n:
+ *     if nexclude > 0 and excluded[i]: continue
+ *     xs[j] = <double>points[i][0]             # <<<<<<<<<<<<<<
+ *     ys[j] = <double>points[i][1]
+ *     zs[j] = <double>points[i][2]
+ */
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_19 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_19 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    (__pyx_v_xs[__pyx_v_j]) = ((double)__pyx_t_19);
+
+    /* "pyvoro/voroplusplus.pyx":327
+ *     if nexclude > 0 and excluded[i]: continue
+ *     xs[j] = <double>points[i][0]
+ *     ys[j] = <double>points[i][1]             # <<<<<<<<<<<<<<
+ *     zs[j] = <double>points[i][2]
+ *     rs[j] = <double>radii[i]
+ */
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_19 = __pyx_PyFloat_AsDouble(__pyx_t_5); if (unlikely((__pyx_t_19 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    (__pyx_v_ys[__pyx_v_j]) = ((double)__pyx_t_19);
+
+    /* "pyvoro/voroplusplus.pyx":328
+ *     xs[j] = <double>points[i][0]
+ *     ys[j] = <double>points[i][1]
+ *     zs[j] = <double>points[i][2]             # <<<<<<<<<<<<<<
+ *     rs[j] = <double>radii[i]
+ *     _xmap[j]=i
+ */
+    __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 328; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_5, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 328; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_19 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_19 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 328; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    (__pyx_v_zs[__pyx_v_j]) = ((double)__pyx_t_19);
+
+    /* "pyvoro/voroplusplus.pyx":329
+ *     ys[j] = <double>points[i][1]
+ *     zs[j] = <double>points[i][2]
+ *     rs[j] = <double>radii[i]             # <<<<<<<<<<<<<<
+ *     _xmap[j]=i
+ *     j+=1
+ */
+    __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_radii, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_19 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_19 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    (__pyx_v_rs[__pyx_v_j]) = ((double)__pyx_t_19);
+
+    /* "pyvoro/voroplusplus.pyx":330
+ *     zs[j] = <double>points[i][2]
+ *     rs[j] = <double>radii[i]
+ *     _xmap[j]=i             # <<<<<<<<<<<<<<
+ *     j+=1
+ * 
+ */
+    (__pyx_v__xmap[__pyx_v_j]) = __pyx_v_i;
+
+    /* "pyvoro/voroplusplus.pyx":331
+ *     rs[j] = <double>radii[i]
+ *     _xmap[j]=i
+ *     j+=1             # <<<<<<<<<<<<<<
+ * 
+ *   # and add them to the container:
+ */
+    __pyx_v_j = (__pyx_v_j + 1);
+    __pyx_L10_continue:;
+  }
+
+  /* "pyvoro/voroplusplus.pyx":334
+ * 
+ *   # and add them to the container:
+ *   put_particles(container, _xn, xs, ys, zs, rs)             # <<<<<<<<<<<<<<
+ * 
+ *   # now create the loop stuff
+ */
+  __pyx_t_24 = __Pyx_PyInt_As_int(__pyx_v__xn); if (unlikely((__pyx_t_24 == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 334; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  put_particles(__pyx_v_container, __pyx_t_24, __pyx_v_xs, __pyx_v_ys, __pyx_v_zs, __pyx_v_rs);
+
+  /* "pyvoro/voroplusplus.pyx":337
+ * 
+ *   # now create the loop stuff
+ *   cdef void* c_loop_all = container_loop_all_create( container)             # <<<<<<<<<<<<<<
+ *   cdef void* cellptr = cell_create()
+ * 
+ */
+  __pyx_v_c_loop_all = container_loop_all_create(__pyx_v_container);
+
+  /* "pyvoro/voroplusplus.pyx":338
+ *   # now create the loop stuff
+ *   cdef void* c_loop_all = container_loop_all_create( container)
+ *   cdef void* cellptr = cell_create()             # <<<<<<<<<<<<<<
+ * 
+ *   # now compute the tessellation:
+ */
+  __pyx_v_cellptr = cell_create();
+
+  /* "pyvoro/voroplusplus.pyx":343
+ *   #py_cells = [{'original':p,'radius':r} for p, r in zip(points,radii)]
+ * 
+ *   py_cells = [ {} for i in range(n) ]             # <<<<<<<<<<<<<<
+ *   cdef vector[double] vertex_positions
+ *   cdef void** lists = NULL
+ */
+  { /* enter inner scope */
+    CYTHON_UNUSED int __pyx_8genexpr3__pyx_v_i;
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_24 = __pyx_v_n;
+    for (__pyx_t_23 = 0; __pyx_t_23 < __pyx_t_24; __pyx_t_23+=1) {
+      __pyx_8genexpr3__pyx_v_i = __pyx_t_23;
+      __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_5);
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_5))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    }
+  } /* exit inner scope */
+  __pyx_v_py_cells = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":345
+ *   py_cells = [ {} for i in range(n) ]
+ *   cdef vector[double] vertex_positions
+ *   cdef void** lists = NULL             # <<<<<<<<<<<<<<
+ *   cdef vector[int]* vptr = NULL
+ *   cdef int found = 0, found_ = 0
+ */
+  __pyx_v_lists = NULL;
+
+  /* "pyvoro/voroplusplus.pyx":346
+ *   cdef vector[double] vertex_positions
+ *   cdef void** lists = NULL
+ *   cdef vector[int]* vptr = NULL             # <<<<<<<<<<<<<<
+ *   cdef int found = 0, found_ = 0
+ * 
+ */
+  __pyx_v_vptr = NULL;
+
+  /* "pyvoro/voroplusplus.pyx":347
+ *   cdef void** lists = NULL
+ *   cdef vector[int]* vptr = NULL
+ *   cdef int found = 0, found_ = 0             # <<<<<<<<<<<<<<
+ * 
+ *   # enable property retrieval if found in properties list or if
+ */
+  __pyx_v_found = 0;
+  __pyx_v_found_ = 0;
+
+  /* "pyvoro/voroplusplus.pyx":351
+ *   # enable property retrieval if found in properties list or if
+ *   # properties list is empty.
+ *   _isempy = len(properties)==0             # <<<<<<<<<<<<<<
+ *   cdef int GEToriginal = 1 if _isempy or 'original' in properties else 0
+ *   cdef int GETradius = 1 if _isempy or 'radius' in properties else 0
+ */
+  __pyx_t_13 = PyObject_Length(__pyx_v_properties); if (unlikely(__pyx_t_13 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 351; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_PyBool_FromLong((__pyx_t_13 == 0)); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 351; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v__isempy = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":352
+ *   # properties list is empty.
+ *   _isempy = len(properties)==0
+ *   cdef int GEToriginal = 1 if _isempy or 'original' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETradius = 1 if _isempy or 'radius' in properties else 0
+ *   cdef int GETvolume = 1 if _isempy or 'volume' in properties else 0
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 352; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L17_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_original, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 352; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L17_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GEToriginal = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":353
+ *   _isempy = len(properties)==0
+ *   cdef int GEToriginal = 1 if _isempy or 'original' in properties else 0
+ *   cdef int GETradius = 1 if _isempy or 'radius' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETvolume = 1 if _isempy or 'volume' in properties else 0
+ *   cdef int GETsurface = 1 if _isempy or 'surface' in properties else 0
+ */
+  __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 353; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_27) {
+  } else {
+    __pyx_t_9 = __pyx_t_27;
+    goto __pyx_L19_bool_binop_done;
+  }
+  __pyx_t_27 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_radius, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 353; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_26 = (__pyx_t_27 != 0);
+  __pyx_t_9 = __pyx_t_26;
+  __pyx_L19_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETradius = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":354
+ *   cdef int GEToriginal = 1 if _isempy or 'original' in properties else 0
+ *   cdef int GETradius = 1 if _isempy or 'radius' in properties else 0
+ *   cdef int GETvolume = 1 if _isempy or 'volume' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETsurface = 1 if _isempy or 'surface' in properties else 0
+ *   cdef int GETrmaxsq = 1 if _isempy or 'rmaxsq' in properties else 0
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 354; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L21_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_volume, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 354; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L21_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETvolume = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":355
+ *   cdef int GETradius = 1 if _isempy or 'radius' in properties else 0
+ *   cdef int GETvolume = 1 if _isempy or 'volume' in properties else 0
+ *   cdef int GETsurface = 1 if _isempy or 'surface' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETrmaxsq = 1 if _isempy or 'rmaxsq' in properties else 0
+ *   cdef int GETvertices = 1 if _isempy or 'vertices' in properties else 0
+ */
+  __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 355; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_27) {
+  } else {
+    __pyx_t_9 = __pyx_t_27;
+    goto __pyx_L23_bool_binop_done;
+  }
+  __pyx_t_27 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_surface, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 355; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_26 = (__pyx_t_27 != 0);
+  __pyx_t_9 = __pyx_t_26;
+  __pyx_L23_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETsurface = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":356
+ *   cdef int GETvolume = 1 if _isempy or 'volume' in properties else 0
+ *   cdef int GETsurface = 1 if _isempy or 'surface' in properties else 0
+ *   cdef int GETrmaxsq = 1 if _isempy or 'rmaxsq' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETvertices = 1 if _isempy or 'vertices' in properties else 0
+ *   cdef int GETnormals = 1 if _isempy or 'normals' in properties else 0
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L25_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_rmaxsq, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 356; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L25_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETrmaxsq = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":357
+ *   cdef int GETsurface = 1 if _isempy or 'surface' in properties else 0
+ *   cdef int GETrmaxsq = 1 if _isempy or 'rmaxsq' in properties else 0
+ *   cdef int GETvertices = 1 if _isempy or 'vertices' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETnormals = 1 if _isempy or 'normals' in properties else 0
+ *   cdef int GETareas = 1 if _isempy or 'areas' in properties else 0
+ */
+  __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 357; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_27) {
+  } else {
+    __pyx_t_9 = __pyx_t_27;
+    goto __pyx_L27_bool_binop_done;
+  }
+  __pyx_t_27 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_vertices, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 357; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_26 = (__pyx_t_27 != 0);
+  __pyx_t_9 = __pyx_t_26;
+  __pyx_L27_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETvertices = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":358
+ *   cdef int GETrmaxsq = 1 if _isempy or 'rmaxsq' in properties else 0
+ *   cdef int GETvertices = 1 if _isempy or 'vertices' in properties else 0
+ *   cdef int GETnormals = 1 if _isempy or 'normals' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETareas = 1 if _isempy or 'areas' in properties else 0
+ *   cdef int GETadjacency = 1 if _isempy or 'adjacency' in properties else 0
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 358; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L29_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_normals, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 358; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L29_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETnormals = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":359
+ *   cdef int GETvertices = 1 if _isempy or 'vertices' in properties else 0
+ *   cdef int GETnormals = 1 if _isempy or 'normals' in properties else 0
+ *   cdef int GETareas = 1 if _isempy or 'areas' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETadjacency = 1 if _isempy or 'adjacency' in properties else 0
+ *   cdef int GETfaces = 1 if _isempy or 'faces' in properties else 0
+ */
+  __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 359; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_27) {
+  } else {
+    __pyx_t_9 = __pyx_t_27;
+    goto __pyx_L31_bool_binop_done;
+  }
+  __pyx_t_27 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_areas, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 359; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_26 = (__pyx_t_27 != 0);
+  __pyx_t_9 = __pyx_t_26;
+  __pyx_L31_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETareas = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":360
+ *   cdef int GETnormals = 1 if _isempy or 'normals' in properties else 0
+ *   cdef int GETareas = 1 if _isempy or 'areas' in properties else 0
+ *   cdef int GETadjacency = 1 if _isempy or 'adjacency' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETfaces = 1 if _isempy or 'faces' in properties else 0
+ *   cdef int GETneighbors = 1 if _isempy or 'neighbors' in properties else 0
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 360; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L33_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_adjacency, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 360; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L33_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETadjacency = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":361
+ *   cdef int GETareas = 1 if _isempy or 'areas' in properties else 0
+ *   cdef int GETadjacency = 1 if _isempy or 'adjacency' in properties else 0
+ *   cdef int GETfaces = 1 if _isempy or 'faces' in properties else 0             # <<<<<<<<<<<<<<
+ *   cdef int GETneighbors = 1 if _isempy or 'neighbors' in properties else 0
+ * 
+ */
+  __pyx_t_27 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_27) {
+  } else {
+    __pyx_t_9 = __pyx_t_27;
+    goto __pyx_L35_bool_binop_done;
+  }
+  __pyx_t_27 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_faces, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_27 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 361; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_26 = (__pyx_t_27 != 0);
+  __pyx_t_9 = __pyx_t_26;
+  __pyx_L35_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETfaces = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":362
+ *   cdef int GETadjacency = 1 if _isempy or 'adjacency' in properties else 0
+ *   cdef int GETfaces = 1 if _isempy or 'faces' in properties else 0
+ *   cdef int GETneighbors = 1 if _isempy or 'neighbors' in properties else 0             # <<<<<<<<<<<<<<
+ * 
+ *   while ( found < _xn):
+ */
+  __pyx_t_26 = __Pyx_PyObject_IsTrue(__pyx_v__isempy); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 362; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (!__pyx_t_26) {
+  } else {
+    __pyx_t_9 = __pyx_t_26;
+    goto __pyx_L37_bool_binop_done;
+  }
+  __pyx_t_26 = (__Pyx_PySequence_ContainsTF(__pyx_n_u_neighbors, __pyx_v_properties, Py_EQ)); if (unlikely(__pyx_t_26 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 362; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_27 = (__pyx_t_26 != 0);
+  __pyx_t_9 = __pyx_t_27;
+  __pyx_L37_bool_binop_done:;
+  if (__pyx_t_9) {
+    __pyx_t_24 = 1;
+  } else {
+    __pyx_t_24 = 0;
+  }
+  __pyx_v_GETneighbors = __pyx_t_24;
+
+  /* "pyvoro/voroplusplus.pyx":364
+ *   cdef int GETneighbors = 1 if _isempy or 'neighbors' in properties else 0
+ * 
+ *   while ( found < _xn):             # <<<<<<<<<<<<<<
+ *     _i = container_loop_all_next(container, c_loop_all, cellptr, &found)
+ *     if found == found_ or _i == -1:
+ */
+  while (1) {
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_found); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 364; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = PyObject_RichCompare(__pyx_t_2, __pyx_v__xn, Py_LT); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 364; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 364; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    if (!__pyx_t_9) break;
+
+    /* "pyvoro/voroplusplus.pyx":365
+ * 
+ *   while ( found < _xn):
+ *     _i = container_loop_all_next(container, c_loop_all, cellptr, &found)             # <<<<<<<<<<<<<<
+ *     if found == found_ or _i == -1:
+ *       break
+ */
+    __pyx_v__i = container_loop_all_next(__pyx_v_container, __pyx_v_c_loop_all, __pyx_v_cellptr, (&__pyx_v_found));
+
+    /* "pyvoro/voroplusplus.pyx":366
+ *   while ( found < _xn):
+ *     _i = container_loop_all_next(container, c_loop_all, cellptr, &found)
+ *     if found == found_ or _i == -1:             # <<<<<<<<<<<<<<
+ *       break
+ *     else:
+ */
+    __pyx_t_27 = ((__pyx_v_found == __pyx_v_found_) != 0);
+    if (!__pyx_t_27) {
+    } else {
+      __pyx_t_9 = __pyx_t_27;
+      goto __pyx_L42_bool_binop_done;
+    }
+    __pyx_t_27 = ((__pyx_v__i == -1L) != 0);
+    __pyx_t_9 = __pyx_t_27;
+    __pyx_L42_bool_binop_done:;
+    if (__pyx_t_9) {
+
+      /* "pyvoro/voroplusplus.pyx":367
+ *     _i = container_loop_all_next(container, c_loop_all, cellptr, &found)
+ *     if found == found_ or _i == -1:
+ *       break             # <<<<<<<<<<<<<<
+ *     else:
+ *       i = _xmap[_i]
+ */
+      goto __pyx_L40_break;
+
+      /* "pyvoro/voroplusplus.pyx":366
+ *   while ( found < _xn):
+ *     _i = container_loop_all_next(container, c_loop_all, cellptr, &found)
+ *     if found == found_ or _i == -1:             # <<<<<<<<<<<<<<
+ *       break
+ *     else:
+ */
+    }
+
+    /* "pyvoro/voroplusplus.pyx":369
+ *       break
+ *     else:
+ *       i = _xmap[_i]             # <<<<<<<<<<<<<<
+ *       #print("remain %d" % (_xn-found))
+ *       found_ = found
+ */
+    /*else*/ {
+      __pyx_v_i = (__pyx_v__xmap[__pyx_v__i]);
+
+      /* "pyvoro/voroplusplus.pyx":371
+ *       i = _xmap[_i]
+ *       #print("remain %d" % (_xn-found))
+ *       found_ = found             # <<<<<<<<<<<<<<
+ *       py_cell = py_cells[i]
+ * 
+ */
+      __pyx_v_found_ = __pyx_v_found;
+
+      /* "pyvoro/voroplusplus.pyx":372
+ *       #print("remain %d" % (_xn-found))
+ *       found_ = found
+ *       py_cell = py_cells[i]             # <<<<<<<<<<<<<<
+ * 
+ *       if GEToriginal:
+ */
+      __pyx_t_5 = __Pyx_GetItemInt_List(__pyx_v_py_cells, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 1, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 372; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_XDECREF_SET(__pyx_v_py_cell, __pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "pyvoro/voroplusplus.pyx":374
+ *       py_cell = py_cells[i]
+ * 
+ *       if GEToriginal:             # <<<<<<<<<<<<<<
+ *         py_cell['original'] = points[i]
+ * 
+ */
+      __pyx_t_9 = (__pyx_v_GEToriginal != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":375
+ * 
+ *       if GEToriginal:
+ *         py_cell['original'] = points[i]             # <<<<<<<<<<<<<<
+ * 
+ *       if GETradius:
+ */
+        __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_points, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 375; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_original, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 375; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":374
+ *       py_cell = py_cells[i]
+ * 
+ *       if GEToriginal:             # <<<<<<<<<<<<<<
+ *         py_cell['original'] = points[i]
+ * 
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":377
+ *         py_cell['original'] = points[i]
+ * 
+ *       if GETradius:             # <<<<<<<<<<<<<<
+ *         py_cell['radius'] = radii[i]
+ * 
+ */
+      __pyx_t_9 = (__pyx_v_GETradius != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":378
+ * 
+ *       if GETradius:
+ *         py_cell['radius'] = radii[i]             # <<<<<<<<<<<<<<
+ * 
+ *       if GETvolume:
+ */
+        __pyx_t_5 = __Pyx_GetItemInt(__pyx_v_radii, __pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(__pyx_t_5 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 378; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_radius, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 378; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":377
+ *         py_cell['original'] = points[i]
+ * 
+ *       if GETradius:             # <<<<<<<<<<<<<<
+ *         py_cell['radius'] = radii[i]
+ * 
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":380
+ *         py_cell['radius'] = radii[i]
+ * 
+ *       if GETvolume:             # <<<<<<<<<<<<<<
+ *         py_cell['volume'] = float(cell_get_volume(cellptr))
+ * 
+ */
+      __pyx_t_9 = (__pyx_v_GETvolume != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":381
+ * 
+ *       if GETvolume:
+ *         py_cell['volume'] = float(cell_get_volume(cellptr))             # <<<<<<<<<<<<<<
+ * 
+ *       if GETsurface:
+ */
+        __pyx_t_5 = PyFloat_FromDouble(cell_get_volume(__pyx_v_cellptr)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 381; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_volume, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 381; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":380
+ *         py_cell['radius'] = radii[i]
+ * 
+ *       if GETvolume:             # <<<<<<<<<<<<<<
+ *         py_cell['volume'] = float(cell_get_volume(cellptr))
+ * 
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":383
+ *         py_cell['volume'] = float(cell_get_volume(cellptr))
+ * 
+ *       if GETsurface:             # <<<<<<<<<<<<<<
+ *         py_cell['surface'] = float(cell_get_surface(cellptr))
+ * 
+ */
+      __pyx_t_9 = (__pyx_v_GETsurface != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":384
+ * 
+ *       if GETsurface:
+ *         py_cell['surface'] = float(cell_get_surface(cellptr))             # <<<<<<<<<<<<<<
+ * 
+ *       if GETrmaxsq:
+ */
+        __pyx_t_5 = PyFloat_FromDouble(cell_get_surface(__pyx_v_cellptr)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 384; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_surface, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 384; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":383
+ *         py_cell['volume'] = float(cell_get_volume(cellptr))
+ * 
+ *       if GETsurface:             # <<<<<<<<<<<<<<
+ *         py_cell['surface'] = float(cell_get_surface(cellptr))
+ * 
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":386
+ *         py_cell['surface'] = float(cell_get_surface(cellptr))
+ * 
+ *       if GETrmaxsq:             # <<<<<<<<<<<<<<
+ *         py_cell['rmaxsq'] = float(cell_get_max_radius_squared(cellptr))
+ * 
+ */
+      __pyx_t_9 = (__pyx_v_GETrmaxsq != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":387
+ * 
+ *       if GETrmaxsq:
+ *         py_cell['rmaxsq'] = float(cell_get_max_radius_squared(cellptr))             # <<<<<<<<<<<<<<
+ * 
+ *       if GETvertices:
+ */
+        __pyx_t_5 = PyFloat_FromDouble(cell_get_max_radius_squared(__pyx_v_cellptr)); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 387; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_rmaxsq, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 387; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":386
+ *         py_cell['surface'] = float(cell_get_surface(cellptr))
+ * 
+ *       if GETrmaxsq:             # <<<<<<<<<<<<<<
+ *         py_cell['rmaxsq'] = float(cell_get_max_radius_squared(cellptr))
+ * 
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":389
+ *         py_cell['rmaxsq'] = float(cell_get_max_radius_squared(cellptr))
+ * 
+ *       if GETvertices:             # <<<<<<<<<<<<<<
+ *         vertex_positions = cell_get_vertex_positions(cellptr, xs[_i], ys[_i], zs[_i])
+ *         cell_vertices = []
+ */
+      __pyx_t_9 = (__pyx_v_GETvertices != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":390
+ * 
+ *       if GETvertices:
+ *         vertex_positions = cell_get_vertex_positions(cellptr, xs[_i], ys[_i], zs[_i])             # <<<<<<<<<<<<<<
+ *         cell_vertices = []
+ *         for j from 0 <= j < vertex_positions.size() // 3:
+ */
+        __pyx_v_vertex_positions = cell_get_vertex_positions(__pyx_v_cellptr, (__pyx_v_xs[__pyx_v__i]), (__pyx_v_ys[__pyx_v__i]), (__pyx_v_zs[__pyx_v__i]));
+
+        /* "pyvoro/voroplusplus.pyx":391
+ *       if GETvertices:
+ *         vertex_positions = cell_get_vertex_positions(cellptr, xs[_i], ys[_i], zs[_i])
+ *         cell_vertices = []             # <<<<<<<<<<<<<<
+ *         for j from 0 <= j < vertex_positions.size() // 3:
+ *           cell_vertices.append(vector_class([
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 391; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_cell_vertices, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":392
+ *         vertex_positions = cell_get_vertex_positions(cellptr, xs[_i], ys[_i], zs[_i])
+ *         cell_vertices = []
+ *         for j from 0 <= j < vertex_positions.size() // 3:             # <<<<<<<<<<<<<<
+ *           cell_vertices.append(vector_class([
+ *             float(vertex_positions[3 * j]),
+ */
+        __pyx_t_25 = (__pyx_v_vertex_positions.size() / 3);
+        for (__pyx_v_j = 0; __pyx_v_j < __pyx_t_25; __pyx_v_j++) {
+
+          /* "pyvoro/voroplusplus.pyx":394
+ *         for j from 0 <= j < vertex_positions.size() // 3:
+ *           cell_vertices.append(vector_class([
+ *             float(vertex_positions[3 * j]),             # <<<<<<<<<<<<<<
+ *             float(vertex_positions[3 * j + 1]),
+ *             float(vertex_positions[3 * j + 2])
+ */
+          __pyx_t_2 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[(3 * __pyx_v_j)]))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 394; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_2);
+
+          /* "pyvoro/voroplusplus.pyx":395
+ *           cell_vertices.append(vector_class([
+ *             float(vertex_positions[3 * j]),
+ *             float(vertex_positions[3 * j + 1]),             # <<<<<<<<<<<<<<
+ *             float(vertex_positions[3 * j + 2])
+ *           ]))
+ */
+          __pyx_t_7 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 1)]))); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 395; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_7);
+
+          /* "pyvoro/voroplusplus.pyx":396
+ *             float(vertex_positions[3 * j]),
+ *             float(vertex_positions[3 * j + 1]),
+ *             float(vertex_positions[3 * j + 2])             # <<<<<<<<<<<<<<
+ *           ]))
+ *         py_cell['vertices'] = cell_vertices
+ */
+          __pyx_t_3 = PyFloat_FromDouble(((double)(__pyx_v_vertex_positions[((3 * __pyx_v_j) + 2)]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 396; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_3);
+
+          /* "pyvoro/voroplusplus.pyx":393
+ *         cell_vertices = []
+ *         for j from 0 <= j < vertex_positions.size() // 3:
+ *           cell_vertices.append(vector_class([             # <<<<<<<<<<<<<<
+ *             float(vertex_positions[3 * j]),
+ *             float(vertex_positions[3 * j + 1]),
+ */
+          __pyx_t_12 = PyList_New(3); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_12);
+          __Pyx_GIVEREF(__pyx_t_2);
+          PyList_SET_ITEM(__pyx_t_12, 0, __pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_7);
+          PyList_SET_ITEM(__pyx_t_12, 1, __pyx_t_7);
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyList_SET_ITEM(__pyx_t_12, 2, __pyx_t_3);
+          __pyx_t_2 = 0;
+          __pyx_t_7 = 0;
+          __pyx_t_3 = 0;
+          __Pyx_INCREF(__pyx_v_vector_class);
+          __pyx_t_3 = __pyx_v_vector_class; __pyx_t_7 = NULL;
+          if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_3))) {
+            __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_3);
+            if (likely(__pyx_t_7)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+              __Pyx_INCREF(__pyx_t_7);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_3, function);
+            }
+          }
+          if (!__pyx_t_7) {
+            __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_12); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
+          } else {
+            __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_2);
+            __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7); __pyx_t_7 = NULL;
+            __Pyx_GIVEREF(__pyx_t_12);
+            PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_12);
+            __pyx_t_12 = 0;
+            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_2, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+          }
+          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_cell_vertices, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 393; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        }
+
+        /* "pyvoro/voroplusplus.pyx":398
+ *             float(vertex_positions[3 * j + 2])
+ *           ]))
+ *         py_cell['vertices'] = cell_vertices             # <<<<<<<<<<<<<<
+ * 
+ *       if GETnormals:
+ */
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_vertices, __pyx_v_cell_vertices) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 398; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+        /* "pyvoro/voroplusplus.pyx":389
+ *         py_cell['rmaxsq'] = float(cell_get_max_radius_squared(cellptr))
+ * 
+ *       if GETvertices:             # <<<<<<<<<<<<<<
+ *         vertex_positions = cell_get_vertex_positions(cellptr, xs[_i], ys[_i], zs[_i])
+ *         cell_vertices = []
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":400
+ *         py_cell['vertices'] = cell_vertices
+ * 
+ *       if GETnormals:             # <<<<<<<<<<<<<<
+ *         normals = cell_get_normals(cellptr)
+ *         face_normals = []
+ */
+      __pyx_t_9 = (__pyx_v_GETnormals != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":401
+ * 
+ *       if GETnormals:
+ *         normals = cell_get_normals(cellptr)             # <<<<<<<<<<<<<<
+ *         face_normals = []
+ *         for j from 0 <= j < normals.size() // 3:
+ */
+        __pyx_v_normals = cell_get_normals(__pyx_v_cellptr);
+
+        /* "pyvoro/voroplusplus.pyx":402
+ *       if GETnormals:
+ *         normals = cell_get_normals(cellptr)
+ *         face_normals = []             # <<<<<<<<<<<<<<
+ *         for j from 0 <= j < normals.size() // 3:
+ *           face_normals.append(vector_class([
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 402; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_face_normals, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":403
+ *         normals = cell_get_normals(cellptr)
+ *         face_normals = []
+ *         for j from 0 <= j < normals.size() // 3:             # <<<<<<<<<<<<<<
+ *           face_normals.append(vector_class([
+ *             float(normals[3 * j]),
+ */
+        __pyx_t_25 = (__pyx_v_normals.size() / 3);
+        for (__pyx_v_j = 0; __pyx_v_j < __pyx_t_25; __pyx_v_j++) {
+
+          /* "pyvoro/voroplusplus.pyx":405
+ *         for j from 0 <= j < normals.size() // 3:
+ *           face_normals.append(vector_class([
+ *             float(normals[3 * j]),             # <<<<<<<<<<<<<<
+ *             float(normals[3 * j + 1]),
+ *             float(normals[3 * j + 2])
+ */
+          __pyx_t_3 = PyFloat_FromDouble(((double)(__pyx_v_normals[(3 * __pyx_v_j)]))); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 405; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_3);
+
+          /* "pyvoro/voroplusplus.pyx":406
+ *           face_normals.append(vector_class([
+ *             float(normals[3 * j]),
+ *             float(normals[3 * j + 1]),             # <<<<<<<<<<<<<<
+ *             float(normals[3 * j + 2])
+ *           ]))
+ */
+          __pyx_t_2 = PyFloat_FromDouble(((double)(__pyx_v_normals[((3 * __pyx_v_j) + 1)]))); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 406; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_2);
+
+          /* "pyvoro/voroplusplus.pyx":407
+ *             float(normals[3 * j]),
+ *             float(normals[3 * j + 1]),
+ *             float(normals[3 * j + 2])             # <<<<<<<<<<<<<<
+ *           ]))
+ *         py_cell['normals'] = face_normals
+ */
+          __pyx_t_12 = PyFloat_FromDouble(((double)(__pyx_v_normals[((3 * __pyx_v_j) + 2)]))); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 407; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_12);
+
+          /* "pyvoro/voroplusplus.pyx":404
+ *         face_normals = []
+ *         for j from 0 <= j < normals.size() // 3:
+ *           face_normals.append(vector_class([             # <<<<<<<<<<<<<<
+ *             float(normals[3 * j]),
+ *             float(normals[3 * j + 1]),
+ */
+          __pyx_t_7 = PyList_New(3); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_GIVEREF(__pyx_t_3);
+          PyList_SET_ITEM(__pyx_t_7, 0, __pyx_t_3);
+          __Pyx_GIVEREF(__pyx_t_2);
+          PyList_SET_ITEM(__pyx_t_7, 1, __pyx_t_2);
+          __Pyx_GIVEREF(__pyx_t_12);
+          PyList_SET_ITEM(__pyx_t_7, 2, __pyx_t_12);
+          __pyx_t_3 = 0;
+          __pyx_t_2 = 0;
+          __pyx_t_12 = 0;
+          __Pyx_INCREF(__pyx_v_vector_class);
+          __pyx_t_12 = __pyx_v_vector_class; __pyx_t_2 = NULL;
+          if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_12))) {
+            __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_12);
+            if (likely(__pyx_t_2)) {
+              PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_12);
+              __Pyx_INCREF(__pyx_t_2);
+              __Pyx_INCREF(function);
+              __Pyx_DECREF_SET(__pyx_t_12, function);
+            }
+          }
+          if (!__pyx_t_2) {
+            __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_12, __pyx_t_7); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
+          } else {
+            __pyx_t_3 = PyTuple_New(1+1); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_3);
+            __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_2); __pyx_t_2 = NULL;
+            __Pyx_GIVEREF(__pyx_t_7);
+            PyTuple_SET_ITEM(__pyx_t_3, 0+1, __pyx_t_7);
+            __pyx_t_7 = 0;
+            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_12, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+          }
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_face_normals, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 404; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        }
+
+        /* "pyvoro/voroplusplus.pyx":409
+ *             float(normals[3 * j + 2])
+ *           ]))
+ *         py_cell['normals'] = face_normals             # <<<<<<<<<<<<<<
+ * 
+ *       if GETareas:
+ */
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_normals, __pyx_v_face_normals) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 409; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+        /* "pyvoro/voroplusplus.pyx":400
+ *         py_cell['vertices'] = cell_vertices
+ * 
+ *       if GETnormals:             # <<<<<<<<<<<<<<
+ *         normals = cell_get_normals(cellptr)
+ *         face_normals = []
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":411
+ *         py_cell['normals'] = face_normals
+ * 
+ *       if GETareas:             # <<<<<<<<<<<<<<
+ *         areas = cell_get_areas(cellptr)
+ *         face_areas = []
+ */
+      __pyx_t_9 = (__pyx_v_GETareas != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":412
+ * 
+ *       if GETareas:
+ *         areas = cell_get_areas(cellptr)             # <<<<<<<<<<<<<<
+ *         face_areas = []
+ *         for j from 0 <= j < areas.size():
+ */
+        __pyx_v_areas = cell_get_areas(__pyx_v_cellptr);
+
+        /* "pyvoro/voroplusplus.pyx":413
+ *       if GETareas:
+ *         areas = cell_get_areas(cellptr)
+ *         face_areas = []             # <<<<<<<<<<<<<<
+ *         for j from 0 <= j < areas.size():
+ *           face_areas.append( float(areas[j]))
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 413; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_face_areas, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":414
+ *         areas = cell_get_areas(cellptr)
+ *         face_areas = []
+ *         for j from 0 <= j < areas.size():             # <<<<<<<<<<<<<<
+ *           face_areas.append( float(areas[j]))
+ *         py_cell['areas'] = face_areas
+ */
+        __pyx_t_25 = __pyx_v_areas.size();
+        for (__pyx_v_j = 0; __pyx_v_j < __pyx_t_25; __pyx_v_j++) {
+
+          /* "pyvoro/voroplusplus.pyx":415
+ *         face_areas = []
+ *         for j from 0 <= j < areas.size():
+ *           face_areas.append( float(areas[j]))             # <<<<<<<<<<<<<<
+ *         py_cell['areas'] = face_areas
+ * 
+ */
+          __pyx_t_5 = PyFloat_FromDouble(((double)(__pyx_v_areas[__pyx_v_j]))); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 415; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_face_areas, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 415; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+        }
+
+        /* "pyvoro/voroplusplus.pyx":416
+ *         for j from 0 <= j < areas.size():
+ *           face_areas.append( float(areas[j]))
+ *         py_cell['areas'] = face_areas             # <<<<<<<<<<<<<<
+ * 
+ *       if GETadjacency:
+ */
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_areas, __pyx_v_face_areas) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 416; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+        /* "pyvoro/voroplusplus.pyx":411
+ *         py_cell['normals'] = face_normals
+ * 
+ *       if GETareas:             # <<<<<<<<<<<<<<
+ *         areas = cell_get_areas(cellptr)
+ *         face_areas = []
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":418
+ *         py_cell['areas'] = face_areas
+ * 
+ *       if GETadjacency:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_vertex_adjacency(cellptr)
+ *         adjacency = []
+ */
+      __pyx_t_9 = (__pyx_v_GETadjacency != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":419
+ * 
+ *       if GETadjacency:
+ *         lists = cell_get_vertex_adjacency(cellptr)             # <<<<<<<<<<<<<<
+ *         adjacency = []
+ *         j = 0
+ */
+        __pyx_v_lists = cell_get_vertex_adjacency(__pyx_v_cellptr);
+
+        /* "pyvoro/voroplusplus.pyx":420
+ *       if GETadjacency:
+ *         lists = cell_get_vertex_adjacency(cellptr)
+ *         adjacency = []             # <<<<<<<<<<<<<<
+ *         j = 0
+ *         while lists[j] != NULL:
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 420; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_adjacency, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":421
+ *         lists = cell_get_vertex_adjacency(cellptr)
+ *         adjacency = []
+ *         j = 0             # <<<<<<<<<<<<<<
+ *         while lists[j] != NULL:
+ *           py_vertex_adjacency = []
+ */
+        __pyx_v_j = 0;
+
+        /* "pyvoro/voroplusplus.pyx":422
+ *         adjacency = []
+ *         j = 0
+ *         while lists[j] != NULL:             # <<<<<<<<<<<<<<
+ *           py_vertex_adjacency = []
+ *           vptr = <vector[int]*>lists[j]
+ */
+        while (1) {
+          __pyx_t_9 = (((__pyx_v_lists[__pyx_v_j]) != NULL) != 0);
+          if (!__pyx_t_9) break;
+
+          /* "pyvoro/voroplusplus.pyx":423
+ *         j = 0
+ *         while lists[j] != NULL:
+ *           py_vertex_adjacency = []             # <<<<<<<<<<<<<<
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size():
+ */
+          __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 423; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_XDECREF_SET(__pyx_v_py_vertex_adjacency, ((PyObject*)__pyx_t_5));
+          __pyx_t_5 = 0;
+
+          /* "pyvoro/voroplusplus.pyx":424
+ *         while lists[j] != NULL:
+ *           py_vertex_adjacency = []
+ *           vptr = <vector[int]*>lists[j]             # <<<<<<<<<<<<<<
+ *           for k from 0 <= k < vptr.size():
+ *             py_vertex_adjacency.append(int(deref(vptr)[k]))
+ */
+          __pyx_v_vptr = ((std::vector<int>  *)(__pyx_v_lists[__pyx_v_j]));
+
+          /* "pyvoro/voroplusplus.pyx":425
+ *           py_vertex_adjacency = []
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size():             # <<<<<<<<<<<<<<
+ *             py_vertex_adjacency.append(int(deref(vptr)[k]))
+ *           del vptr
+ */
+          __pyx_t_25 = __pyx_v_vptr->size();
+          for (__pyx_v_k = 0; __pyx_v_k < __pyx_t_25; __pyx_v_k++) {
+
+            /* "pyvoro/voroplusplus.pyx":426
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size():
+ *             py_vertex_adjacency.append(int(deref(vptr)[k]))             # <<<<<<<<<<<<<<
+ *           del vptr
+ *           adjacency.append(py_vertex_adjacency)
+ */
+            __pyx_t_5 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 426; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 426; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_GIVEREF(__pyx_t_5);
+            PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_5);
+            __pyx_t_5 = 0;
+            __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 426; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_py_vertex_adjacency, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 426; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          }
+
+          /* "pyvoro/voroplusplus.pyx":427
+ *           for k from 0 <= k < vptr.size():
+ *             py_vertex_adjacency.append(int(deref(vptr)[k]))
+ *           del vptr             # <<<<<<<<<<<<<<
+ *           adjacency.append(py_vertex_adjacency)
+ *           j += 1
+ */
+          delete __pyx_v_vptr;
+
+          /* "pyvoro/voroplusplus.pyx":428
+ *             py_vertex_adjacency.append(int(deref(vptr)[k]))
+ *           del vptr
+ *           adjacency.append(py_vertex_adjacency)             # <<<<<<<<<<<<<<
+ *           j += 1
+ *         free(lists)
+ */
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_adjacency, __pyx_v_py_vertex_adjacency); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 428; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+          /* "pyvoro/voroplusplus.pyx":429
+ *           del vptr
+ *           adjacency.append(py_vertex_adjacency)
+ *           j += 1             # <<<<<<<<<<<<<<
+ *         free(lists)
+ *         py_cell['adjacency'] = adjacency
+ */
+          __pyx_v_j = (__pyx_v_j + 1);
+        }
+
+        /* "pyvoro/voroplusplus.pyx":430
+ *           adjacency.append(py_vertex_adjacency)
+ *           j += 1
+ *         free(lists)             # <<<<<<<<<<<<<<
+ *         py_cell['adjacency'] = adjacency
+ * 
+ */
+        free(__pyx_v_lists);
+
+        /* "pyvoro/voroplusplus.pyx":431
+ *           j += 1
+ *         free(lists)
+ *         py_cell['adjacency'] = adjacency             # <<<<<<<<<<<<<<
+ * 
+ *       if GETfaces:
+ */
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_adjacency, __pyx_v_adjacency) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 431; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+        /* "pyvoro/voroplusplus.pyx":418
+ *         py_cell['areas'] = face_areas
+ * 
+ *       if GETadjacency:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_vertex_adjacency(cellptr)
+ *         adjacency = []
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":433
+ *         py_cell['adjacency'] = adjacency
+ * 
+ *       if GETfaces:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_faces(cellptr)
+ *         faces = []
+ */
+      __pyx_t_9 = (__pyx_v_GETfaces != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":434
+ * 
+ *       if GETfaces:
+ *         lists = cell_get_faces(cellptr)             # <<<<<<<<<<<<<<
+ *         faces = []
+ *         j = 0
+ */
+        __pyx_v_lists = cell_get_faces(__pyx_v_cellptr);
+
+        /* "pyvoro/voroplusplus.pyx":435
+ *       if GETfaces:
+ *         lists = cell_get_faces(cellptr)
+ *         faces = []             # <<<<<<<<<<<<<<
+ *         j = 0
+ *         while lists[j] != NULL:
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 435; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_faces, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":436
+ *         lists = cell_get_faces(cellptr)
+ *         faces = []
+ *         j = 0             # <<<<<<<<<<<<<<
+ *         while lists[j] != NULL:
+ *           face_vertices = []
+ */
+        __pyx_v_j = 0;
+
+        /* "pyvoro/voroplusplus.pyx":437
+ *         faces = []
+ *         j = 0
+ *         while lists[j] != NULL:             # <<<<<<<<<<<<<<
+ *           face_vertices = []
+ *           vptr = <vector[int]*>lists[j]
+ */
+        while (1) {
+          __pyx_t_9 = (((__pyx_v_lists[__pyx_v_j]) != NULL) != 0);
+          if (!__pyx_t_9) break;
+
+          /* "pyvoro/voroplusplus.pyx":438
+ *         j = 0
+ *         while lists[j] != NULL:
+ *           face_vertices = []             # <<<<<<<<<<<<<<
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size() - 1:
+ */
+          __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 438; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_XDECREF_SET(__pyx_v_face_vertices, ((PyObject*)__pyx_t_5));
+          __pyx_t_5 = 0;
+
+          /* "pyvoro/voroplusplus.pyx":439
+ *         while lists[j] != NULL:
+ *           face_vertices = []
+ *           vptr = <vector[int]*>lists[j]             # <<<<<<<<<<<<<<
+ *           for k from 0 <= k < vptr.size() - 1:
+ *             face_vertices.append(int(deref(vptr)[k]))
+ */
+          __pyx_v_vptr = ((std::vector<int>  *)(__pyx_v_lists[__pyx_v_j]));
+
+          /* "pyvoro/voroplusplus.pyx":440
+ *           face_vertices = []
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size() - 1:             # <<<<<<<<<<<<<<
+ *             face_vertices.append(int(deref(vptr)[k]))
+ *           faces.append({
+ */
+          __pyx_t_25 = (__pyx_v_vptr->size() - 1);
+          for (__pyx_v_k = 0; __pyx_v_k < __pyx_t_25; __pyx_v_k++) {
+
+            /* "pyvoro/voroplusplus.pyx":441
+ *           vptr = <vector[int]*>lists[j]
+ *           for k from 0 <= k < vptr.size() - 1:
+ *             face_vertices.append(int(deref(vptr)[k]))             # <<<<<<<<<<<<<<
+ *           faces.append({
+ *             'adjacent_cell' : _xmap[ int(deref(vptr)[vptr.size() - 1]) ],
+ */
+            __pyx_t_5 = __Pyx_PyInt_From_int(((*__pyx_v_vptr)[__pyx_v_k])); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 441; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __pyx_t_12 = PyTuple_New(1); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 441; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_12);
+            __Pyx_GIVEREF(__pyx_t_5);
+            PyTuple_SET_ITEM(__pyx_t_12, 0, __pyx_t_5);
+            __pyx_t_5 = 0;
+            __pyx_t_5 = __Pyx_PyObject_Call(((PyObject *)(&PyInt_Type)), __pyx_t_12, NULL); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 441; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+            __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_face_vertices, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 441; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+            __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+          }
+
+          /* "pyvoro/voroplusplus.pyx":443
+ *             face_vertices.append(int(deref(vptr)[k]))
+ *           faces.append({
+ *             'adjacent_cell' : _xmap[ int(deref(vptr)[vptr.size() - 1]) ],             # <<<<<<<<<<<<<<
+ *             'vertices' : face_vertices
+ *           })
+ */
+          __pyx_t_5 = PyDict_New(); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 443; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_12 = __Pyx_PyInt_From_int((__pyx_v__xmap[((int)((*__pyx_v_vptr)[(__pyx_v_vptr->size() - 1)]))])); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 443; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_12);
+          if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_adjacent_cell, __pyx_t_12) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 443; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+
+          /* "pyvoro/voroplusplus.pyx":445
+ *             'adjacent_cell' : _xmap[ int(deref(vptr)[vptr.size() - 1]) ],
+ *             'vertices' : face_vertices
+ *           })             # <<<<<<<<<<<<<<
+ *           del vptr
+ *           j += 1
+ */
+          if (PyDict_SetItem(__pyx_t_5, __pyx_n_u_vertices, __pyx_v_face_vertices) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 443; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+          /* "pyvoro/voroplusplus.pyx":442
+ *           for k from 0 <= k < vptr.size() - 1:
+ *             face_vertices.append(int(deref(vptr)[k]))
+ *           faces.append({             # <<<<<<<<<<<<<<
+ *             'adjacent_cell' : _xmap[ int(deref(vptr)[vptr.size() - 1]) ],
+ *             'vertices' : face_vertices
+ */
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_faces, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 442; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+          /* "pyvoro/voroplusplus.pyx":446
+ *             'vertices' : face_vertices
+ *           })
+ *           del vptr             # <<<<<<<<<<<<<<
+ *           j += 1
+ *         free(lists)
+ */
+          delete __pyx_v_vptr;
+
+          /* "pyvoro/voroplusplus.pyx":447
+ *           })
+ *           del vptr
+ *           j += 1             # <<<<<<<<<<<<<<
+ *         free(lists)
+ *         py_cell['faces'] = faces
+ */
+          __pyx_v_j = (__pyx_v_j + 1);
+        }
+
+        /* "pyvoro/voroplusplus.pyx":448
+ *           del vptr
+ *           j += 1
+ *         free(lists)             # <<<<<<<<<<<<<<
+ *         py_cell['faces'] = faces
+ * 
+ */
+        free(__pyx_v_lists);
+
+        /* "pyvoro/voroplusplus.pyx":449
+ *           j += 1
+ *         free(lists)
+ *         py_cell['faces'] = faces             # <<<<<<<<<<<<<<
+ * 
+ *       if GETneighbors:
+ */
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_faces, __pyx_v_faces) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 449; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+        /* "pyvoro/voroplusplus.pyx":433
+ *         py_cell['adjacency'] = adjacency
+ * 
+ *       if GETfaces:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_faces(cellptr)
+ *         faces = []
+ */
+      }
+
+      /* "pyvoro/voroplusplus.pyx":451
+ *         py_cell['faces'] = faces
+ * 
+ *       if GETneighbors:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_faces(cellptr)
+ *         adjacent = []
+ */
+      __pyx_t_9 = (__pyx_v_GETneighbors != 0);
+      if (__pyx_t_9) {
+
+        /* "pyvoro/voroplusplus.pyx":452
+ * 
+ *       if GETneighbors:
+ *         lists = cell_get_faces(cellptr)             # <<<<<<<<<<<<<<
+ *         adjacent = []
+ *         j = 0
+ */
+        __pyx_v_lists = cell_get_faces(__pyx_v_cellptr);
+
+        /* "pyvoro/voroplusplus.pyx":453
+ *       if GETneighbors:
+ *         lists = cell_get_faces(cellptr)
+ *         adjacent = []             # <<<<<<<<<<<<<<
+ *         j = 0
+ *         while lists[j] != NULL:
+ */
+        __pyx_t_5 = PyList_New(0); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 453; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        __Pyx_XDECREF_SET(__pyx_v_adjacent, ((PyObject*)__pyx_t_5));
+        __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":454
+ *         lists = cell_get_faces(cellptr)
+ *         adjacent = []
+ *         j = 0             # <<<<<<<<<<<<<<
+ *         while lists[j] != NULL:
+ *           vptr = <vector[int]*>lists[j]
+ */
+        __pyx_v_j = 0;
+
+        /* "pyvoro/voroplusplus.pyx":455
+ *         adjacent = []
+ *         j = 0
+ *         while lists[j] != NULL:             # <<<<<<<<<<<<<<
+ *           vptr = <vector[int]*>lists[j]
+ *           adjacent.append( _xmap[ int(deref(vptr)[vptr.size() - 1]) ])
+ */
+        while (1) {
+          __pyx_t_9 = (((__pyx_v_lists[__pyx_v_j]) != NULL) != 0);
+          if (!__pyx_t_9) break;
+
+          /* "pyvoro/voroplusplus.pyx":456
+ *         j = 0
+ *         while lists[j] != NULL:
+ *           vptr = <vector[int]*>lists[j]             # <<<<<<<<<<<<<<
+ *           adjacent.append( _xmap[ int(deref(vptr)[vptr.size() - 1]) ])
+ *           del vptr
+ */
+          __pyx_v_vptr = ((std::vector<int>  *)(__pyx_v_lists[__pyx_v_j]));
+
+          /* "pyvoro/voroplusplus.pyx":457
+ *         while lists[j] != NULL:
+ *           vptr = <vector[int]*>lists[j]
+ *           adjacent.append( _xmap[ int(deref(vptr)[vptr.size() - 1]) ])             # <<<<<<<<<<<<<<
+ *           del vptr
+ *           j += 1
+ */
+          __pyx_t_5 = __Pyx_PyInt_From_int((__pyx_v__xmap[((int)((*__pyx_v_vptr)[(__pyx_v_vptr->size() - 1)]))])); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 457; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_GOTREF(__pyx_t_5);
+          __pyx_t_28 = __Pyx_PyList_Append(__pyx_v_adjacent, __pyx_t_5); if (unlikely(__pyx_t_28 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 457; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+          __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+          /* "pyvoro/voroplusplus.pyx":458
+ *           vptr = <vector[int]*>lists[j]
+ *           adjacent.append( _xmap[ int(deref(vptr)[vptr.size() - 1]) ])
+ *           del vptr             # <<<<<<<<<<<<<<
+ *           j += 1
+ *         free(lists)
+ */
+          delete __pyx_v_vptr;
+
+          /* "pyvoro/voroplusplus.pyx":459
+ *           adjacent.append( _xmap[ int(deref(vptr)[vptr.size() - 1]) ])
+ *           del vptr
+ *           j += 1             # <<<<<<<<<<<<<<
+ *         free(lists)
+ *         py_cell['neighbors'] = tuple(adjacent)
+ */
+          __pyx_v_j = (__pyx_v_j + 1);
+        }
+
+        /* "pyvoro/voroplusplus.pyx":460
+ *           del vptr
+ *           j += 1
+ *         free(lists)             # <<<<<<<<<<<<<<
+ *         py_cell['neighbors'] = tuple(adjacent)
+ * 
+ */
+        free(__pyx_v_lists);
+
+        /* "pyvoro/voroplusplus.pyx":461
+ *           j += 1
+ *         free(lists)
+ *         py_cell['neighbors'] = tuple(adjacent)             # <<<<<<<<<<<<<<
+ * 
+ *   if not found == _xn:
+ */
+        __pyx_t_5 = PyList_AsTuple(__pyx_v_adjacent); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 461; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_GOTREF(__pyx_t_5);
+        if (unlikely(PyObject_SetItem(__pyx_v_py_cell, __pyx_n_u_neighbors, __pyx_t_5) < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 461; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "pyvoro/voroplusplus.pyx":451
+ *         py_cell['faces'] = faces
+ * 
+ *       if GETneighbors:             # <<<<<<<<<<<<<<
+ *         lists = cell_get_faces(cellptr)
+ *         adjacent = []
+ */
+      }
+    }
+  }
+  __pyx_L40_break:;
+
+  /* "pyvoro/voroplusplus.pyx":463
+ *         py_cell['neighbors'] = tuple(adjacent)
+ * 
+ *   if not found == _xn:             # <<<<<<<<<<<<<<
+ *     raise VoronoiPlusPlusError("number of cells found (%d) was not equal to the number of particles (%d)." % (found, _xn) )
+ * 
+ */
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_found); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 463; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_12 = PyObject_RichCompare(__pyx_t_5, __pyx_v__xn, Py_EQ); __Pyx_XGOTREF(__pyx_t_12); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 463; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_9 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 463; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+  __pyx_t_27 = ((!__pyx_t_9) != 0);
+  if (__pyx_t_27) {
+
+    /* "pyvoro/voroplusplus.pyx":464
+ * 
+ *   if not found == _xn:
+ *     raise VoronoiPlusPlusError("number of cells found (%d) was not equal to the number of particles (%d)." % (found, _xn) )             # <<<<<<<<<<<<<<
+ * 
+ *   # finally, tidy up.
+ */
+    __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_VoronoiPlusPlusError); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_found); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_3);
+    __Pyx_INCREF(__pyx_v__xn);
+    __Pyx_GIVEREF(__pyx_v__xn);
+    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_v__xn);
+    __pyx_t_3 = 0;
+    __pyx_t_3 = PyUnicode_Format(__pyx_kp_u_number_of_cells_found_d_was_not, __pyx_t_7); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __pyx_t_7 = NULL;
+    if (CYTHON_COMPILING_IN_CPYTHON && unlikely(PyMethod_Check(__pyx_t_5))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_5);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_5, function);
+      }
+    }
+    if (!__pyx_t_7) {
+      __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_3); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_GOTREF(__pyx_t_12);
+    } else {
+      __pyx_t_2 = PyTuple_New(1+1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_7); __pyx_t_7 = NULL;
+      __Pyx_GIVEREF(__pyx_t_3);
+      PyTuple_SET_ITEM(__pyx_t_2, 0+1, __pyx_t_3);
+      __pyx_t_3 = 0;
+      __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_2, NULL); if (unlikely(!__pyx_t_12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __Pyx_GOTREF(__pyx_t_12);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    }
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_Raise(__pyx_t_12, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 464; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+    /* "pyvoro/voroplusplus.pyx":463
+ *         py_cell['neighbors'] = tuple(adjacent)
+ * 
+ *   if not found == _xn:             # <<<<<<<<<<<<<<
+ *     raise VoronoiPlusPlusError("number of cells found (%d) was not equal to the number of particles (%d)." % (found, _xn) )
+ * 
+ */
+  }
+
+  /* "pyvoro/voroplusplus.pyx":467
+ * 
+ *   # finally, tidy up.
+ *   dispose_loop_all(container, c_loop_all, cellptr)             # <<<<<<<<<<<<<<
+ *   free(xs)
+ *   free(ys)
+ */
+  dispose_loop_all(__pyx_v_container, __pyx_v_c_loop_all, __pyx_v_cellptr);
+
+  /* "pyvoro/voroplusplus.pyx":468
+ *   # finally, tidy up.
+ *   dispose_loop_all(container, c_loop_all, cellptr)
+ *   free(xs)             # <<<<<<<<<<<<<<
+ *   free(ys)
+ *   free(zs)
+ */
+  free(__pyx_v_xs);
+
+  /* "pyvoro/voroplusplus.pyx":469
+ *   dispose_loop_all(container, c_loop_all, cellptr)
+ *   free(xs)
+ *   free(ys)             # <<<<<<<<<<<<<<
+ *   free(zs)
+ *   free(rs)
+ */
+  free(__pyx_v_ys);
+
+  /* "pyvoro/voroplusplus.pyx":470
+ *   free(xs)
+ *   free(ys)
+ *   free(zs)             # <<<<<<<<<<<<<<
+ *   free(rs)
+ *   return py_cells
+ */
+  free(__pyx_v_zs);
+
+  /* "pyvoro/voroplusplus.pyx":471
+ *   free(ys)
+ *   free(zs)
+ *   free(rs)             # <<<<<<<<<<<<<<
+ *   return py_cells
+ */
+  free(__pyx_v_rs);
+
+  /* "pyvoro/voroplusplus.pyx":472
+ *   free(zs)
+ *   free(rs)
+ *   return py_cells             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_py_cells);
+  __pyx_r = __pyx_v_py_cells;
+  goto __pyx_L0;
+
+  /* "pyvoro/voroplusplus.pyx":219
+ *   return py_cells
+ * 
+ * def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=[]):             # <<<<<<<<<<<<<<
+ *   """
+ *   Same as compute_voronoi method with lower memory requirements and extra arguments for
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_11);
+  __Pyx_XDECREF(__pyx_t_12);
+  __Pyx_AddTraceback("pyvoro.voroplusplus.compute_3d_voronoi", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v__xn);
+  __Pyx_XDECREF(__pyx_v_vector_class);
+  __Pyx_XDECREF(__pyx_v_blocks);
+  __Pyx_XDECREF(__pyx_v_py_cells);
+  __Pyx_XDECREF(__pyx_v__isempy);
+  __Pyx_XDECREF(__pyx_v_py_cell);
+  __Pyx_XDECREF(__pyx_v_cell_vertices);
+  __Pyx_XDECREF(__pyx_v_face_normals);
+  __Pyx_XDECREF(__pyx_v_face_areas);
+  __Pyx_XDECREF(__pyx_v_adjacency);
+  __Pyx_XDECREF(__pyx_v_py_vertex_adjacency);
+  __Pyx_XDECREF(__pyx_v_faces);
+  __Pyx_XDECREF(__pyx_v_face_vertices);
+  __Pyx_XDECREF(__pyx_v_adjacent);
   __Pyx_XDECREF(__pyx_v_radii);
   __Pyx_XDECREF(__pyx_v_periodic);
   __Pyx_XGIVEREF(__pyx_r);
@@ -2547,23 +5253,49 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_Exception, __pyx_k_Exception, sizeof(__pyx_k_Exception), 0, 0, 1, 1},
+  {&__pyx_n_s_GETadjacency, __pyx_k_GETadjacency, sizeof(__pyx_k_GETadjacency), 0, 0, 1, 1},
+  {&__pyx_n_s_GETareas, __pyx_k_GETareas, sizeof(__pyx_k_GETareas), 0, 0, 1, 1},
+  {&__pyx_n_s_GETfaces, __pyx_k_GETfaces, sizeof(__pyx_k_GETfaces), 0, 0, 1, 1},
+  {&__pyx_n_s_GETneighbors, __pyx_k_GETneighbors, sizeof(__pyx_k_GETneighbors), 0, 0, 1, 1},
+  {&__pyx_n_s_GETnormals, __pyx_k_GETnormals, sizeof(__pyx_k_GETnormals), 0, 0, 1, 1},
+  {&__pyx_n_s_GEToriginal, __pyx_k_GEToriginal, sizeof(__pyx_k_GEToriginal), 0, 0, 1, 1},
+  {&__pyx_n_s_GETradius, __pyx_k_GETradius, sizeof(__pyx_k_GETradius), 0, 0, 1, 1},
+  {&__pyx_n_s_GETrmaxsq, __pyx_k_GETrmaxsq, sizeof(__pyx_k_GETrmaxsq), 0, 0, 1, 1},
+  {&__pyx_n_s_GETsurface, __pyx_k_GETsurface, sizeof(__pyx_k_GETsurface), 0, 0, 1, 1},
+  {&__pyx_n_s_GETvertices, __pyx_k_GETvertices, sizeof(__pyx_k_GETvertices), 0, 0, 1, 1},
+  {&__pyx_n_s_GETvolume, __pyx_k_GETvolume, sizeof(__pyx_k_GETvolume), 0, 0, 1, 1},
+  {&__pyx_kp_s_Users_loukas_peristeras_work_pr, __pyx_k_Users_loukas_peristeras_work_pr, sizeof(__pyx_k_Users_loukas_peristeras_work_pr), 0, 0, 1, 0},
   {&__pyx_n_s_VoronoiPlusPlusError, __pyx_k_VoronoiPlusPlusError, sizeof(__pyx_k_VoronoiPlusPlusError), 0, 0, 1, 1},
   {&__pyx_n_s_adjacency, __pyx_k_adjacency, sizeof(__pyx_k_adjacency), 0, 0, 1, 1},
-  {&__pyx_n_s_adjacent_cell, __pyx_k_adjacent_cell, sizeof(__pyx_k_adjacent_cell), 0, 0, 1, 1},
+  {&__pyx_n_u_adjacency, __pyx_k_adjacency, sizeof(__pyx_k_adjacency), 0, 1, 0, 1},
+  {&__pyx_n_s_adjacent, __pyx_k_adjacent, sizeof(__pyx_k_adjacent), 0, 0, 1, 1},
+  {&__pyx_n_u_adjacent_cell, __pyx_k_adjacent_cell, sizeof(__pyx_k_adjacent_cell), 0, 1, 0, 1},
+  {&__pyx_n_s_areas, __pyx_k_areas, sizeof(__pyx_k_areas), 0, 0, 1, 1},
+  {&__pyx_n_u_areas, __pyx_k_areas, sizeof(__pyx_k_areas), 0, 1, 0, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
   {&__pyx_n_s_blocks, __pyx_k_blocks, sizeof(__pyx_k_blocks), 0, 0, 1, 1},
+  {&__pyx_n_s_c_loop_all, __pyx_k_c_loop_all, sizeof(__pyx_k_c_loop_all), 0, 0, 1, 1},
   {&__pyx_n_s_cell_vertices, __pyx_k_cell_vertices, sizeof(__pyx_k_cell_vertices), 0, 0, 1, 1},
+  {&__pyx_n_s_cellptr, __pyx_k_cellptr, sizeof(__pyx_k_cellptr), 0, 0, 1, 1},
+  {&__pyx_n_s_compute_3d_voronoi, __pyx_k_compute_3d_voronoi, sizeof(__pyx_k_compute_3d_voronoi), 0, 0, 1, 1},
   {&__pyx_n_s_compute_voronoi, __pyx_k_compute_voronoi, sizeof(__pyx_k_compute_voronoi), 0, 0, 1, 1},
   {&__pyx_n_s_container, __pyx_k_container, sizeof(__pyx_k_container), 0, 0, 1, 1},
   {&__pyx_n_s_dispersion, __pyx_k_dispersion, sizeof(__pyx_k_dispersion), 0, 0, 1, 1},
   {&__pyx_n_s_doc, __pyx_k_doc, sizeof(__pyx_k_doc), 0, 0, 1, 1},
+  {&__pyx_n_s_excluded, __pyx_k_excluded, sizeof(__pyx_k_excluded), 0, 0, 1, 1},
+  {&__pyx_n_s_face_areas, __pyx_k_face_areas, sizeof(__pyx_k_face_areas), 0, 0, 1, 1},
+  {&__pyx_n_s_face_normals, __pyx_k_face_normals, sizeof(__pyx_k_face_normals), 0, 0, 1, 1},
   {&__pyx_n_s_face_vertices, __pyx_k_face_vertices, sizeof(__pyx_k_face_vertices), 0, 0, 1, 1},
   {&__pyx_n_s_faces, __pyx_k_faces, sizeof(__pyx_k_faces), 0, 0, 1, 1},
+  {&__pyx_n_u_faces, __pyx_k_faces, sizeof(__pyx_k_faces), 0, 1, 0, 1},
   {&__pyx_n_s_floor, __pyx_k_floor, sizeof(__pyx_k_floor), 0, 0, 1, 1},
+  {&__pyx_n_s_found, __pyx_k_found, sizeof(__pyx_k_found), 0, 0, 1, 1},
+  {&__pyx_n_s_found_2, __pyx_k_found_2, sizeof(__pyx_k_found_2), 0, 0, 1, 1},
   {&__pyx_n_s_get_constructor, __pyx_k_get_constructor, sizeof(__pyx_k_get_constructor), 0, 0, 1, 1},
-  {&__pyx_kp_s_home_joe_Code_pyvoro_pyvoro_vor, __pyx_k_home_joe_Code_pyvoro_pyvoro_vor, sizeof(__pyx_k_home_joe_Code_pyvoro_pyvoro_vor), 0, 0, 1, 0},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
+  {&__pyx_n_s_i_2, __pyx_k_i_2, sizeof(__pyx_k_i_2), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
+  {&__pyx_n_s_isempy, __pyx_k_isempy, sizeof(__pyx_k_isempy), 0, 0, 1, 1},
   {&__pyx_n_s_j, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_limits, __pyx_k_limits, sizeof(__pyx_k_limits), 0, 0, 1, 1},
@@ -2572,38 +5304,55 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_math, __pyx_k_math, sizeof(__pyx_k_math), 0, 0, 1, 1},
   {&__pyx_n_s_metaclass, __pyx_k_metaclass, sizeof(__pyx_k_metaclass), 0, 0, 1, 1},
   {&__pyx_n_s_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 0, 1, 1},
+  {&__pyx_n_u_module, __pyx_k_module, sizeof(__pyx_k_module), 0, 1, 0, 1},
   {&__pyx_n_s_modules, __pyx_k_modules, sizeof(__pyx_k_modules), 0, 0, 1, 1},
   {&__pyx_n_s_n, __pyx_k_n, sizeof(__pyx_k_n), 0, 0, 1, 1},
-  {&__pyx_kp_s_number_of_cells_found_was_not_eq, __pyx_k_number_of_cells_found_was_not_eq, sizeof(__pyx_k_number_of_cells_found_was_not_eq), 0, 0, 1, 0},
+  {&__pyx_n_u_neighbors, __pyx_k_neighbors, sizeof(__pyx_k_neighbors), 0, 1, 0, 1},
+  {&__pyx_n_s_nexclude, __pyx_k_nexclude, sizeof(__pyx_k_nexclude), 0, 0, 1, 1},
+  {&__pyx_n_s_normals, __pyx_k_normals, sizeof(__pyx_k_normals), 0, 0, 1, 1},
+  {&__pyx_n_u_normals, __pyx_k_normals, sizeof(__pyx_k_normals), 0, 1, 0, 1},
+  {&__pyx_kp_u_number_of_cells_found_d_was_not, __pyx_k_number_of_cells_found_d_was_not, sizeof(__pyx_k_number_of_cells_found_d_was_not), 0, 1, 0, 0},
+  {&__pyx_kp_u_number_of_cells_found_was_not_eq, __pyx_k_number_of_cells_found_was_not_eq, sizeof(__pyx_k_number_of_cells_found_was_not_eq), 0, 1, 0, 0},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
+  {&__pyx_n_u_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 1, 0, 1},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
-  {&__pyx_n_s_original, __pyx_k_original, sizeof(__pyx_k_original), 0, 0, 1, 1},
-  {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
+  {&__pyx_n_u_original, __pyx_k_original, sizeof(__pyx_k_original), 0, 1, 0, 1},
   {&__pyx_n_s_periodic, __pyx_k_periodic, sizeof(__pyx_k_periodic), 0, 0, 1, 1},
   {&__pyx_n_s_points, __pyx_k_points, sizeof(__pyx_k_points), 0, 0, 1, 1},
   {&__pyx_n_s_prepare, __pyx_k_prepare, sizeof(__pyx_k_prepare), 0, 0, 1, 1},
+  {&__pyx_n_s_properties, __pyx_k_properties, sizeof(__pyx_k_properties), 0, 0, 1, 1},
+  {&__pyx_n_s_py_cell, __pyx_k_py_cell, sizeof(__pyx_k_py_cell), 0, 0, 1, 1},
   {&__pyx_n_s_py_cells, __pyx_k_py_cells, sizeof(__pyx_k_py_cells), 0, 0, 1, 1},
   {&__pyx_n_s_py_vertex_adjacency, __pyx_k_py_vertex_adjacency, sizeof(__pyx_k_py_vertex_adjacency), 0, 0, 1, 1},
   {&__pyx_n_s_pyvoro_voroplusplus, __pyx_k_pyvoro_voroplusplus, sizeof(__pyx_k_pyvoro_voroplusplus), 0, 0, 1, 1},
   {&__pyx_n_s_qualname, __pyx_k_qualname, sizeof(__pyx_k_qualname), 0, 0, 1, 1},
   {&__pyx_n_s_radii, __pyx_k_radii, sizeof(__pyx_k_radii), 0, 0, 1, 1},
+  {&__pyx_n_u_radius, __pyx_k_radius, sizeof(__pyx_k_radius), 0, 1, 0, 1},
+  {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
+  {&__pyx_n_u_rmaxsq, __pyx_k_rmaxsq, sizeof(__pyx_k_rmaxsq), 0, 1, 0, 1},
   {&__pyx_n_s_rs, __pyx_k_rs, sizeof(__pyx_k_rs), 0, 0, 1, 1},
+  {&__pyx_n_s_sum, __pyx_k_sum, sizeof(__pyx_k_sum), 0, 0, 1, 1},
+  {&__pyx_n_u_surface, __pyx_k_surface, sizeof(__pyx_k_surface), 0, 1, 0, 1},
   {&__pyx_n_s_sys, __pyx_k_sys, sizeof(__pyx_k_sys), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_n_s_typ, __pyx_k_typ, sizeof(__pyx_k_typ), 0, 0, 1, 1},
   {&__pyx_n_s_vector_class, __pyx_k_vector_class, sizeof(__pyx_k_vector_class), 0, 0, 1, 1},
   {&__pyx_n_s_vertex_positions, __pyx_k_vertex_positions, sizeof(__pyx_k_vertex_positions), 0, 0, 1, 1},
-  {&__pyx_n_s_vertices, __pyx_k_vertices, sizeof(__pyx_k_vertices), 0, 0, 1, 1},
-  {&__pyx_n_s_volume, __pyx_k_volume, sizeof(__pyx_k_volume), 0, 0, 1, 1},
+  {&__pyx_n_u_vertices, __pyx_k_vertices, sizeof(__pyx_k_vertices), 0, 1, 0, 1},
+  {&__pyx_n_u_volume, __pyx_k_volume, sizeof(__pyx_k_volume), 0, 1, 0, 1},
   {&__pyx_n_s_voronoi_cells, __pyx_k_voronoi_cells, sizeof(__pyx_k_voronoi_cells), 0, 0, 1, 1},
   {&__pyx_n_s_vptr, __pyx_k_vptr, sizeof(__pyx_k_vptr), 0, 0, 1, 1},
+  {&__pyx_n_s_xmap, __pyx_k_xmap, sizeof(__pyx_k_xmap), 0, 0, 1, 1},
+  {&__pyx_n_s_xn, __pyx_k_xn, sizeof(__pyx_k_xn), 0, 0, 1, 1},
   {&__pyx_n_s_xs, __pyx_k_xs, sizeof(__pyx_k_xs), 0, 0, 1, 1},
   {&__pyx_n_s_ys, __pyx_k_ys, sizeof(__pyx_k_ys), 0, 0, 1, 1},
   {&__pyx_n_s_zs, __pyx_k_zs, sizeof(__pyx_k_zs), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_Exception = __Pyx_GetBuiltinName(__pyx_n_s_Exception); if (!__pyx_builtin_Exception) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_Exception = __Pyx_GetBuiltinName(__pyx_n_s_Exception); if (!__pyx_builtin_Exception) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_sum = __Pyx_GetBuiltinName(__pyx_n_s_sum); if (!__pyx_builtin_sum) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 278; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -2613,40 +5362,52 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pyvoro/voroplusplus.pyx":155
+  /* "pyvoro/voroplusplus.pyx":161
  *   if voronoi_cells == NULL:
  *     dispose_all(container, NULL, 0)
  *     raise VoronoiPlusPlusError("number of cells found was not equal to the number of particles.")             # <<<<<<<<<<<<<<
  * 
  *   # extract the Voronoi cells into python objects:
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_number_of_cells_found_was_not_eq); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 155; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_number_of_cells_found_was_not_eq); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pyvoro/voroplusplus.pyx":45
+  /* "pyvoro/voroplusplus.pyx":54
  * 
  * 
  * def get_constructor(obj):             # <<<<<<<<<<<<<<
  *   """
  * Input arg format:
  */
-  __pyx_tuple__4 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_typ, __pyx_n_s_numpy); if (unlikely(!__pyx_tuple__4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__4);
-  __Pyx_GIVEREF(__pyx_tuple__4);
-  __pyx_codeobj__5 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__4, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_joe_Code_pyvoro_pyvoro_vor, __pyx_n_s_get_constructor, 45, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_typ, __pyx_n_s_numpy); if (unlikely(!__pyx_tuple__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_loukas_peristeras_work_pr, __pyx_n_s_get_constructor, 54, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "pyvoro/voroplusplus.pyx":61
+  /* "pyvoro/voroplusplus.pyx":70
  * 
  * 
  * def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):             # <<<<<<<<<<<<<<
  *   """
  * Input arg formats:
  */
-  __pyx_tuple__6 = PyTuple_Pack(27, __pyx_n_s_points, __pyx_n_s_limits, __pyx_n_s_dispersion, __pyx_n_s_radii, __pyx_n_s_periodic, __pyx_n_s_n, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_xs, __pyx_n_s_ys, __pyx_n_s_zs, __pyx_n_s_rs, __pyx_n_s_voronoi_cells, __pyx_n_s_vector_class, __pyx_n_s_blocks, __pyx_n_s_container, __pyx_n_s_py_cells, __pyx_n_s_vertex_positions, __pyx_n_s_lists, __pyx_n_s_vptr, __pyx_n_s_cell_vertices, __pyx_n_s_adjacency, __pyx_n_s_py_vertex_adjacency, __pyx_n_s_k, __pyx_n_s_faces, __pyx_n_s_face_vertices, __pyx_n_s_p); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__6);
-  __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(5, 0, 27, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_joe_Code_pyvoro_pyvoro_vor, __pyx_n_s_compute_voronoi, 61, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__10 = PyTuple_Pack(26, __pyx_n_s_points, __pyx_n_s_limits, __pyx_n_s_dispersion, __pyx_n_s_radii, __pyx_n_s_periodic, __pyx_n_s_n, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_xs, __pyx_n_s_ys, __pyx_n_s_zs, __pyx_n_s_rs, __pyx_n_s_voronoi_cells, __pyx_n_s_vector_class, __pyx_n_s_blocks, __pyx_n_s_container, __pyx_n_s_py_cells, __pyx_n_s_vertex_positions, __pyx_n_s_lists, __pyx_n_s_vptr, __pyx_n_s_cell_vertices, __pyx_n_s_adjacency, __pyx_n_s_py_vertex_adjacency, __pyx_n_s_k, __pyx_n_s_faces, __pyx_n_s_face_vertices); if (unlikely(!__pyx_tuple__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__10);
+  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(5, 0, 26, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_loukas_peristeras_work_pr, __pyx_n_s_compute_voronoi, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "pyvoro/voroplusplus.pyx":219
+ *   return py_cells
+ * 
+ * def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=[]):             # <<<<<<<<<<<<<<
+ *   """
+ *   Same as compute_voronoi method with lower memory requirements and extra arguments for
+ */
+  __pyx_tuple__12 = PyTuple_Pack(54, __pyx_n_s_points, __pyx_n_s_limits, __pyx_n_s_dispersion, __pyx_n_s_radii, __pyx_n_s_periodic, __pyx_n_s_excluded, __pyx_n_s_properties, __pyx_n_s_n, __pyx_n_s_i, __pyx_n_s_i_2, __pyx_n_s_j, __pyx_n_s_nexclude, __pyx_n_s_xn, __pyx_n_s_xmap, __pyx_n_s_xs, __pyx_n_s_ys, __pyx_n_s_zs, __pyx_n_s_rs, __pyx_n_s_voronoi_cells, __pyx_n_s_vector_class, __pyx_n_s_blocks, __pyx_n_s_container, __pyx_n_s_c_loop_all, __pyx_n_s_cellptr, __pyx_n_s_py_cells, __pyx_n_s_vertex_positions, __pyx_n_s_lists, __pyx_n_s_vptr, __pyx_n_s_found, __pyx_n_s_found_2, __pyx_n_s_isempy, __pyx_n_s_GEToriginal, __pyx_n_s_GETradius, __pyx_n_s_GETvolume, __pyx_n_s_GETsurface, __pyx_n_s_GETrmaxsq, __pyx_n_s_GETvertices, __pyx_n_s_GETnormals, __pyx_n_s_GETareas, __pyx_n_s_GETadjacency, __pyx_n_s_GETfaces, __pyx_n_s_GETneighbors, __pyx_n_s_py_cell, __pyx_n_s_cell_vertices, __pyx_n_s_normals, __pyx_n_s_face_normals, __pyx_n_s_areas, __pyx_n_s_face_areas, __pyx_n_s_adjacency, __pyx_n_s_py_vertex_adjacency, __pyx_n_s_k, __pyx_n_s_faces, __pyx_n_s_face_vertices, __pyx_n_s_adjacent); if (unlikely(!__pyx_tuple__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(7, 0, 54, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_loukas_peristeras_work_pr, __pyx_n_s_compute_3d_voronoi, 219, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -2761,79 +5522,79 @@ PyMODINIT_FUNC PyInit_voroplusplus(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "pyvoro/voroplusplus.pyx":38
+  /* "pyvoro/voroplusplus.pyx":47
  *   void* malloc(size_t size)
  * 
  * import sys             # <<<<<<<<<<<<<<
  * import math
  * 
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_sys, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_sys, 0, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sys, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":39
+  /* "pyvoro/voroplusplus.pyx":48
  * 
  * import sys
  * import math             # <<<<<<<<<<<<<<
  * 
  * class VoronoiPlusPlusError(Exception):
  */
-  __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, 0, -1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_Import(__pyx_n_s_math, 0, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 39; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_math, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":41
+  /* "pyvoro/voroplusplus.pyx":50
  * import math
  * 
  * class VoronoiPlusPlusError(Exception):             # <<<<<<<<<<<<<<
  *   pass
  * 
  */
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_builtin_Exception);
   __Pyx_GIVEREF(__pyx_builtin_Exception);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_builtin_Exception);
-  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = __Pyx_CalculateMetaclass(NULL, __pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_VoronoiPlusPlusError, __pyx_n_s_VoronoiPlusPlusError, (PyObject *) NULL, __pyx_n_s_pyvoro_voroplusplus, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_Py3MetaclassPrepare(__pyx_t_2, __pyx_t_1, __pyx_n_s_VoronoiPlusPlusError, __pyx_n_s_VoronoiPlusPlusError, (PyObject *) NULL, __pyx_n_s_pyvoro_voroplusplus, (PyObject *) NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_VoronoiPlusPlusError, __pyx_t_1, __pyx_t_3, NULL, 0, 1); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_4 = __Pyx_Py3ClassCreate(__pyx_t_2, __pyx_n_s_VoronoiPlusPlusError, __pyx_t_1, __pyx_t_3, NULL, 0, 0); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_VoronoiPlusPlusError, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_VoronoiPlusPlusError, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":45
+  /* "pyvoro/voroplusplus.pyx":54
  * 
  * 
  * def get_constructor(obj):             # <<<<<<<<<<<<<<
  *   """
  * Input arg format:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pyvoro_12voroplusplus_1get_constructor, NULL, __pyx_n_s_pyvoro_voroplusplus); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pyvoro_12voroplusplus_1get_constructor, NULL, __pyx_n_s_pyvoro_voroplusplus); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_constructor, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_get_constructor, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 54; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pyvoro/voroplusplus.pyx":61
+  /* "pyvoro/voroplusplus.pyx":70
  * 
  * 
  * def compute_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3):             # <<<<<<<<<<<<<<
  *   """
  * Input arg formats:
  */
-  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_k_ = __pyx_t_1;
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyList_New(1 * 3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyList_New(1 * 3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   { Py_ssize_t __pyx_temp;
     for (__pyx_temp=0; __pyx_temp < 3; __pyx_temp++) {
@@ -2845,9 +5606,48 @@ PyMODINIT_FUNC PyInit_voroplusplus(void)
   __pyx_k__2 = __pyx_t_1;
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pyvoro_12voroplusplus_3compute_voronoi, NULL, __pyx_n_s_pyvoro_voroplusplus); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pyvoro_12voroplusplus_3compute_voronoi, NULL, __pyx_n_s_pyvoro_voroplusplus); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_compute_voronoi, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 61; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_compute_voronoi, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 70; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "pyvoro/voroplusplus.pyx":219
+ *   return py_cells
+ * 
+ * def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=[]):             # <<<<<<<<<<<<<<
+ *   """
+ *   Same as compute_voronoi method with lower memory requirements and extra arguments for
+ */
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_k__4 = __pyx_t_1;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = PyList_New(1 * 3); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  { Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < 3; __pyx_temp++) {
+      __Pyx_INCREF(Py_False);
+      __Pyx_GIVEREF(Py_False);
+      PyList_SET_ITEM(__pyx_t_1, __pyx_temp, Py_False);
+    }
+  }
+  __pyx_k__5 = __pyx_t_1;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_k__6 = __pyx_t_1;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_k__7 = __pyx_t_1;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_6pyvoro_12voroplusplus_5compute_3d_voronoi, NULL, __pyx_n_s_pyvoro_voroplusplus); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_compute_3d_voronoi, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 219; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pyvoro/voroplusplus.pyx":1
@@ -4197,6 +6997,190 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
         return _PyLong_FromByteArray(bytes, sizeof(int),
                                      little, !is_unsigned);
     }
+}
+
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
+    const size_t neg_one = (size_t) -1, const_zero = (size_t) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(size_t) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (size_t) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 2 * PyLong_SHIFT) {
+                            return (size_t) (((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 3 * PyLong_SHIFT) {
+                            return (size_t) (((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 4 * PyLong_SHIFT) {
+                            return (size_t) (((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (size_t) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned long, PyLong_AsUnsignedLong(x))
+            } else if (sizeof(size_t) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, -(sdigit) digits[0])
+                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(size_t) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) ((((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) ((((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) ((((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, long, PyLong_AsLong(x))
+            } else if (sizeof(size_t) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            size_t val;
+            PyObject *v = __Pyx_PyNumber_Int(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (size_t) -1;
+        }
+    } else {
+        size_t val;
+        PyObject *tmp = __Pyx_PyNumber_Int(x);
+        if (!tmp) return (size_t) -1;
+        val = __Pyx_PyInt_As_size_t(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to size_t");
+    return (size_t) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to size_t");
+    return (size_t) -1;
 }
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {

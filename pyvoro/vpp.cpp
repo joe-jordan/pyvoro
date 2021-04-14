@@ -58,6 +58,7 @@ void** compute_voronoi_tesselation(void* container_poly_, int n_) {
     cla->pos(i, x, y, z, r);
     
     // Store the resulting cell instance at the appropriate index on vorocells.
+    // LDP 14/10/2020: this is memory demanding for large systems
     cellptr = new voronoicell_neighbor();
     *(cellptr) = cell;
     vorocells[i] = (void*)cellptr;
@@ -90,6 +91,16 @@ double cell_get_volume(void* cell_) {
   return cell->volume();
 }
 
+double cell_get_surface(void* cell_) {
+  voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
+  return cell->surface_area();
+}
+
+double cell_get_max_radius_squared(void* cell_) {
+  voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
+  return cell->max_radius_squared();
+}
+
 /* input: (x_, y_, z_) the position of the original input point.
  * returns:
  * vector of doubles, coord j of vertex i at ret[i*3 + j]
@@ -102,6 +113,30 @@ vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, doub
   
   return positions;
 }
+
+/* return a vector of doubles with the normal vector of face i at
+ * (normals[i*3], normals[i*3+1], normals[i*3+2])
+ */
+vector<double> cell_get_normals(void* cell_) {
+    voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
+    vector<double> normals;
+
+    cell->normals(normals);
+
+    return normals;
+}
+
+/* return a vector of doubles with the area of face i at area[i]
+ */
+vector<double> cell_get_areas(void* cell_) {
+    voronoicell_neighbor* cell = (voronoicell_neighbor*)cell_;
+    vector<double> areas;
+
+    cell->face_areas(areas);
+
+    return areas;
+}
+
 
 /* NULL-termed list (i) of vector<int>s (j) of vertices adjacent to i. */
 void** cell_get_vertex_adjacency(void* cell_) {
@@ -154,7 +189,7 @@ void** cell_get_faces(void* cell_) {
   return faces;
 }
 
-
+/* Dispose the calculation memory. */
 void dispose_all(void* container_poly_, void** vorocells, int n_) {
   delete (container_poly*)container_poly_;
   
@@ -168,3 +203,63 @@ void dispose_all(void* container_poly_, void** vorocells, int n_) {
   free(vorocells);
 }
 
+/* Create a c_loop_all object (i.e. a class for looping over
+   all of the particles in a container) and set it to consider
+   the first particle. */
+void* container_loop_all_create(void* container_poly_)
+{
+  container_poly* con = (container_poly*)container_poly_;
+  c_loop_all* cla = new c_loop_all(*(con));
+  cla->start();
+  return (void* ) cla;
+}
+
+/* Create a voronoicell_neighbor (i.e. a Voronoi cell with
+   neighbor information) object to accomodate the voronoi
+   cell data updated during the container_loop_all_next call. */
+void* cell_create()
+{
+  return new voronoicell_neighbor();
+}
+
+/* Find the voronoi cell for the next particle of the conainer
+   provided by the loop object. The data are place in the cell
+   pointer. The function returns the number of the particle
+   corresponding to the cell found. */
+int container_loop_all_next(void* container_poly_, void* container_loop_all_, void* cell_, int* found_)
+{
+  container_poly* con = (container_poly*)container_poly_;
+  c_loop_all* cla = (c_loop_all*)container_loop_all_;
+  int i = -1;
+  double x, y, z, r;
+  voronoicell_neighbor cell;
+  voronoicell_neighbor* cellptr = (voronoicell_neighbor*)cell_;
+
+  if ( con->compute_cell(cell, *(cla))) {
+
+    // Get the position and ID information for the particle
+    // currently being considered by the loop.
+    cla->pos(i, x, y, z, r);
+    
+    // Store the resulting cell instance at the appropriate index on vorocells.
+    *(cellptr) = cell;
+    (*found_) += 1;
+  } 
+
+  cla->inc();
+
+  return i;
+}
+
+/* Dispose the loop calculation memory. */
+void dispose_loop_all(void* container_poly_, void* container_loop_all_, void* cell_)
+{
+
+  if ( container_poly_ != NULL)
+    delete (container_poly*)container_poly_;
+  if ( container_loop_all_ != NULL)
+    delete (c_loop_all*)container_loop_all_;
+  if ( cell_ != NULL)
+    delete (voronoicell_neighbor*)cell_;
+
+}

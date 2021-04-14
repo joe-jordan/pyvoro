@@ -28,14 +28,31 @@ void put_particles(void* container_poly_, int n_, double* x_, double* y_, double
 
 void** compute_voronoi_tesselation(void* container_poly_, int n_);
 
+/* loop calculator stuff */
+void* container_loop_all_create(void* container_poly_);
+void* cell_create();
+int container_loop_all_next(void* container_poly_, void* container_loop_all_, void *cell_, int* found_);
+void dispose_loop_all(void* container_poly_, void* container_loop_all_, void* cell_);
+
 /* access methods for retrieving voronoi cell instance data. */
 double cell_get_volume(void* cell_);
+double cell_get_surface(void* cell_);
+double cell_get_max_radius_squared(void* cell_);
 
 /* input: (x_, y_, z_) the position of the original input point.
  * returns:
  * vector of doubles, coord j of vertex i at ret[i*3 + j]
  */
 std::vector<double> cell_get_vertex_positions(void* cell_, double x_, double y_, double z_);
+
+/* return a vector of doubles with the normal vector of face i at
+ * (normals[i*3], normals[i*3+1], normals[i*3+2])
+ */
+std::vector<double> cell_get_normals(void* cell_);
+
+/* return a vector of doubles with the area of face i at area[i]
+ */
+std::vector<double> cell_get_areas(void* cell_);
 
 /* NULL-termed list (i) of vector<int>s (j) of vertices adjacent to i. */
 void** cell_get_vertex_adjacency(void* cell_);
