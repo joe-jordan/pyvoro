@@ -112,4 +112,65 @@ Output format is a list of cells as follows:
   
   return py_cells
 
+def compute_3d_voronoi(points, limits, dispersion, radii=[], periodic=[False]*3, excluded=[], properties=['neighbors']):
+  """
+  Same as compute_voronoi method with lower memory requirements and extra arguments for
+  controlling the points to be used for the tessellation and the properties of the voronoi
+  cells to be retrieved.
+Input arg formats:
+  points = list of 3-vectors (lists or compatible class instances) of doubles,
+    being the coordinates of the points to Voronoi-tessellate.
+  limits = 3-list of 2-lists, specifying the start and end sizes of the box the
+    points are in.
+  dispersion = max distance between two points that might be adjacent (sets
+    voro++ block sizes.)
+  radii (optional) = list of python floats as the sphere radii of the points,
+    for radical (weighted) tessellation.
+  periodic (optional) = 3-list of bools indicating x, y and z periodicity of 
+    the system box.
+  excluded (optional) = list of python bools indicating if a point  will be
+    considered for the tessellation.
+  properties = (optional) a str list with the properties to retrieve and
+    return for each cell. The available properties are:
+    'original'  : 3-vectors, point coordinates
+    'radius'    : float, point radius
+    'volume'    : float, cell volume
+    'surface'   : float, cell surfae
+    'rmaxsq'    : float, the maximum radius squared of a vertex from the center of the cell
+    'vertices'  : list (3-vectors), positions of cell verices
+    'normals'   : list (3-vectors), faces normal vectors
+    'areas'     : list (float), faces surface area
+    'adjacency' : list (list(int)), for eaech cell-vertice the adjacent cell-vertices
+    'faces'     : list ({}),[{'vertices':[],'adjacent_cell'}:int] for each adjacent cell
+                  its id and the list of the common vertices.
+    'neighbors' : list (int), the indxes of the neighbor cells.
 
+    If this argument is omitted, only the 'neighbors' property will be retrieved.
+    If the provided list is empty, all the available properties will be retrieved.
+
+Output format is a list of cells as follows:
+  if Full is True
+  [ # list in same order as original non-excluded points.
+    {
+      'original'  : point[index]   # the original instance from args
+      'radius'    : 1.0,             # point radius
+      'volume'    : 1.0,
+      'surface'   : 1.0,
+      'rmaxsq'    : 1.0,
+      'vertices'  : [[1.0, 2.0, 3.0], ...], # positions of vertices
+      'adjacency' : [[1,3,4, ...], ...], # cell-vertices adjacent to i by index
+      'faces' : [
+        {
+          'vertices' : [7,4,13, ...], # vertex ids in loop order
+          'adjacent_cell' : 34        # *cell* id, negative if a wall
+        }, ...],
+      'neighbors' : [1,2,3,...]       # neighbor cells
+    },
+    ... 
+  ]
+
+  NOTE: The class from items in input points list is reused for all 3-vector
+  outputs. It must have a constructor which accepts a list of 3 python floats
+  (python's list type does satisfy this requirement.)
+  """
+  return voroplusplus.compute_3d_voronoi(points, limits, dispersion, radii, periodic, excluded, properties)
