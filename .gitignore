@@ -1,4 +1,5 @@
 build/
+pyvoro.egg-info/
 *.pyc
 *.so
 *~
